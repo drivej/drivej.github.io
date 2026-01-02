@@ -115,9 +115,9 @@ export default function App() {
         <main id='top'>
           <Hero
             availability='Available for freelance & full-time'
-            headlineTop='Make the web feel'
-            headlineAccent='expensive'
-            lead='I build fast, polished experiences: landing pages, product UIs, and interactive prototypes. I care about motion, accessibility, and performance.'
+	            headlineTop='Practical'
+	            headlineAccent='frontend + UX'
+	            lead='I design and build maintainable frontends, dashboards, and product UIs that are straightforward, performant, and reliable in production.'
 	            ctas={[
 	              { variant: 'primary', href: '#projects', label: 'See projects', icon: 'plus' },
 	              { variant: 'secondary', href: '#contact', label: 'Contact me', icon: 'mail' },
@@ -135,7 +135,7 @@ export default function App() {
             ]}
           />
 
-          <Section id='projects' title='Selected projects' subtitle='Click a card for details'>
+	          <Section id='projects' title='Recent Work' subtitle='Click a card for details'>
             <ProjectsGrid projects={PROJECTS} onOpen={(p) => setActive(p)} />
           </Section>
 
