@@ -25,27 +25,26 @@ export function AboutGrid() {
       <div className="card list">
         <div className="item">
           <div>
-            <b>Recent</b>
+            <b>Recently...</b>
             <br />
-            <small>2024–2026</small>
-            <p>Building delightful interfaces and helping teams raise their UI bar.</p>
+            <p>Big data analytics aggregation and visualization. More on the nerd-side of UI but equally graitifying.</p>
           </div>
-          <a className="pilllink" href="#contact">
+          {/* <a className="pilllink" href="#contact">
             Let’s talk →
-          </a>
+          </a> */}
         </div>
 
         <div className="item">
           <div>
-            <b>Services</b>
-            <p>Landing pages • UI rebuilds • Prototypes • Design systems</p>
+            <b>Attitude...</b>
+            <p>I'm here for the mission. If leadership and execution align, I'm in. Otherwise, I will respectfully make my case with sound reasoning for course correction.</p>
           </div>
         </div>
 
         <div className="item">
           <div>
-            <b>Fun</b>
-            <p>Micro-interactions, typography, and turning “meh” into “wow”.</p>
+            <b>Life Advice...</b>
+            <p>Don't take life advice from a stranger's CV.</p>
           </div>
         </div>
       </div>
