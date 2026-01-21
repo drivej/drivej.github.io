@@ -12,13 +12,23 @@ export default function App() {
 	  const location = useLocation();
 
 	  useEffect(() => {
-	    if (location.hash) {
+	    const searchParams = new URLSearchParams(location.search);
+	    const section = searchParams.get('section');
+
+	    if (section) {
+	      const el = document.getElementById(section);
+	      if (el) {
+	        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	        return;
+	      }
+	    } else if (location.hash) {
 	      const el = document.querySelector(location.hash);
 	      if (el) {
 	        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	        return;
 	      }
 	    }
+
 	    window.scrollTo({ top: 0, behavior: 'smooth' });
 	  }, [location]);
 
@@ -29,4 +39,4 @@ export default function App() {
 	      <HomePage />
 	    </>
 	  );
-	}
+}

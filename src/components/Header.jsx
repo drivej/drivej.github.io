@@ -6,14 +6,14 @@ export const GlobalHeader = () => {
 	      name='Jason Contento'
 	      subtitle='Developer • Designer • Builder'
 	      nav={[
-	        { href: '/#projects', label: 'Projects', kbd: '1' },
-	        { href: '/#about', label: 'About', kbd: '2' },
-	        { href: '/#contact', label: 'Contact', kbd: '3' },
+	        { href: '/?section=projects', label: 'Projects', kbd: '1' },
+	        { href: '/?section=about', label: 'About', kbd: '2' },
+	        { href: '/?section=contact', label: 'Contact', kbd: '3' },
 	        { href: '/lab', label: 'Lab' }
 	      ]}
 	    />
 	  );
-	};
+};
 
 export function Header({ name, subtitle, nav }) {
 	  return (

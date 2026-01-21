@@ -87,10 +87,17 @@ const PROJECTS = [
 ];
 
 export default function HomePage() {
-  const year = useMemo(() => new Date().getFullYear(), []);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+	  const year = useMemo(() => new Date().getFullYear(), []);
+	  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  return (
+	  const scrollToSection = (id: string) => {
+	    const el = document.getElementById(id);
+	    if (el) {
+	      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	    }
+	  };
+
+	  return (
     <div className='container'>
       <main id='top'>
         <Hero
@@ -105,8 +112,26 @@ export default function HomePage() {
               label: 'Download Resume',
               icon: 'download'
             },
-            { variant: 'secondary', href: '#projects', label: 'See projects', icon: 'plus' },
-            { variant: 'secondary', href: '#contact', label: 'Contact me', icon: 'mail' }
+	            {
+	              variant: 'secondary',
+	              href: '#projects',
+	              label: 'See projects',
+	              icon: 'plus',
+	              onClick: (e) => {
+	                e.preventDefault();
+	                scrollToSection('projects');
+	              }
+	            },
+	            {
+	              variant: 'secondary',
+	              href: '#contact',
+	              label: 'Contact me',
+	              icon: 'mail',
+	              onClick: (e) => {
+	                e.preventDefault();
+	                scrollToSection('contact');
+	              }
+	            }
           ]}
           stats={[
             { title: '15+ years', text: 'Shipping web products and design systems.' },
