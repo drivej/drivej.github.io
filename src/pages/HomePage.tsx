@@ -84,49 +84,7 @@ const PROJECTS = [
 ];
 
 export default function HomePage() {
-//   const [active, setActive] = useState(null);
-//   const [isCandleOpen, setIsCandleOpen] = useState(false);
-//   const [isLeavesOpen, setIsLeavesOpen] = useState(false);
-//   const [viewport, setViewport] = useState(() => ({
-//     width: typeof window !== 'undefined' ? window.innerWidth : 0,
-//     height: typeof window !== 'undefined' ? window.innerHeight : 0
-//   }));
   const year = useMemo(() => new Date().getFullYear(), []);
-
-  // Keyboard shortcuts: 1/2/3 to jump sections, ESC closes modal
-//   useEffect(() => {
-//     const onKeyDown = (e: { key: string }) => {
-//       const tag = document.activeElement?.tagName;
-//       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-
-//       if (e.key === '1') window.location.hash = '#projects';
-//       if (e.key === '2') window.location.hash = '#about';
-//       if (e.key === '3') window.location.hash = '#contact';
-//       if (e.key === 'Escape') {
-//         setActive(null);
-//         setIsCandleOpen(false);
-//         setIsLeavesOpen(false);
-//       }
-//     };
-//     window.addEventListener('keydown', onKeyDown);
-//     return () => window.removeEventListener('keydown', onKeyDown);
-//   }, []);
-
-  // Keep LeavesAndSnowReact sized to the current viewport
-//   useEffect(() => {
-//     if (typeof window === 'undefined') return;
-
-//     const onResize = () => {
-//       setViewport({
-//         width: window.innerWidth,
-//         height: window.innerHeight
-//       });
-//     };
-
-//     window.addEventListener('resize', onResize);
-//     return () => window.removeEventListener('resize', onResize);
-//   }, []);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -137,15 +95,15 @@ export default function HomePage() {
           headlineTop='Practical'
           headlineAccent='frontend + UX'
           lead='I design and build maintainable frontends, dashboards, and product UIs that are straightforward, performant, and reliable in production.'
-          ctas={[
-            { variant: 'primary', href: '#projects', label: 'See projects', icon: 'plus' },
-            { variant: 'secondary', href: '#contact', label: 'Contact me', icon: 'mail' },
-            {
-              variant: 'secondary',
+          ctas={[{
+              variant: 'primary',
               href: cvPdf,
-              label: 'Resume',
+              label: 'Download Resume',
               icon: 'download'
-            }
+            },
+            { variant: 'secondary', href: '#projects', label: 'See projects', icon: 'plus' },
+            { variant: 'secondary', href: '#contact', label: 'Contact me', icon: 'mail' },
+            
           ]}
           stats={[
             { title: '15+ years', text: 'Shipping web products and design systems.' },
@@ -162,14 +120,6 @@ export default function HomePage() {
             flexWrap: 'wrap'
           }}
         >
-          {/* <button type='button' className='btn' onClick={() => setIsCandleOpen(true)}>
-            Light the candles
-          </button>
-          <button type='button' className='btn' onClick={() => setIsLeavesOpen(true)}>
-            Let it snow
-          </button>
-          {isModalOpen ? 1 : 0}
-          <button onClick={() => setIsModalOpen((v) => !v)}>Open Portal Modal</button> */}
         </div>
 
         <Section id='projects' title='Experience' subtitle='Click a card for details'>
