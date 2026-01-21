@@ -4,7 +4,7 @@ const tayloredImg = new URL('../assets/taylored.png', import.meta.url).href;
 
 import cvPdf from '../assets/Jason_Contento_CV.pdf';
 import macysImg from '../assets/macys.png';
-import npmImg from '../assets/Npm-logo.png';
+// import npmImg from '../assets/Npm-logo.png';
 import perryImg from '../assets/perry.png';
 import swellImg from '../assets/swell.png';
 
@@ -144,7 +144,7 @@ export default function HomePage() {
 
         <Section id='tools' title='Tooling' subtitle='Open-source utilities I maintain'>
           <div className='card list'>
-            <img src={npmImg} alt='npm logo' width={100} />
+            {/* <img src={npmImg} alt='npm logo' width={100} /> */}
             <h3>GQL Type Safety Plugin</h3>
             <p>Quite possibly the nerdiest code I've ever written. This was initially created as a way to force VS Code to give me hints when building GQL object style queries.</p>
 
