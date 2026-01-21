@@ -517,3 +517,107 @@ section {
   flex-wrap: wrap;
   margin-top: 12px;
 }
+
+/* Candle full-screen modal */
+.candle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.candle-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.candle-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 0; /* hide inner text, use pseudo for icon */
+}
+
+.candle-close::before {
+  content: '✕';
+  font-size: 18px;
+  line-height: 1;
+}
+
+.candle-overlay canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+a.tag {
+  text-decoration: none;
+}
+
+/* Portal modal (small inline modal rendered via React portal) */
+.portal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  animation: portal-overlay-in 0.25s ease-out;
+}
+
+.portal-modal {
+  position: relative;
+  width: min(480px, calc(100% - 32px));
+  border-radius: 22px;
+  padding: 22px 22px 18px;
+  background: rgba(12, 16, 32, 0.96);
+  color: var(--text);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  animation: portal-modal-in 0.25s ease-out;
+}
+
+.portal-modal h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.portal-modal p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.portal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+@keyframes portal-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes portal-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

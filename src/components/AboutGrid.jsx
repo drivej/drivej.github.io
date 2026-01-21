@@ -5,13 +5,13 @@ export function AboutGrid() {
         <div className="item">
           <div>
             <b>Focus</b>
-            <p>Front-end engineering, interaction design, and product polish.</p>
+            <p>Front-end engineering, UX/UI, and product polish.</p>
           </div>
         </div>
         <div className="item">
           <div>
             <b>Principles</b>
-            <p>Iterate fast, measure impact, keep it accessible.</p>
+            <p>Iterate efficiently, measure impact, keep it accessible.</p>
           </div>
         </div>
         <div className="item">
@@ -37,7 +37,7 @@ export function AboutGrid() {
         <div className="item">
           <div>
             <b>Attitude...</b>
-            <p>I'm here for the mission. If leadership and execution align, I'm in. Otherwise, I will respectfully make my case with sound reasoning for course correction.</p>
+            <p>I'm here for the mission. If leadership and execution align, let's go. If I see a potential issue: investigate, course correct and move on.</p>
           </div>
         </div>
 
