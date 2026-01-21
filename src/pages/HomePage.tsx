@@ -1,12 +1,15 @@
 const infosysImg = new URL('../assets/infosys.png', import.meta.url).href;
+// const npmImg = new URL('../assets/Npm-logo.png', import.meta.url).href;
+const tayloredImg = new URL('../assets/taylored.png', import.meta.url).href;
+
 import cvPdf from '../assets/Jason_Contento_CV.pdf';
 import macysImg from '../assets/macys.png';
+import npmImg from '../assets/Npm-logo.png';
 import perryImg from '../assets/perry.png';
 import swellImg from '../assets/swell.png';
 
-const tayloredImg = new URL('../assets/taylored.png', import.meta.url).href;
-
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AboutGrid } from '../components/AboutGrid';
 import { ContactCard } from '../components/ContactCard';
 import { Footer } from '../components/Footer';
@@ -95,15 +98,15 @@ export default function HomePage() {
           headlineTop='Practical'
           headlineAccent='frontend + UX'
           lead='I design and build maintainable frontends, dashboards, and product UIs that are straightforward, performant, and reliable in production.'
-          ctas={[{
+          ctas={[
+            {
               variant: 'primary',
               href: cvPdf,
               label: 'Download Resume',
               icon: 'download'
             },
             { variant: 'secondary', href: '#projects', label: 'See projects', icon: 'plus' },
-            { variant: 'secondary', href: '#contact', label: 'Contact me', icon: 'mail' },
-            
+            { variant: 'secondary', href: '#contact', label: 'Contact me', icon: 'mail' }
           ]}
           stats={[
             { title: '15+ years', text: 'Shipping web products and design systems.' },
@@ -119,11 +122,41 @@ export default function HomePage() {
             gap: 8,
             flexWrap: 'wrap'
           }}
-        >
-        </div>
+        ></div>
+
+        <Section id='labinfo' title='The Lab' subtitle='Fun stuff'>
+          <div className='card list'>
+
+            <h3>Before this gets too serious...</h3>
+            <p>The lab is where the fun stuff is. Check it out!
+            </p>
+            <p>
+              <Link className='btn primary' to='/lab'>
+                Visit the Lab
+              </Link>
+            </p>
+          </div>
+        </Section>
 
         <Section id='projects' title='Experience' subtitle='Click a card for details'>
           <ProjectsGrid projects={PROJECTS} />
+        </Section>
+
+        <Section id='tools' title='Tooling' subtitle='Open-source utilities I maintain'>
+          <div className='card list'>
+            <img src={npmImg} alt='npm logo' width={100} />
+            <h3>GQL Type Safety Plugin</h3>
+            <p>Quite possibly the nerdiest code I've ever written. This was initially created as a way to force VS Code to give me hints when building GQL object style queries.</p>
+
+            <p>
+              A lightweight plugin for GraphQL Code Generator that makes fragments easy to define, reuse, and keep in sync. It keeps your fragments DRY and type‑safe as your schema grows, centralizing shared field selections so queries, mutations, and generated TypeScript types all stay aligned.
+            </p>
+            <p>
+              <a href='https://www.npmjs.com/package/@drivej/graphql-codegen-fragments-plugin' target='_blank' rel='noreferrer' className='btn primary'>
+                @drivej/graphql-codegen-fragments-plugin
+              </a>
+            </p>
+          </div>
         </Section>
 
         <Section id='about' title='About' subtitle='What I do & how I work'>

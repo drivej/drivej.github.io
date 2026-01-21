@@ -70,10 +70,8 @@ export default function Lab() {
       <Aurora />
       <GlobalHeader />
       <div className='container'>
-        <main id='top'>
-          <h1>Lab</h1>
-          <p>Experiments, prototypes, and just for fun programming...</p>
-        </main>
+        <h1>The Lab</h1>
+        <p>Experiments, prototypes, and just-for-fun programming...</p>
       </div>
       <div>
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', backgroundColor: '#4a91ab' }}>
