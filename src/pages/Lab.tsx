@@ -242,12 +242,13 @@ function Lab() {
   return (
     <>
       <Aurora />
+      <GlobalHeader />
       <div className='lab-block' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ textAlign: 'center', padding:20 }}>
+        <div style={{ textAlign: 'center', padding: 20 }}>
           <h1>Welcome to the Lab!</h1>
           <p>Experiments, prototypes, and just-for-fun programming.</p>
-          <hr style={{margin:'30px', opacity:0.5}} />
-          <div style={{display:'flex', gap:10, flexWrap:'wrap', justifyContent:'center'}}>
+          <hr style={{ margin: '30px', opacity: 0.5 }} />
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
             <a className='btn primary' onClick={() => scrollToSection('project-autumn')}>
               Late Autumn
             </a>
