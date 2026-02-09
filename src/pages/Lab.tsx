@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
-import { LeavesAndSnowReact } from 'leaves-and-snow';
-import { Tags } from '../components/Tag';
 import CandleAnimation from '@drivej/candle-animation';
-import { Link } from 'react-router-dom';
 import { SetDeckCard } from '@drivej/set-game';
 import '@drivej/set-game/styles.css';
-import { GlobalHeader } from '../components/Header';
+import { WaveAnimReact } from '@drivej/wave-anim';
+import { LeavesAndSnowReact } from 'leaves-and-snow';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import audioSrc from '../assets/48K_1713045663.m4a';
 import { Aurora } from '../components/Aurora';
+import { GlobalHeader } from '../components/Header';
+import { Tags } from '../components/Tag';
 
 const randomCards = () => {
   const cards = [];
@@ -22,6 +24,7 @@ export default function Lab() {
   const [leavesHeight, setLeavesHeight] = useState(200);
   const [_windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
   const [windowHeight, setWindowHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 0);
+  const waveRef = useRef(null);
 
   useEffect(() => {
     const container = leavesContainer.current;
@@ -97,7 +100,9 @@ export default function Lab() {
       </div>
 
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center', backgroundColor: '#030303' }}>
-        <CandleAnimation numCandles={8} width={windowHeight * 1.5} height={windowHeight * 0.8} style={{ margin: '0 auto', display: 'block' }} />
+        <CandleAnimation numCandles={8} width={windowHeight * 1.5} height={windowHeight * 0.8} 
+        // style={{ margin: '0 auto', display: 'block' }} 
+        />
       </div>
 
       <div className='container'>
@@ -134,6 +139,30 @@ export default function Lab() {
             <Tags.SVG />
             <Tags.React />
             <Tags.TypeScript />
+          </div>
+          <p>
+            A CSS/JS card matching game. "Set" is a popular game around our household. I was inspired to build a digital version as a personal challenge and to better understand the game's logic. This is (an AI confirmed) "clever" method of animation where the layout consists of hidden elements using only HTML/CSS
+            while the fixed position cards tween to their target positions using JavaScript.
+          </p>
+          <p>
+            <Link className='btn primary' to='/set-game'>
+              Play Set Game
+            </Link>
+          </p>
+        </main>
+      </div>
+
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', backgroundColor: '#030303' }}>
+        <WaveAnimReact ref={waveRef} audioSrc={audioSrc} width={_windowWidth} height={300} style={{ margin: '0 auto', display: 'block' }} />
+      </div>
+
+      <div className='container'>
+        <main id='top'>
+          <h1>Audio Visualizer</h1>
+          <div className='tagrow'>
+            <Tags.WebAudio />
+            <Tags.TypeScript />
+            <Tags.Canvas />
           </div>
           <p>
             A CSS/JS card matching game. "Set" is a popular game around our household. I was inspired to build a digital version as a personal challenge and to better understand the game's logic. This is (an AI confirmed) "clever" method of animation where the layout consists of hidden elements using only HTML/CSS

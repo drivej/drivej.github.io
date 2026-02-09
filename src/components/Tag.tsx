@@ -16,5 +16,7 @@ export const Tags = {
   React: () => <Tag url='https://reactjs.org/'>React</Tag>,
   TypeScript: () => <Tag url='https://www.typescriptlang.org/'>TypeScript</Tag>,
   CSS3: () => <Tag url='https://www.css3.info/'>CSS3</Tag>,
-  SVG: () => <Tag url='https://en.wikipedia.org/wiki/SVG'>SVG</Tag>
+  SVG: () => <Tag url='https://en.wikipedia.org/wiki/SVG'>SVG</Tag>,
+  WebAudio: () => <Tag url='https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API'>Web Audio</Tag>,
+  Canvas: () => <Tag url='https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API'>HTML Canvas</Tag>
 };
