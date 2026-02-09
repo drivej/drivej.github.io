@@ -232,7 +232,21 @@ const ProjectAudioBlock = () => {
   );
 };
 
-function Lab() {
+const AdiosBlock = () => {
+  return (
+    <div className='lab-block' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ textAlign: 'center', padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div>
+          <h2>Thanks for checking this out!</h2>
+          <p>I am driven by curiosity and love a good challenge.</p>
+        </div>
+        <div style={{ backgroundImage: `url(${Odin})`, backgroundSize: '70%', backgroundRepeat: 'no-repeat', backgroundPosition: '40% 60%', width: 200, height: 200, borderRadius: '50%', backgroundColor: '#ca4490' }} />
+      </div>
+    </div>
+  );
+};
+
+const HelloBlock = () => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -241,56 +255,48 @@ function Lab() {
   };
 
   return (
+    <div className='lab-block' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ textAlign: 'center', padding: 20 }}>
+        <h1>Welcome to the Lab!</h1>
+        <p>Experiments, prototypes, and just-for-fun programming.</p>
+        <hr style={{ margin: '30px', opacity: 0.5 }} />
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <a className='btn primary' onClick={() => scrollToSection('project-autumn')}>
+            Late Autumn
+          </a>
+
+          <a className='btn primary' onClick={() => scrollToSection('project-candle')}>
+            Make a wish!
+          </a>
+
+          <a className='btn primary' onClick={() => scrollToSection('project-wave')}>
+            Audio Wave
+          </a>
+
+          <a className='btn primary' onClick={() => scrollToSection('project-setgame')}>
+            Set Game
+          </a>
+        </div>
+        <h3>...or scroll down through the experiments</h3>
+
+        <h1>⇓</h1>
+      </div>
+    </div>
+  );
+};
+
+function Lab() {
+  return (
     <>
       <Aurora />
       <GlobalHeader />
-      <div className='lab-block' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ textAlign: 'center', padding: 20 }}>
-          <h1>Welcome to the Lab!</h1>
-          <p>Experiments, prototypes, and just-for-fun programming.</p>
-          <hr style={{ margin: '30px', opacity: 0.5 }} />
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <a className='btn primary' onClick={() => scrollToSection('project-autumn')}>
-              Late Autumn
-            </a>
-
-            <a className='btn primary' onClick={() => scrollToSection('project-candle')}>
-              Make a wish!
-            </a>
-
-            <a className='btn primary' onClick={() => scrollToSection('project-wave')}>
-              Audio Wave
-            </a>
-
-            <a className='btn primary' onClick={() => scrollToSection('project-setgame')}>
-              Set Game
-            </a>
-          </div>
-          <h3>...or scroll down through the experiments</h3>
-
-          <h1>⇓</h1>
-        </div>
-      </div>
-      {/* <GlobalHeader /> */}
-      {/* <div className='container'>
-        <h1>The Lab</h1>
-        <p>Experiments, prototypes, and just-for-fun programming...</p>
-      </div> */}
       <div className='lab-blocks'>
+        <HelloBlock />
         <ProjectAutumnBlock />
         <ProjectCandleBlock />
         <ProjectAudioBlock />
         <ProjectSetBlock />
-      </div>
-
-      <div className='lab-block' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ textAlign: 'center', padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div>
-            <h2>Thanks for checking this out!</h2>
-            <p>I am driven by curiosity and love a good challenge.</p>
-          </div>
-          <div style={{ backgroundImage: `url(${Odin})`, backgroundSize: '70%', backgroundRepeat: 'no-repeat', backgroundPosition: '40% 60%', width: 200, height: 200, borderRadius: '50%', backgroundColor: '#ca4490' }} />
-        </div>
+        <AdiosBlock />
       </div>
     </>
   );
