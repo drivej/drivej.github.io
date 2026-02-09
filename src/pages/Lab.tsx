@@ -39,21 +39,6 @@ const useContainerSize = (ref: React.RefObject<HTMLElement>) => {
   return { width, height };
 };
 
-const useWindowSize = () => {
-  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
-  const [height, setHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 0);
-  useEffect(() => {
-    const onResize = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    };
-    window.addEventListener('resize', onResize);
-    onResize();
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-  return { width, height };
-};
-
 const LabBlock = ({ children, id }: { children: React.ReactNode; id?: string }) => {
   return (
     <div id={id} className='container lab-block'>
@@ -289,7 +274,9 @@ function Lab() {
   return (
     <>
       <Aurora />
-      <GlobalHeader />
+      <div style={{ position: 'fixed', top: 0, width: '100%', zIndex: 999 }}>
+        <GlobalHeader />
+      </div>
       <div className='lab-blocks'>
         <HelloBlock />
         <ProjectAutumnBlock />
