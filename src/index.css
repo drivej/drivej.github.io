@@ -621,3 +621,29 @@ a.tag {
     transform: translateY(0) scale(1);
   }
 }
+
+.lab-blocks {
+  height: 100vh;
+  overflow-y: scroll; 
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.lab-block {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100vh;
+  overflow: auto;
+  min-height: 780px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.lab-block .lab-top {
+  flex: 1;
+  overflow: auto;
+}
+.lab-block .lab-bottom {
+  flex-shrink: 0;
+  padding: 20px;
+}
