@@ -207,9 +207,7 @@ const ProjectAudioBlock = () => {
             <Tags.TypeScript />
             <Tags.Canvas />
           </div>
-          <p>
-            Web Audio became a big part of my toolbox when I started working at Swell. One of the most gratifying exercises was creating the loudness meters and wave visualizations to go along with UGC audio. We ultimately landed on a more design focused execution, but the foundation of the work starts here.
-          </p>
+          <p>Web Audio became a big part of my toolbox when I started working at Swell. One of the most gratifying exercises was creating the loudness meters and wave visualizations to go along with UGC audio. We ultimately landed on a more design focused execution, but the foundation of the work starts here.</p>
         </div>
       </div>
     </LabBlock>
@@ -219,12 +217,12 @@ const ProjectAudioBlock = () => {
 const AdiosBlock = () => {
   return (
     <div className='lab-block' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ textAlign: 'center', padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div>
-          <h2>Thanks for checking this out!</h2>
-          <p>I am driven by curiosity and love a good challenge.</p>
+      <div style={{ textAlign: 'center', gap: 20, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ color: 'rgba(255,255,255,0.9)' }}>
+          <h2 style={{ marginBottom: 10 }}>Curiosity is the cure!</h2>
+          <p style={{ margin: 0 }}>Thanks for checking this out!</p>
         </div>
-        <div style={{ backgroundImage: `url(${Odin})`, backgroundSize: '70%', backgroundRepeat: 'no-repeat', backgroundPosition: '40% 60%', width: 200, height: 200, borderRadius: '50%', backgroundColor: '#ca4490' }} />
+        <div title="Hi! I'm Odin!" style={{ backgroundImage: `url(${Odin})`, backgroundSize: '70%', backgroundRepeat: 'no-repeat', backgroundPosition: '40% 60%', width: 200, height: 200, borderRadius: '50%', backgroundColor: '#ca4490' }} />
       </div>
     </div>
   );
