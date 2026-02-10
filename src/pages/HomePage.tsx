@@ -8,7 +8,7 @@ import macysImg from '../assets/macys.png';
 import perryImg from '../assets/perry.png';
 import swellImg from '../assets/swell.png';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AboutGrid } from '../components/AboutGrid';
 import { ContactCard } from '../components/ContactCard';
@@ -87,17 +87,16 @@ const PROJECTS = [
 ];
 
 export default function HomePage() {
-	  const year = useMemo(() => new Date().getFullYear(), []);
-	  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-	  const scrollToSection = (id: string) => {
-	    const el = document.getElementById(id);
-	    if (el) {
-	      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-	    }
-	  };
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
-	  return (
+  return (
     <div className='container'>
       <main id='top'>
         <Hero
@@ -112,26 +111,26 @@ export default function HomePage() {
               label: 'Download Resume',
               icon: 'download'
             },
-	            {
-	              variant: 'secondary',
-	              href: '#projects',
-	              label: 'See projects',
-	              icon: 'plus',
-	              onClick: (e) => {
-	                e.preventDefault();
-	                scrollToSection('projects');
-	              }
-	            },
-	            {
-	              variant: 'secondary',
-	              href: '#contact',
-	              label: 'Contact me',
-	              icon: 'mail',
-	              onClick: (e) => {
-	                e.preventDefault();
-	                scrollToSection('contact');
-	              }
-	            }
+            {
+              variant: 'secondary',
+              href: '#projects',
+              label: 'See projects',
+              icon: 'plus',
+              onClick: (e) => {
+                e.preventDefault();
+                scrollToSection('projects');
+              }
+            },
+            {
+              variant: 'secondary',
+              href: '#contact',
+              label: 'Contact me',
+              icon: 'mail',
+              onClick: (e) => {
+                e.preventDefault();
+                scrollToSection('contact');
+              }
+            }
           ]}
           stats={[
             { title: '15+ years', text: 'Shipping web products and design systems.' },
@@ -151,10 +150,8 @@ export default function HomePage() {
 
         <Section id='labinfo' title='The Lab' subtitle='Fun stuff'>
           <div className='card list'>
-
             <h3>Before this gets too serious...</h3>
-            <p>The lab is where the fun stuff is. Check it out!
-            </p>
+            <p>The lab is where the fun stuff is. Check it out!</p>
             <p>
               <Link className='btn primary' to='/lab'>
                 Visit the Lab
@@ -173,9 +170,7 @@ export default function HomePage() {
             <h3>GQL Type Safety Plugin</h3>
             <p>Quite possibly the nerdiest code I've ever written. This was initially created as a way to force VS Code to give me hints when building GQL object style queries.</p>
 
-            <p>
-              A lightweight plugin for GraphQL Code Generator that makes fragments easy to define, reuse, and keep in sync. It keeps your fragments DRY and type‑safe as your schema grows, centralizing shared field selections so queries, mutations, and generated TypeScript types all stay aligned.
-            </p>
+            <p>A lightweight plugin for GraphQL Code Generator that makes fragments easy to define, reuse, and keep in sync. It keeps your fragments DRY and type‑safe as your schema grows, centralizing shared field selections so queries, mutations, and generated TypeScript types all stay aligned.</p>
             <p>
               <a href='https://www.npmjs.com/package/@drivej/graphql-codegen-fragments-plugin' target='_blank' rel='noreferrer' className='btn primary'>
                 @drivej/graphql-codegen-fragments-plugin
@@ -202,9 +197,8 @@ export default function HomePage() {
           <h2>Portal Modal</h2>
           <p>This modal is rendered outside the app's root DOM node!</p>
         </Modal>
-
-        <Footer name='Contento Interactive' year={year} />
       </main>
+      <Footer />
     </div>
   );
 }

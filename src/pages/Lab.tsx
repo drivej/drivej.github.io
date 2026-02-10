@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import audioSrc from '../assets/48K_1713045663.m4a';
 import Odin from '../assets/odin.png';
 import { Aurora } from '../components/Aurora';
+import { Footer } from '../components/Footer';
 import { GlobalHeader } from '../components/Header';
 import { Tags } from '../components/Tag';
 
@@ -216,13 +217,18 @@ const ProjectAudioBlock = () => {
 
 const AdiosBlock = () => {
   return (
-    <div className='lab-block' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ textAlign: 'center', gap: 20, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ color: 'rgba(255,255,255,0.9)' }}>
-          <h2 style={{ marginBottom: 10 }}>Curiosity is the cure!</h2>
-          <p style={{ margin: 0 }}>Thanks for checking this out!</p>
+    <div className='lab-block' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center', gap: 20, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ color: 'rgba(255,255,255,0.9)' }}>
+            <h2 style={{ marginBottom: 10 }}>Curiosity is the cure!</h2>
+            <p style={{ margin: 0 }}>Thanks for checking this out!</p>
+          </div>
+          <div title="Hi! I'm Odin!" style={{ backgroundImage: `url(${Odin})`, backgroundSize: '70%', backgroundRepeat: 'no-repeat', backgroundPosition: '40% 60%', width: 200, height: 200, borderRadius: '50%', backgroundColor: '#ca4490' }} />
         </div>
-        <div title="Hi! I'm Odin!" style={{ backgroundImage: `url(${Odin})`, backgroundSize: '70%', backgroundRepeat: 'no-repeat', backgroundPosition: '40% 60%', width: 200, height: 200, borderRadius: '50%', backgroundColor: '#ca4490' }} />
+      </div>
+      <div style={{ maxWidth: 1100, width: '100%' }}>
+        <Footer />
       </div>
     </div>
   );
