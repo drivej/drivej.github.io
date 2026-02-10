@@ -6,7 +6,7 @@ export const GlobalHeader = () => {
 	      name='Jason Contento'
 	      subtitle='Developer • Designer • Builder'
 	      nav={[
-	        { href: '/?section=projects', label: 'Projects', kbd: '1' },
+	        { href: '/?section=projects', label: 'Projects', kbd: '5' },
 	        { href: '/?section=about', label: 'About', kbd: '2' },
 	        { href: '/?section=contact', label: 'Contact', kbd: '3' },
 	        { href: '/lab', label: 'Lab', kbd:'4' }
