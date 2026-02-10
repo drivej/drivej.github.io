@@ -208,8 +208,7 @@ const ProjectAudioBlock = () => {
             <Tags.Canvas />
           </div>
           <p>
-            A CSS/JS card matching game. "Set" is a popular game around our household. I was inspired to build a digital version as a personal challenge and to better understand the game's logic. This is (an AI confirmed) "clever" method of animation where the layout consists of hidden elements using only HTML/CSS
-            while the fixed position cards tween to their target positions using JavaScript.
+            Web Audio became a big part of my toolbox when I started working at Swell. One of the most gratifying exercises was creating the loudness meters and wave visualizations to go along with UGC audio. We ultimately landed on a more design focused execution, but the foundation of the work starts here.
           </p>
         </div>
       </div>
