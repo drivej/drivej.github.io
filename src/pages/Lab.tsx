@@ -1,10 +1,12 @@
 import CandleAnimation from '@drivej/candle-animation';
 import { SetDeckCard } from '@drivej/set-game';
 import '@drivej/set-game/styles.css';
+import { SpaceBallsComponent } from '@drivej/space-balls';
 import { useWaveControls, WaveAnimReact } from '@drivej/wave-anim';
 import { LeavesAndSnowReact } from 'leaves-and-snow';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useResizeObserver } from 'usehooks-ts';
 import audioSrc from '../assets/48K_1713045663.m4a';
 import Odin from '../assets/odin.png';
 import { Aurora } from '../components/Aurora';
@@ -215,6 +217,30 @@ const ProjectAudioBlock = () => {
   );
 };
 
+const ProjectSpaceBallsBlock = () => {
+  const container = useRef<HTMLDivElement>(null);
+  const { width, height } = useResizeObserver({ ref: container, box: 'border-box' });
+
+  return (
+    <LabBlock id='project-spaceballs'>
+      <div ref={container} className='lab-top' style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#030303' }}>
+        <SpaceBallsComponent width={width} height={height} />
+      </div>
+
+      <div className='lab-bottom'>
+        <div>
+          <h1>Space Race</h1>
+          <div className='tagrow'>
+            <Tags.TypeScript />
+            <Tags.Canvas />
+          </div>
+          <p>Press and hold to go faster. Mouse around and click on the targets to destroy them.</p>
+        </div>
+      </div>
+    </LabBlock>
+  );
+};
+
 const AdiosBlock = () => {
   return (
     <div className='lab-block' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -253,6 +279,10 @@ const HelloBlock = () => {
             Late Autumn
           </a>
 
+          <a className='btn primary' onClick={() => scrollToSection('project-spaceballs')}>
+            Space Balls
+          </a>
+
           <a className='btn primary' onClick={() => scrollToSection('project-candle')}>
             Make a wish!
           </a>
@@ -283,6 +313,7 @@ function Lab() {
       <div className='lab-blocks'>
         <HelloBlock />
         <ProjectAutumnBlock />
+        <ProjectSpaceBallsBlock />
         <ProjectCandleBlock />
         <ProjectAudioBlock />
         <ProjectSetBlock />

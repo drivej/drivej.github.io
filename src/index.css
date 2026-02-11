@@ -640,6 +640,7 @@ a.tag {
   padding: 0;
 }
 .lab-block .lab-top {
+  position: relative;
   flex: 1;
   overflow: auto;
 }
