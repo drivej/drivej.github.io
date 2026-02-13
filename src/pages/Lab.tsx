@@ -1,4 +1,5 @@
 import CandleAnimation from '@drivej/candle-animation';
+import { LanternsReact } from '@drivej/lanterns';
 import { SetDeckCard } from '@drivej/set-game';
 import '@drivej/set-game/styles.css';
 import { SpaceBallsComponent } from '@drivej/space-balls';
@@ -234,7 +235,32 @@ const ProjectSpaceBallsBlock = () => {
             <Tags.TypeScript />
             <Tags.Canvas />
           </div>
-          <p>Press and hold to go faster. Mouse around and click on the targets to destroy them.</p>
+          <p>Press and hold to go faster. Mouse around and click on the targets to destroy them. This is peak pointless fun.</p>
+        </div>
+      </div>
+    </LabBlock>
+  );
+};
+
+const ProjectLanterns = () => {
+  const container = useRef<HTMLDivElement>(null);
+  const { width, height } = useResizeObserver({ ref: container, box: 'border-box' });
+
+  return (
+    <LabBlock id='project-lanterns'>
+      <div ref={container} className='lab-top' style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#030303' }}>
+        <LanternsReact style={{width, height}} />
+      </div>
+
+      <div className='lab-bottom'>
+        <div>
+          <h1>Chinese Lanterns</h1>
+          <div className='tagrow'>
+            <Tags.Canvas />
+            <Tags.WebAudio />
+            <Tags.React />
+          </div>
+          <p>Drag around, mouse-wheel in and out, click a lantern to bring it front and center. I have been building 3D Parallax engines since the Flash days. This was a prototype for delivering Swell micro-podcasting content. The idea was for users to record their New Year's resoltuions and wishes on swell, then this would be an interactive display of everyone's entries. Some things just never make it past the back burner.</p>
         </div>
       </div>
     </LabBlock>
@@ -279,6 +305,10 @@ const HelloBlock = () => {
             Late Autumn
           </a>
 
+          <a className='btn primary' onClick={() => scrollToSection('project-lanterns')}>
+            Chinese Lanterns
+          </a>
+
           <a className='btn primary' onClick={() => scrollToSection('project-spaceballs')}>
             Space Balls
           </a>
@@ -313,6 +343,7 @@ function Lab() {
       <div className='lab-blocks'>
         <HelloBlock />
         <ProjectAutumnBlock />
+        <ProjectLanterns />
         <ProjectSpaceBallsBlock />
         <ProjectCandleBlock />
         <ProjectAudioBlock />
