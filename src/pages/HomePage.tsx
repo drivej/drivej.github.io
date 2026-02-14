@@ -212,16 +212,16 @@ export default function HomePage() {
               {/* <div style={{ aspectRatio: '1.5/2', backgroundImage: `url(${profileImg})`, backgroundSize: 'cover', backgroundPosition: 'center', width: 100 }}></div> */}
             </div>
             <div>
-              <p>I am an acutual human being - not an AI avatar. So I do show up at the office sometimes looking like this...</p>
-              <p>Favorite Things: </p>
-              <ul>
+              <p>I am an acutual human being - not an AI avatar. So I do show up at the office sometimes looking something like this...</p>
+              <h4>Favorite Things: </h4>
+              <ul style={{lineHeight:1.5}}>
                 <li>My wife &amp; kids <small>(*required by law to list this here)</small></li>
                 <li>Building anything</li>
                 <li>Italy</li>
                 <li>Pizza</li>
               </ul>
-              <p>Meh List: </p>
-              <ul>
+              <h4>Meh List: </h4>
+              <ul style={{lineHeight:1.5}}>
                 <li>Artichokes</li>
                 <li>Paperwork</li>
                 <li>Delayed flights</li>
