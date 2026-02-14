@@ -9,7 +9,7 @@ export const GlobalHeader = () => {
 	        { href: '/?section=projects', label: 'Projects', kbd: '5' },
 	        { href: '/?section=about', label: 'About', kbd: '2' },
 	        { href: '/?section=contact', label: 'Contact', kbd: '3' },
-	        { href: '/lab', label: 'Lab', kbd:'6' }
+	        { href: '/lab', label: 'Lab', kbd:'7' }
 	      ]}
 	    />
 	  );
