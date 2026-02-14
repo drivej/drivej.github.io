@@ -10,6 +10,7 @@ import swellImg from '../assets/swell.png';
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import profileImg from '../assets/profile.png';
 import { AboutGrid } from '../components/AboutGrid';
 import { ContactCard } from '../components/ContactCard';
 import { Footer } from '../components/Footer';
@@ -191,6 +192,42 @@ export default function HomePage() {
               { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jason-contento-9826597/' }
             ]}
           />
+        </Section>
+
+        <Section id='hello' title='Full disclosure...' subtitle='*This is an accurate likeness'>
+          <div style={{display:'flex', gap:30}}>
+            <div
+              className='card'
+              style={{
+                border: '4px solid white', //
+                aspectRatio: '1.5/2',
+                backgroundImage: `url(${profileImg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                width: '100%',
+                minHeight: 200,
+                maxWidth: 200
+              }}
+            >
+              {/* <div style={{ aspectRatio: '1.5/2', backgroundImage: `url(${profileImg})`, backgroundSize: 'cover', backgroundPosition: 'center', width: 100 }}></div> */}
+            </div>
+            <div>
+              <p>I am an acutual human being - not an AI avatar. So I do show up at the office sometimes looking like this...</p>
+              <p>Favorite Things: </p>
+              <ul>
+                <li>My wife &amp; kids <small>(*required by law to list this here)</small></li>
+                <li>Building anything</li>
+                <li>Italy</li>
+                <li>Pizza</li>
+              </ul>
+              <p>Meh List: </p>
+              <ul>
+                <li>Artichokes</li>
+                <li>Paperwork</li>
+                <li>Delayed flights</li>
+              </ul>
+            </div>
+          </div>
         </Section>
 
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
