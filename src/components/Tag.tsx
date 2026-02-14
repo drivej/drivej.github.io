@@ -18,5 +18,7 @@ export const Tags = {
   CSS3: () => <Tag url='https://www.css3.info/'>CSS3</Tag>,
   SVG: () => <Tag url='https://en.wikipedia.org/wiki/SVG'>SVG</Tag>,
   WebAudio: () => <Tag url='https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API'>Web Audio</Tag>,
-  Canvas: () => <Tag url='https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API'>HTML Canvas</Tag>
+  Canvas: () => <Tag url='https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API'>HTML Canvas</Tag>,
+  WebXR: () => <Tag url='https://www.w3.org/TR/webxr/'>Web XR</Tag>,
+  ThreeJS: () => <Tag url='https://threejs.org/'>ThreeJS</Tag>
 };

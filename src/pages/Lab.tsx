@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { useResizeObserver } from 'usehooks-ts';
 import audioSrc from '../assets/48K_1713045663.m4a';
 import Odin from '../assets/odin.png';
+import spiderverseBg from '../assets/spiderverse.jpg';
 import { Aurora } from '../components/Aurora';
 import { Footer } from '../components/Footer';
 import { GlobalHeader } from '../components/Header';
@@ -249,7 +250,7 @@ const ProjectLanterns = () => {
   return (
     <LabBlock id='project-lanterns'>
       <div ref={container} className='lab-top' style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#030303' }}>
-        <LanternsReact style={{width, height}} />
+        <LanternsReact style={{ width, height }} />
       </div>
 
       <div className='lab-bottom'>
@@ -260,8 +261,50 @@ const ProjectLanterns = () => {
             <Tags.WebAudio />
             <Tags.React />
           </div>
-          <p>Drag around, mouse-wheel in and out, click a lantern to bring it front and center. I have been building 3D Parallax engines since the Flash days. This was a prototype for delivering Swell micro-podcasting content. The idea was for users to record their New Year's resoltuions and wishes on swell, then this would be an interactive display of everyone's entries. Some things just never make it past the back burner.</p>
+          <p>
+            Drag around, mouse-wheel in and out, click a lantern to bring it front and center. I have been building 3D Parallax engines since the Flash days. This was a prototype for delivering Swell micro-podcasting content. The idea was for users to record their New Year's resoltuions and wishes on swell, then this
+            would be an interactive display of everyone's entries. Some things just never make it past the back burner.
+          </p>
         </div>
+      </div>
+    </LabBlock>
+  );
+};
+
+const ProjectSpidey = () => {
+  return (
+    <LabBlock id='project-spidey'>
+      <Link
+        to='/spiderverse'
+        className='lab-top'
+        style={{
+          backgroundImage: `url(${spiderverseBg})`,
+          backgroundSize: '100%',
+          backgroundPosition: 'center',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#030303'
+        }}
+      ></Link>
+
+      <div className='lab-bottom'>
+        <div>
+          <h1>Spider-verse VR</h1>
+          <div className='tagrow'>
+            <Tags.Canvas />
+            <Tags.React />
+            <Tags.WebXR />
+            <Tags.ThreeJS />
+          </div>
+          <p>I mean... if we're gonna VR, we might as well be a super hero, right? Visit this link in your VR browser and swing through the city like your friendly neighborhood Spider Man.</p>
+        </div>
+        <p>
+          <Link className='btn primary' to='/spiderverse'>
+            Play in VR!
+          </Link>
+        </p>
       </div>
     </LabBlock>
   );
@@ -309,6 +352,10 @@ const HelloBlock = () => {
             Chinese Lanterns
           </a>
 
+          <a className='btn primary' onClick={() => scrollToSection('project-spidey')}>
+            Spider-verse VR
+          </a>
+
           <a className='btn primary' onClick={() => scrollToSection('project-spaceballs')}>
             Space Balls
           </a>
@@ -344,6 +391,7 @@ function Lab() {
         <HelloBlock />
         <ProjectAutumnBlock />
         <ProjectLanterns />
+        <ProjectSpidey />
         <ProjectSpaceBallsBlock />
         <ProjectCandleBlock />
         <ProjectAudioBlock />
