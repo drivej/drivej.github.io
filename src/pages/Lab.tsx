@@ -5,12 +5,13 @@ import '@drivej/set-game/styles.css';
 import { SpaceBallsComponent } from '@drivej/space-balls';
 import { useWaveControls, WaveAnimReact } from '@drivej/wave-anim';
 import { LeavesAndSnowReact } from 'leaves-and-snow';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useResizeObserver } from 'usehooks-ts';
 import audioSrc from '../assets/48K_1713045663.m4a';
 import Odin from '../assets/odin.png';
 import spiderverseBg from '../assets/spiderverse.jpg';
+import spideyVideo from '../assets/spiderverse_clipped_1.mp4';
 import { Aurora } from '../components/Aurora';
 import { Footer } from '../components/Footer';
 import { GlobalHeader } from '../components/Header';
@@ -272,22 +273,69 @@ const ProjectLanterns = () => {
 };
 
 const ProjectSpidey = () => {
+  const $video = useRef<HTMLVideoElement>(null);
+  const [buttonStyle, setButtonStyle] = useState<CSSProperties>({visibility:'visible'});
+
+  function playVideo() {
+    if ($video.current) {
+      $video.current.src = spideyVideo;
+      // $video.current.style.display = 'block';
+      $video.current.style.opacity = '1';
+      setButtonStyle({visibility:'hidden'});
+    }
+  }
+
+  function onEndVideo() {
+    if ($video.current) {
+      // $video.current.style.display = 'none';
+      $video.current.style.opacity = '0';
+      if (document.fullscreenElement) document.exitFullscreen();
+      setButtonStyle({visibility:'visible'});
+    }
+  }
+
   return (
     <LabBlock id='project-spidey'>
-      <Link
-        to='/spiderverse'
-        className='lab-top'
-        style={{
-          backgroundImage: `url(${spiderverseBg})`,
-          backgroundSize: '100%',
-          backgroundPosition: 'center',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#030303'
-        }}
-      ></Link>
+      <div className='lab-top'>
+        <Link
+          to='/spiderverse'
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url(${spiderverseBg})`,
+            backgroundSize: '100%',
+            backgroundPosition: 'center',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#030303'
+          }}
+        ></Link>
+        <video onEnded={() => onEndVideo()} autoPlay controls src='' style={{ position: 'absolute', width: '100%', height: '100%', opacity: '0', transition: 'opacity 0.5s', inset: 0, objectFit: 'cover', objectPosition: 'center' }} ref={$video} />
+        <div
+          onClick={() => playVideo()}
+          style={{
+            position: 'absolute', //
+            display:'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%',
+            width: 60,
+            height: 60,
+            background: 'rgba(255,255,255,0.6)',
+            color: '#000',
+            fontSize: 24,
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+            ...buttonStyle
+          }}
+        >
+          <div style={{transform: 'translate(5%,0)'}}>&#9658;</div>
+        </div>
+      </div>
 
       <div className='lab-bottom'>
         <div>
@@ -298,7 +346,13 @@ const ProjectSpidey = () => {
             <Tags.WebXR />
             <Tags.ThreeJS />
           </div>
-          <p>I mean... if we're gonna VR, we might as well be a super hero, right? Visit this link in your VR browser and swing through the city like your friendly neighborhood Spider Man.</p>
+          <p>
+            I mean... if we're gonna VR, we might as well be a super hero, right? Visit this link in your VR browser and swing through the city like your friendly neighborhood Spider Man. Plus, we can learn about{' '}
+            <a href='https://en.wikipedia.org/wiki/Hooke%27s_law' target='_blank'>
+              Hooke's Law
+            </a>{' '}
+            and apply it.
+          </p>
         </div>
         <p>
           <Link className='btn primary' to='/spiderverse'>
