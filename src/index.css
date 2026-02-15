@@ -558,6 +558,9 @@ section {
 a.tag {
   text-decoration: none;
 }
+p a {
+  color: #82b0e9;
+}
 
 /* Portal modal (small inline modal rendered via React portal) */
 .portal-overlay {
