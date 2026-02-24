@@ -39,7 +39,7 @@ const PROJECTS = [
     employer: 'Infosys',
     role: 'Technical Director',
     blurb: 'Build enterprise web apps for big players.',
-    description: 'As Technical Director at Infosys, I led the creation of ecom websites for corporate clients. I worked within a full enterprise pipeline alongside brilliant designers, engineers, and stakeholders to validate concepts quickly and translate them into production-ready directions.',
+    description: 'As Technical Director at Infosys, I led the creation of ecom websites for corporate clients. I worked within a full enterprise pipeline alongside brilliant designers, engineers, and stakeholders to validate concepts quickly and translate them into production-ready products.',
     tags: ['Technical Director', 'Prototyping', 'Enterprise', 'HTML', 'JavaScript', 'JIRA', 'Confluence'],
     live: '',
     code: '',
@@ -104,7 +104,7 @@ export default function HomePage() {
           availability='Available for freelance & full-time'
           headlineTop='Practical'
           headlineAccent='frontend + UX'
-          lead='I design and build maintainable frontends, dashboards, and product UIs that are straightforward, performant, and reliable in production.'
+          lead='I design and build websites, web-apps, maintainable frontends, dashboards, and product UIs that are straightforward, performant, and reliable in production.'
           ctas={[
             {
               variant: 'primary',
@@ -134,9 +134,9 @@ export default function HomePage() {
             }
           ]}
           stats={[
-            { title: '15+ years', text: 'Shipping web products and design systems.' },
-            { title: 'Performance-first', text: 'KISS builds, clean CSS, sensible animations.' },
-            { title: 'Toolbox', text: 'TypeScript • React • Node • Figma • Photoshop' }
+            { title: '20+ years', text: 'Shipping web products and design systems.' },
+            { title: 'Performance-first', text: 'KISS builds, clean CSS, (mostly) sensible animations.' },
+            { title: 'Toolbox', text: 'TypeScript • React • Node • Figma • AI • PHP' }
           ]}
         />
 
@@ -151,8 +151,8 @@ export default function HomePage() {
 
         <Section id='labinfo' title='The Lab' subtitle='Fun stuff'>
           <div className='card list'>
-            <h3>Before this gets too serious...</h3>
-            <p>The lab is where the fun stuff is. Check it out!</p>
+            <h2>Before this gets too serious...</h2>
+            <p className="lead">The lab is where the fun stuff is. Check it out!</p>
             <p>
               <Link className='btn primary' to='/lab'>
                 Visit the Lab
@@ -161,8 +161,36 @@ export default function HomePage() {
           </div>
         </Section>
 
-        <Section id='projects' title='Experience' subtitle='Click a card for details'>
+        <Section id='projects' title='Experience' subtitle='Click image to launch'>
           <ProjectsGrid projects={PROJECTS} />
+        </Section>
+
+        <Section id='previous_work' title='Other Work' subtitle='Various projects'>
+          <div className='card list'>
+            {/* <img src={npmImg} alt='npm logo' width={100} /> */}
+            <h3>Websites</h3>
+            <ul>
+              <li>Sunday in the Park with George (Broadway show, nominated for a Webby)</li>
+              <li>Blue Man Group</li>
+              <li>Lion King (Broadway show)</li>
+              <li>Phantom of the Opera (Flash seating chart)</li>
+              <li>Mary Poppins (Broadway show)</li>
+              <li>August: Osage County (Broadway show)</li>
+              <li>Stomp (Broadway show)</li>
+              <li style={{ color: '#59bbc6' }}>
+                I know what you're thinking, "Really, you worked on all these well known broadway show's websites?". I can barely believe it myself. I was in NYC for a long time and was lucky enough to work with <i>Situation Marketing</i>, an agency who designed websites for major theaters. These were all Flash sites,
+                which was my specialty for a long time. So, when they needed something special, they brought me in.
+              </li>
+            </ul>
+            <h3>Web Ads</h3>
+            <ul>
+              <li>Emigrant Bank</li>
+              <li>Cohen's Fashion Optical</li>
+              <li>Trump University</li>
+              <li>Grey Goose</li>
+              <li>Maxell</li>
+            </ul>
+          </div>
         </Section>
 
         <Section id='tools' title='Tooling' subtitle='Open-source utilities I maintain'>
@@ -171,7 +199,10 @@ export default function HomePage() {
             <h3>GQL Type Safety Plugin</h3>
             <p>Quite possibly the nerdiest code I've ever written. This was initially created as a way to force VS Code to give me hints when building GQL object style queries.</p>
 
-            <p>A lightweight plugin for GraphQL Code Generator that makes fragments easy to define, reuse, and keep in sync. It keeps your fragments DRY and type‑safe as your schema grows, centralizing shared field selections so queries, mutations, and generated TypeScript types all stay aligned.</p>
+            <p>
+              A lightweight plugin for GraphQL Code Generator that makes fragments easy to define, reuse, and keep in sync. It keeps your fragments DRY and type‑safe as your schema grows, centralizing shared field selections so queries, mutations, and generated TypeScript types all stay aligned.{' '}
+              <span style={{ color: '#59bbc6' }}>And... breath. That was a long run on sentence.</span>
+            </p>
             <p>
               <a href='https://www.npmjs.com/package/@drivej/graphql-codegen-fragments-plugin' target='_blank' rel='noreferrer' className='btn primary'>
                 @drivej/graphql-codegen-fragments-plugin
@@ -195,7 +226,7 @@ export default function HomePage() {
         </Section>
 
         <Section id='hello' title='Full disclosure...' subtitle='*This is an accurate likeness'>
-          <div style={{display:'flex', gap:30}}>
+          <div style={{ display: 'flex', gap: 30 }}>
             <div
               className='card'
               style={{
@@ -212,16 +243,18 @@ export default function HomePage() {
               {/* <div style={{ aspectRatio: '1.5/2', backgroundImage: `url(${profileImg})`, backgroundSize: 'cover', backgroundPosition: 'center', width: 100 }}></div> */}
             </div>
             <div>
-              <p>I am an acutual human being - not an AI avatar. So I do show up at the office sometimes looking something like this...</p>
+              <p>I am an acutual human being - not an AI avatar. So I do show up to work looking something like this...</p>
               <h4>Favorite Things: </h4>
-              <ul style={{lineHeight:1.5}}>
-                <li>My wife &amp; kids <small>(*required by law to list this here)</small></li>
+              <ul>
+                <li>
+                  My wife &amp; kids <small>(*required by law to list this here)</small>
+                </li>
                 <li>Building anything</li>
                 <li>Italy</li>
                 <li>Pizza</li>
               </ul>
               <h4>Meh List: </h4>
-              <ul style={{lineHeight:1.5}}>
+              <ul>
                 <li>Artichokes</li>
                 <li>Paperwork</li>
                 <li>Delayed flights</li>
