@@ -92,12 +92,7 @@ export const HomePageV2Content = () => {
               <h2 style={{ color: colors.yellow }}>Tough Crowd</h2>
             </a>
           </div>
-          {/* <br /> */}
-          {/* <hr /> */}
-          {/* <br /> */}
           <hr />
-          {/* <br /> */}
-          {/* <h2>Contact</h2> */}
           <div className='flex-col gap-3'>
             <p>
               Jason Contento
@@ -112,27 +107,6 @@ export const HomePageV2Content = () => {
             </a>
           </div>
         </div>
-        {/* <table cellPadding={'10'} style={{ width: 'min-content' }}>
-          <tbody>
-            <tr>
-              <td align='right'>Resume:</td>
-              <td>
-                <a href={cvPdf} className='hover-underline text-light'>
-                  Download Resume
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td align='right'>Email:</td>
-              <td>
-                <a href='mailto:drivej@hotmail.com' className='hover-underline text-light'>
-                  drivej@hotmail.com
-                </a>
-              </td>
-            </tr>
-          
-          </tbody>
-        </table> */}
       </Sidenav>
 
       <div className='funky-scroll' style={{ '--grid-size': `${gridSize}px` } as CSSProperties}>
@@ -144,6 +118,7 @@ export const HomePageV2Content = () => {
             </div>
           </div>
           <div className='flex-col gap-3'>
+            <div className='p-2' />
             <div className='flex-row gap-1' style={{ alignItems: 'center' }}>
               <div className='circle' style={{ width: 70 }}>
                 JC
@@ -162,8 +137,9 @@ export const HomePageV2Content = () => {
               <Tags.UXUI />
             </div>
             <div className='flex-col gap-1'>
-              <h2>Why Hire Me?</h2>
-              <p>I come with experience working with large organizations, time crunches, and Design oriented executions. Do you need a Team Lead or Dev Lead for web projects using NodeJs, React, GraphQL? I have a track record of success, teamwork, agility and a good attitude.</p>
+              <h2>The Pitch</h2>
+              <p>Do you need a Team Lead or Dev Lead with a focus on UI/UX and Design for web projects using NodeJs, React, GraphQL?</p>
+              <p>I come with experience working with large organizations, time crunches, and Design oriented executions. I have a track record of success, teamwork, agility and a good attitude.</p>
             </div>
             <hr />
             <div className='flex-col gap-1'>
@@ -852,8 +828,8 @@ const NightSwamp = () => {
         simulate(grassblade.grass, grassblade.springs, 0.11, -25);
         const d = grassblade.grass[0].x - mouseX.current;
         let windX = 0;
-        const maxD = width; // * 0.25;
-        const nor = normalizeVector(w);
+        const maxD = width;
+        // const nor = normalizeVector(w);
 
         if (mouseY.current > height * 0.5 && Math.abs(d) < maxD) {
           // user interacting with grass
@@ -862,13 +838,11 @@ const NightSwamp = () => {
           windX = Math.abs(w.x) * 0.01 + power * dir;
         } else {
           // apply wind forces
-          //   const nor = normalizeVector(w);
-          windX = w.x * 0.01; //nor.x * rand(1.5, 2.5);
+          windX = w.x * 0.01;
         }
 
         for (let i = 1; i < grassblade.grass.length; i++) {
-          grassblade.grass[i].x += windX / grassblade.grass[i].mass; // / (Math.abs(d) * 0.01); // + wind.current.position.x * 0.003; //wind.current.x / grassblade.grass[i].mass;
-          //   grassblade.grass[i].x += wind.current.position.x * 0.003;
+          grassblade.grass[i].x += windX / grassblade.grass[i].mass;
         }
 
         ctx.fillStyle = grassblade.color;
@@ -891,6 +865,7 @@ const NightSwamp = () => {
           point = points[i];
           ctx.lineTo(point.x + point.width * 0.5, point.y);
         }
+        ctx.closePath();
         ctx.fill();
       };
 
@@ -910,12 +885,11 @@ const NightSwamp = () => {
         }
       };
 
-      const renderButterfly = (b) => {
+      const renderButterfly = (b: { anchor: any; position: any; vector: any; flutter: any; width: any; color: any; depth?: number }) => {
         b.vector.x += (mouseX.current - b.position.x) * 0.01;
         b.vector.y += (mouseY.current - b.position.y) * 0.01;
         b.vector.x *= 0.3;
         b.vector.y *= 0.3;
-
         b.anchor.x += b.vector.x;
         b.anchor.y += b.vector.y;
 
@@ -979,7 +953,6 @@ const NightSwamp = () => {
         clearCanvas();
         renderMoon();
         renderGround();
-        // renderWind();
         advanceGears(windGears.current, 1);
         renderBranch();
         renderForeground();
@@ -990,7 +963,7 @@ const NightSwamp = () => {
       for (let i = 0; i < 180; i++) {
         let i = field.length;
         while (i--) {
-          simulate(field[i].grass, field[i].springs, 0.1, -30);
+          simulate(field[i].grass, field[i].springs, 0.5, -30);
         }
       }
 
