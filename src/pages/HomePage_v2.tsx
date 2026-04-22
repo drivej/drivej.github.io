@@ -41,34 +41,34 @@ export const HomePageV2Content = () => {
     nav.close();
   };
 
-  const [p, setP] = useState(0);
+  //   const [p, setP] = useState(0);
 
-  useEffect(() => {
-    let raf = 0;
+  //   useEffect(() => {
+  // let raf = 0;
 
-    const tick = () => {
-      setP((v) => {
-        const next = v + (window.scrollY * 0.02 - v) / 2;
-        if (Math.abs(next - v) > 0.01) {
-          raf = requestAnimationFrame(tick);
-        }
-        return next;
-      });
-    };
+  // const tick = () => {
+  //   setP((v) => {
+  //     const next = v + (window.scrollY * 0.02 - v) / 2;
+  //     if (Math.abs(next - v) > 0.01) {
+  //       raf = requestAnimationFrame(tick);
+  //     }
+  //     return next;
+  //   });
+  // };
 
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(tick);
-    };
+  // const onScroll = () => {
+  //   cancelAnimationFrame(raf);
+  //   raf = requestAnimationFrame(tick);
+  // };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+  //     window.addEventListener('scroll', onScroll, { passive: true });
+  //     onScroll();
 
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
+  //     return () => {
+  //       window.removeEventListener('scroll', onScroll);
+  //       cancelAnimationFrame(raf);
+  //     };
+  //   }, []);
 
   return (
     <>
@@ -114,7 +114,7 @@ export const HomePageV2Content = () => {
           <div>
             <div className='sidebar-title'>
               <h1 className='text-color-2'>TL;DR</h1>
-              <NavGrid p={p} />
+              <NavGrid />
             </div>
           </div>
           <div className='flex-col gap-3'>
@@ -177,7 +177,7 @@ export const HomePageV2Content = () => {
           <div>
             <div className='sidebar-title'>
               <h1 className='text-color-2'>Skills</h1>
-              <NavGrid p={p} />
+              <NavGrid />
             </div>
           </div>
           <div className='flex-col gap-3'>
@@ -223,7 +223,7 @@ export const HomePageV2Content = () => {
           <div>
             <div className='sidebar-title'>
               <h1 className='text-color-3'>Case Study</h1>
-              <NavGrid p={p} />
+              <NavGrid />
             </div>
           </div>
           <div>
@@ -275,15 +275,11 @@ export const HomePageV2Content = () => {
           <div>
             <div className='sidebar-title'>
               <h1 className='text-color-2'>Reviews</h1>
-              <NavGrid p={p} />
+              <NavGrid />
             </div>
           </div>
           <div className='flex-center'>
             <div className='flex-row flex-wrap gap-2' style={{ justifyContent: 'center', alignItems: 'center' }}>
-              {/* <Review author='Former Boss' border={colors.blue}>
-              Will literally work for birdseed, <br />
-              in the form of everything bagels.
-            </Review> */}
               <Review author='Intern' border={colors.green}>
                 The best <i>I've</i> ever seen
               </Review>
@@ -292,13 +288,13 @@ export const HomePageV2Content = () => {
                 <br />
                 Also, stays calm while others toil.
               </Review>
-              <Review author='Former Boss' border={colors.blue}>
+              <Review author='Dept. VP' border={colors.blue}>
                 Get back to work!
               </Review>
               <Review author='HR' border={colors.purple}>
-                Who knew angels flew
-                <br />
-                so close to the ground...
+                We can only confirm the he worked here.
+                {/* <br /> */}
+                {/* so close to the ground... */}
                 <br />
                 Is this being recorded?
               </Review>
@@ -309,6 +305,9 @@ export const HomePageV2Content = () => {
               </Review>
               <Review author='Client' border={colors.blue}>
                 Will work with him again!
+              </Review>
+              <Review author='Postmates Dude' border={colors.purple}>
+                When the going get rough, he gets bagels.
               </Review>
               <Review author='CEO' border={colors.green}>
                 Who?
@@ -352,7 +351,7 @@ export const HomePageV2Content = () => {
           <div>
             <div className='sidebar-title'>
               <h1 className='text-color-2'>Tough Crowd</h1>
-              <NavGrid p={p} />
+              <NavGrid />
             </div>
           </div>
           <div>
@@ -498,9 +497,11 @@ const ProgressInfo = ({ title, description, progress }: { title: string; descrip
 };
 
 const RandomBalls = () => {
+  const count = useRef(~~(window.innerWidth / 50));
+
   return (
     <ParallaxProvider>
-      {Array.from({ length: 50 }).map((e, i) => (
+      {Array.from({ length: count.current }).map((e, i) => (
         <RandomBall key={`ball${i}`} />
       ))}
     </ParallaxProvider>
@@ -562,15 +563,6 @@ function getGearPosition(gears: Gear[], offset: number, normalize = false) {
   return { x, y };
 }
 
-function normalizeVector(p: Point): Point {
-  const len = Math.sqrt(p.x * p.x + p.y * p.y) || 0.0001;
-  return { x: p.x / len, y: p.y / len };
-}
-
-function getVectorLength(p: Point): number {
-  return Math.sqrt(p.x * p.x + p.y * p.y) || 0.0001;
-}
-
 function advanceGears(gears: Gear[], steps = 1) {
   let x = 0;
   let y = 0;
@@ -584,13 +576,36 @@ function advanceGears(gears: Gear[], steps = 1) {
   return { x, y };
 }
 
-const NavGrid = ({ p = 0 }: { p: number }) => {
+const NavGrid = () => {
+  const speed = useRef(10); //rand(2,5));
+  const { scrollY } = useWindowScrollY();
+  const [_p, setP] = useState(scrollY);
   const vals = useRef(Array.from({ length: 30 }).map(() => randGear()));
+
+  useEffect(() => {
+    let raf: number;
+
+    const tick = () => {
+      setP((v) => {
+        const next = v + (window.scrollY * 0.02 - v) / speed.current; // 2
+        if (Math.abs(next - v) > 0.01) {
+          raf = requestAnimationFrame(tick);
+        }
+        return next;
+      });
+    };
+
+    tick();
+
+    return () => {
+      cancelAnimationFrame(raf);
+    };
+  }, [scrollY]);
 
   return (
     <div className='navgrid'>
       {vals.current.map((val, i) => {
-        const a = val.a + val.s * p;
+        const a = val.a + val.s * _p;
         const sina = Math.sin(a);
         const cosa = Math.cos(a);
         const o = (sina + 1) / 2;
@@ -643,7 +658,7 @@ type Particle = {
 };
 
 type Spring = { a: number; b: number; restLength: number };
-type GrassBlade = { grass: Particle[]; springs: Spring[]; color: string; ignoreMouse: boolean };
+type GrassBlade = { grass: Particle[]; springs: Spring[]; color: string; ignoreMouse: boolean; cvs: OffscreenCanvas; ctx: OffscreenCanvasRenderingContext2D; dupes: Point[] };
 
 const Star = () => {
   const offsetY = useRef(Math.random() * 5);
@@ -714,7 +729,7 @@ function simulate(particles: Particle[], springs: Spring[], dt: number, gravityY
   }
 }
 
-function generateGrassBlade(width = 500, _height = 100): GrassBlade {
+function generateGrassBlade(width = 500, height = 100): GrassBlade {
   const widthOffset = rand(0.5, 1);
   const massOffset = rand(0.7, 3); // rand(0, 40);
   const restLengthOffset = rand(0.6, 1); //rand(0, 20);
@@ -725,23 +740,34 @@ function generateGrassBlade(width = 500, _height = 100): GrassBlade {
   const r2 = 1;
   const c = Math.random() < 0.2 ? color2 : color1;
   const color = `rgb(${rand(c[0] * r1, c[0] * r2)}, ${rand(c[1] * r1, c[1] * r2)}, ${rand(c[2] * r1, c[2] * r2)})`;
-  const height = _height * rand(0.4, 1);
+  const bladeHeight = height * rand(0.4, 0.6);
+  const y = bladeHeight;
+
   const grass: Particle[] = [
-    { x, y: height, prevX: x, prevY: 0, mass: 30 * massOffset, width: 5 * widthOffset, isStatic: true },
-    { x, y: height, prevX: x, prevY: 0, mass: 30 * rand(0.7, 3), width: 5 * widthOffset },
-    { x, y: height, prevX: x, prevY: 0, mass: 20 * rand(0.7, 3), width: 5 * widthOffset },
-    { x, y: height, prevX: x, prevY: 0, mass: 20 * rand(0.7, 3), width: 5 * widthOffset },
-    { x, y: height, prevX: x, prevY: 0, mass: 10 * rand(0.7, 3), width: 4 * widthOffset },
-    { x, y: height, prevX: x, prevY: 0, mass: 10 * rand(0.7, 3), width: 3 * widthOffset },
-    { x, y: height, prevX: x, prevY: 0, mass: 10 * rand(0.7, 3), width: 1 }
+    { x, y, prevX: x, prevY: y, mass: 80 * massOffset, width: 5 * widthOffset, isStatic: true },
+    { x, y, prevX: x, prevY: y, mass: 50 * rand(0.7, 3), width: 5 * widthOffset },
+    { x, y, prevX: x, prevY: y, mass: 20 * rand(0.7, 3), width: 5 * widthOffset },
+    { x, y, prevX: x, prevY: y, mass: 20 * rand(0.7, 3), width: 5 * widthOffset },
+    { x, y, prevX: x, prevY: y, mass: 10 * rand(0.7, 3), width: 4 * widthOffset },
+    { x, y, prevX: x, prevY: y, mass: 10 * rand(0.7, 3), width: 3 * widthOffset },
+    { x, y, prevX: x, prevY: y, mass: 30 * rand(0.7, 3), width: 1 }
   ];
   const springs = grass.slice(0, -1).map((g, i) => ({
     a: i,
     b: i + 1,
-    restLength: (height / grass.length) * restLengthOffset
-    // restLength: g.mass * 1.2
+    restLength: (bladeHeight / grass.length) * restLengthOffset
   }));
-  return { grass, springs, color, ignoreMouse: Math.random() < 0.1 };
+  const cvs = new OffscreenCanvas(width, height);
+  const ctx = cvs.getContext('2d');
+  return {
+    grass,
+    springs,
+    color,
+    ignoreMouse: Math.random() < 0.1,
+    cvs,
+    ctx, //
+    dupes: Array.from({ length: rand(10, 20, true) }).map(() => ({ x: x + rand(-100, 100), y: rand(0, 100) }))
+  };
 }
 
 const generateFlutter = (length = 5) => {
@@ -768,18 +794,23 @@ const NightSwamp = () => {
   const mouseX = useRef(0);
   const mouseY = useRef(0);
   const field = useMemo<GrassBlade[]>(() => {
-    const length = ~~(width / 2.5);
+    const length = Math.min(~~(width / 3), 350);
     const margin = 50;
     const gap = (margin + width + margin) / length;
-    return Array.from({ length: ~~(width / 2) }).map((e, i) => {
-      const blade = generateGrassBlade(width, height * 0.7);
-      blade.grass[0].x = -margin + i * gap + rand(-20, 20); //rand(0, width);
+    return Array.from({ length }).map((e, i) => {
+      const blade = generateGrassBlade(width, height);
+      blade.grass[0].x = -margin + i * gap;
       blade.grass[0].y = height;
       return blade;
     });
   }, [width, height]);
 
-  const windGears = useRef([randGear({ min: 200, max: 200 }, { min: -0.5, max: -0.5 }), randGear({ min: 80, max: 80 }, { min: 0.1, max: 0.1 }), randGear({ min: 200, max: 200 }, { min: -0.3, max: -0.3 }), randGear({ min: 30, max: 40 }, { min: 0.1, max: 0.5 })]);
+  const windGears = useRef([
+    randGear({ min: 200, max: 200 }, { min: -0.5, max: -0.5 }), //
+    randGear({ min: 80, max: 80 }, { min: 0.1, max: 0.1 }),
+    randGear({ min: 200, max: 200 }, { min: -0.3, max: -0.3 }),
+    randGear({ min: 30, max: 40 }, { min: 0.1, max: 0.5 })
+  ]);
   const moon = useMemo(() => ({ x: width * 0.5, y: height * 0.8, width: width * 0.1 }), [width]);
 
   const butterflies = useMemo(() => {
@@ -792,21 +823,25 @@ const NightSwamp = () => {
   }, [width]);
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouseX.current = e.offsetX;
-      mouseY.current = e.offsetY;
-    };
-    const onResize = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight * 0.9);
-    };
-    document.addEventListener('pointermove', onMove);
-    window.addEventListener('resize', onResize);
-    onResize();
-    return () => {
-      document.removeEventListener('pointermove', onMove);
-    };
-  }, []);
+    if ($cvs.current) {
+      const onMove = (e: MouseEvent) => {
+        mouseX.current = e.offsetX;
+        mouseY.current = e.offsetY;
+      };
+      const onResize = () => {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight * 0.9);
+      };
+      $cvs.current.addEventListener('pointermove', onMove);
+      window.addEventListener('resize', onResize);
+      onResize();
+      return () => {
+        if ($cvs.current) {
+          $cvs.current.removeEventListener('pointermove', onMove);
+        }
+      };
+    }
+  }, [$cvs]);
 
   const { isIntersecting, ref } = useIntersectionObserver({
     threshold: 0,
@@ -825,7 +860,7 @@ const NightSwamp = () => {
 
       const renderGrassBlade = (grassblade: GrassBlade, index: number = 0) => {
         const w = getGearPosition(windGears.current, index);
-        simulate(grassblade.grass, grassblade.springs, 0.11, -25);
+        simulate(grassblade.grass, grassblade.springs, 0.1, -15);
         const d = grassblade.grass[0].x - mouseX.current;
         let windX = 0;
         const maxD = width;
@@ -844,6 +879,41 @@ const NightSwamp = () => {
         for (let i = 1; i < grassblade.grass.length; i++) {
           grassblade.grass[i].x += windX / grassblade.grass[i].mass;
         }
+
+        grassblade.ctx.clearRect(0, 0, grassblade.cvs.width, grassblade.cvs.height);
+        //
+        //
+        //
+        /*
+        grassblade.ctx.fillStyle = grassblade.color;
+        grassblade.ctx.beginPath();
+        const points = grassblade.grass;
+        const len = points.length;
+        let i = 1;
+        let point = points[0];
+
+        grassblade.ctx.moveTo(point.x - point.width * 0.5, point.y);
+
+        for (i = 1; i < len - 1; i++) {
+          point = points[i];
+          grassblade.ctx.lineTo(point.x - point.width * 0.5, point.y);
+        }
+        point = points[i];
+        grassblade.ctx.lineTo(point.x, point.y);
+
+        for (i = len - 1; i >= 0; i--) {
+          point = points[i];
+          grassblade.ctx.lineTo(point.x + point.width * 0.5, point.y);
+        }
+        grassblade.ctx.closePath();
+        grassblade.ctx.fill();
+
+        ctx.drawImage(grassblade.cvs, 0, 0);
+
+        for (let i = 0; i < grassblade.dupes.length; i++) {
+          ctx.drawImage(grassblade.cvs, grassblade.dupes[i].x, grassblade.dupes[i].y);
+        }
+        */
 
         ctx.fillStyle = grassblade.color;
         ctx.beginPath();
@@ -953,14 +1023,14 @@ const NightSwamp = () => {
         clearCanvas();
         renderMoon();
         renderGround();
-        advanceGears(windGears.current, 1);
+        advanceGears(windGears.current, 4);
         renderBranch();
         renderForeground();
         raf = requestAnimationFrame(animate);
       };
 
       // pre-render to clean up initial state
-      for (let i = 0; i < 180; i++) {
+      for (let i = 0; i < 50; i++) {
         let i = field.length;
         while (i--) {
           simulate(field[i].grass, field[i].springs, 0.5, -30);
