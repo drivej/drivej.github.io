@@ -20,5 +20,8 @@ export const Tags = {
   WebAudio: () => <Tag url='https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API'>Web Audio</Tag>,
   Canvas: () => <Tag url='https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API'>HTML Canvas</Tag>,
   WebXR: () => <Tag url='https://www.w3.org/TR/webxr/'>Web XR</Tag>,
-  ThreeJS: () => <Tag url='https://threejs.org/'>ThreeJS</Tag>
+  ThreeJS: () => <Tag url='https://threejs.org/'>ThreeJS</Tag>,
+  GQL: () => <Tag url='https://graphql.org//'>GraphQL</Tag>,
+  NodeJS: () => <Tag url='https://nodejs.org/'>Node.js</Tag>,
+  UXUI: () => <Tag>UX/UI</Tag>
 };
