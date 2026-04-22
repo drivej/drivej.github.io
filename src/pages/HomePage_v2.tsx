@@ -334,11 +334,11 @@ export const HomePageV2Content = () => {
             </div>
 
             <div className='cornice' style={{ borderLeft: 'none', borderBottom: 'none', top: 10, right: 10 }}>
-              &clubs;
+              &hearts;
             </div>
 
             <div className='cornice' style={{ borderRight: 'none', borderTop: 'none', bottom: 10, left: 10 }}>
-              &hearts;
+              &clubs;
             </div>
 
             <div className='cornice' style={{ borderLeft: 'none', borderTop: 'none', bottom: 10, right: 10 }}>
