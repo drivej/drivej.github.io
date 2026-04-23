@@ -1,11 +1,10 @@
-import { createContext, CSSProperties, MouseEventHandler, ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { createContext, CSSProperties, MouseEventHandler, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { useIntersectionObserver } from 'usehooks-ts';
 import cvPdf from '../assets/Jason_Contento_CV.pdf';
 import { Icon } from '../components/Icon';
 import { Tags } from '../components/Tag';
 import '../styles/navgrid.css';
 
-const RAD = Math.PI / 180;
 const gridSize = 20;
 const colors = {
   blue: '#46b8da',
@@ -157,7 +156,7 @@ export const HomePageV2Content = () => {
               </ul>
             </div>
             <hr />
-            <div className='flex-row gap-2'>
+            <div className='flex-row flex-wrap gap-2'>
               <a className='btn primary' href='mailto:drivej@hotmail.com' style={{ paddingLeft: 30, paddingRight: 30 }}>
                 Hire Me
               </a>
@@ -167,7 +166,7 @@ export const HomePageV2Content = () => {
               </a>
               <a className='btn primary' href='mailto:drivej@hotmail.com'>
                 <Icon name='mail' />
-                Email
+                drivej@hotmail.com
               </a>
               {/* <a className='btn primary' href='tel:+13157514119'>
                 Call Me
@@ -319,9 +318,9 @@ export const HomePageV2Content = () => {
           </div>
         </section>
 
-        <div style={{ position: 'relative', height: '200vh' }}>
+        <div className='underline' style={{ position: 'relative', height: '200dvh' }}>
           <RandomBalls />
-          <div className='underline flex-center' style={{ '--bg-color': '#781f65', height: '100vh', position: 'sticky', top: 0, boxShadow: ' 0px 0px 40px rgba(0,0,0,0.9)', backgroundColor: 'rgba(0,0,0,0.2)', fontFamily: 'cursive' } as CSSProperties}>
+          <div className='underline flex-center' style={{ '--bg-color': '#781f65', height: '100dvh', position: 'sticky', top: 0, boxShadow: ' 0px 0px 40px rgba(0,0,0,0.9)', backgroundColor: 'rgba(0,0,0,0.2)', fontFamily: 'cursive' } as CSSProperties}>
             <div className='p-4 flex-center w-100'>
               <div className='flex-col flex-center'>
                 <h1 className='d-block w-100 text-center' style={{ textShadow: '5px 5px 10px rgba(20,100,80,1)' }}>
@@ -376,14 +375,27 @@ export const HomePageV2Content = () => {
           </div>
         </section>
 
-        <AllTheWayUp />
+        <div className='sky-gradient' style={{ position: 'relative' }}>
+          <h2 id='thankyou' className='p-3' style={{ position: 'sticky', top: '20vh', right: 0, width: '100%', textAlign: 'center', fontFamily: 'courier', zIndex: 10 }}>
+            <a style={{ textDecoration: 'none', color: 'inherit', fontWeight: 200, textShadow: '0px 1px 3px rgba(0,0,0,0.4)' }} href='mailto:drivej@hotmail.com'>
+              st<span style={{ textDecoration: 'none', fontFamily: 'verdana', fontSize: '0.8em', color: '#e8ff82' }}>@</span>y connected
+              <br />
+            </a>
+          </h2>
+          <HappySwamp />
+        </div>
+        <div className='p-1' style={{ background: '#0f1a49', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
+          &copy; Jason Contento 2026
+        </div>
+
+        {/* <BreakMessage /> */}
       </div>
     </>
   );
 };
 
-import { interpolate, rand } from '@drivej/xrworld';
 import { ParallaxProvider, useParallax } from 'react-scroll-parallax';
+import { HappySwamp, randGear } from '../components/HappySwamp';
 import '../styles/hamburgers.css';
 
 const HamburgerMenu = () => {
@@ -538,57 +550,6 @@ const Review = ({ author, border, children }: { author: React.ReactNode; border:
   );
 };
 
-type Gear = {
-  a: number;
-  r: number;
-  s: number;
-  args: { radius: { min: number; max: number }; speed: { min: number; max: number } };
-};
-
-function randGear(radius: { min: number; max: number } = { min: 3, max: 8 }, speed: { min: number; max: number } = { min: 1, max: 10 }): Gear {
-  return {
-    a: rand(0, 360) * RAD,
-    r: rand(radius.min, radius.max),
-    s: rand(speed.min, speed.max) * RAD, //0.3 + Math.random() * 30 * RAD
-    args: { radius, speed }
-  };
-}
-
-function getGearPosition(gears: Gear[], offset: number, normalize = false) {
-  let x = 0;
-  let y = 0;
-  let a = 0;
-
-  for (let i = 0; i < gears.length; i++) {
-    const gear = gears[i];
-    a = gear.a + gear.s * offset;
-    x += Math.sin(a) * gear.r;
-    y += Math.cos(a) * gear.r;
-  }
-  return { x, y };
-}
-
-function advanceGears(gears: Gear[], steps = 1) {
-  let x = 0;
-  let y = 0;
-
-  for (let i = 0; i < gears.length; i++) {
-    const gear = gears[i];
-    gear.a += gear.s * steps;
-    x += Math.sin(gear.a) * gear.r;
-    y += Math.cos(gear.a) * gear.r;
-  }
-  return { x, y };
-}
-
-function getGearsRadius(gears: Gear[]) {
-  let l = 0;
-  for (let i = 0; i < gears.length; i++) {
-    l += gears[i].r;
-  }
-  return l;
-}
-
 const NavGrid = () => {
   const speed = useRef(10); //rand(2,5));
   const { scrollY } = useWindowScrollY();
@@ -631,539 +592,3 @@ const NavGrid = () => {
     </div>
   );
 };
-
-const AllTheWayUp = () => {
-  return (
-    <ParallaxProvider>
-      <div
-        className='sky-gradient'
-        style={{
-          height: '150vh',
-          position: 'relative'
-          //   display:'flex', alignItems:'end'
-        }}
-      >
-        {Array.from({ length: 30 }).map((e, i) => (
-          <Star key={`start${i}`} />
-        ))}
-        <NightSwamp />
-        <h2 className='p-3' style={{ position: 'sticky', top: 20, right: 20, width: '100%', textAlign: 'right', fontFamily: 'courier' }}>
-          <sup>*</sup>Thanks for visiting
-        </h2>
-      </div>
-    </ParallaxProvider>
-  );
-};
-
-type Point = {
-  x: number;
-  y: number;
-};
-
-type Particle = {
-  x: number;
-  y: number;
-  prevX: number;
-  prevY: number;
-  mass: number;
-  isStatic?: boolean;
-  width: number;
-};
-
-type Spring = { a: number; b: number; restLength: number };
-type GrassBlade = { windIndex: number; grass: Particle[]; springs: Spring[]; color: string; ignoreMouse: boolean; cvs: OffscreenCanvas; ctx: OffscreenCanvasRenderingContext2D; dupes: Point[] };
-type Butterfly = { shouldFollow: boolean; anchor: any; position: any; vector: any; flutter: Gear[]; width: any; color: RGB; glowColor: RGB; depth?: number; glow: Gear[]; glowRadius: number };
-
-const Star = () => {
-  const offsetY = useRef(Math.random() * 5);
-  const parallax = useParallax<HTMLDivElement>({ speed: offsetY.current });
-  const baseStyle = useRef<CSSProperties>({
-    position: 'absolute',
-    borderRadius: '2000px', //
-    left: 5 + Math.random() * 90 + '%',
-    top: 5 + Math.random() * 80 + '%',
-    width: 1 + Math.random() * 4,
-    aspectRatio: '1/1',
-    backgroundColor: `rgba(255,255,255,${Math.random() * 1})`,
-    filter: `blur(${Math.random() * 2}px)`
-  });
-
-  return <div ref={parallax.ref} style={baseStyle.current}></div>;
-};
-
-function solveDistanceConstraint(p1: Particle, p2: Particle, restLength: number) {
-  const dx = p2.x - p1.x;
-  const dy = p2.y - p1.y;
-  const dist = Math.sqrt(dx * dx + dy * dy) || 0.0001;
-
-  const error = dist - restLength;
-  const nx = dx / dist;
-  const ny = dy / dist;
-
-  const w1 = 1 / p1.mass;
-  const w2 = 1 / p2.mass;
-  const wSum = w1 + w2;
-
-  const correctionX = nx * error;
-  const correctionY = ny * error;
-
-  if (p1?.isStatic !== true) {
-    p1.x += correctionX * (w1 / wSum);
-    p1.y += correctionY * (w1 / wSum);
-  }
-
-  if (p2?.isStatic !== true) {
-    p2.x -= correctionX * (w2 / wSum);
-    p2.y -= correctionY * (w2 / wSum);
-  }
-}
-
-function verletIntegrateDamped(p: Particle, ax: number, ay: number, dt: number, damping = 0.98) {
-  const vx = (p.x - p.prevX) * damping;
-  const vy = (p.y - p.prevY) * damping;
-  const nextX = p.x + vx + ax * dt * dt;
-  const nextY = p.y + vy + ay * dt * dt;
-  p.prevX = p.x;
-  p.prevY = p.y;
-  if (p?.isStatic !== true) {
-    p.x = nextX;
-    p.y = nextY;
-  }
-}
-
-function simulate(particles: Particle[], springs: Spring[], dt: number, gravityY = 5) {
-  for (const p of particles) {
-    verletIntegrateDamped(p, 0, gravityY, dt, 0.98);
-  }
-
-  for (let i = 0; i < 4; i++) {
-    for (const s of springs) {
-      solveDistanceConstraint(particles[s.a], particles[s.b], s.restLength);
-    }
-  }
-}
-
-function generateGrassBlade(width = 500, height = 100): GrassBlade {
-  const widthOffset = rand(0.5, 1);
-  const massOffset = rand(0.7, 3); // rand(0, 40);
-  const restLengthOffset = rand(0.6, 1); //rand(0, 20);
-  const x = rand(0, width);
-  const color1 = [46, 189, 63];
-  const color2 = [159, 139, 111];
-  const r1 = 0.6;
-  const r2 = 1;
-  const c = Math.random() < 0.2 ? color2 : color1;
-  const color = `rgb(${rand(c[0] * r1, c[0] * r2)}, ${rand(c[1] * r1, c[1] * r2)}, ${rand(c[2] * r1, c[2] * r2)})`;
-  const bladeHeight = height * rand(0.4, 0.6);
-  const y = bladeHeight;
-
-  const grass: Particle[] = [
-    { x, y, prevX: x, prevY: y, mass: 80 * massOffset, width: 5 * widthOffset, isStatic: true },
-    { x, y, prevX: x, prevY: y, mass: 50 * rand(0.7, 3), width: 5 * widthOffset },
-    { x, y, prevX: x, prevY: y, mass: 20 * rand(0.7, 3), width: 5 * widthOffset },
-    { x, y, prevX: x, prevY: y, mass: 20 * rand(0.7, 3), width: 5 * widthOffset },
-    { x, y, prevX: x, prevY: y, mass: 10 * rand(0.7, 3), width: 4 * widthOffset },
-    { x, y, prevX: x, prevY: y, mass: 10 * rand(0.7, 3), width: 3 * widthOffset },
-    { x, y, prevX: x, prevY: y, mass: 30 * rand(0.7, 3), width: 1 }
-  ];
-  const springs = grass.slice(0, -1).map((g, i) => ({
-    a: i,
-    b: i + 1,
-    restLength: (bladeHeight / grass.length) * restLengthOffset
-  }));
-  const cvs = new OffscreenCanvas(width, height);
-  const ctx = cvs.getContext('2d');
-  return {
-    grass,
-    springs,
-    color,
-    ignoreMouse: Math.random() < 0.1,
-    cvs,
-    ctx, //
-    dupes: Array.from({ length: rand(10, 20, true) }).map(() => ({ x: x + rand(-100, 100), y: rand(0, 100) })),
-    windIndex: rand(0, 1, true)
-  };
-}
-
-const generateFlutter = (length = 5): Gear[] => {
-  //   return Array.from({ length }).map(() => ({ a: rand(0, 360), s: rand(-3, 3), r: rand(20, 100) }));
-  return Array.from({ length }).map(() => randGear({ min: 20, max: 100 }, { min: -3, max: 3 }));
-};
-
-const generateButterfly = (): Butterfly => {
-  const glow = Array.from({ length: rand(2, 3, true) }).map(() => randGear({ min: 200, max: 400 }, { min: -0.5, max: 0.5 }));
-  return {
-    anchor: { x: rand(0, 2000), y: rand(100, 300) }, //
-    position: { x: rand(0, 2000), y: rand(100, 300) },
-    vector: { x: 0, y: 0 },
-    flutter: generateFlutter(5),
-    width: rand(1, 2.5), //rand(2, 5),
-    // color: '#6a6868',
-    color: hexToRgb('#837f6e'), //'#e6ea87',
-    glowColor: hexToRgb('#cff87b'),
-    depth: 0,
-    glow,
-    glowRadius: getGearsRadius(glow),
-    shouldFollow: rand(0, 1) < 0.2
-  };
-};
-
-const NightSwamp = () => {
-  const $cvs = useRef<HTMLCanvasElement>(null);
-  const [width, setWidth] = useState(300);
-  const [height, setHeight] = useState(300);
-  //   const [mouseEntered, setMouseEntered] = useState(false);
-  const mouseEnteredRef = useRef(false);
-  const mouseX = useRef(0);
-  const mouseY = useRef(0);
-  const field = useMemo<GrassBlade[]>(() => {
-    const length = Math.min(~~(width / 3), 350);
-    const margin = 50;
-    const gap = (margin + width + margin) / length;
-    return Array.from({ length }).map((e, i) => {
-      const blade = generateGrassBlade(width, height);
-      blade.grass[0].x = -margin + i * gap;
-      blade.grass[0].y = height;
-      return blade;
-    });
-  }, [width, height]);
-
-  const windGears = useRef([
-    randGear({ min: 200, max: 200 }, { min: -0.5, max: -0.5 }), //
-    randGear({ min: 80, max: 80 }, { min: 0.1, max: 0.1 }),
-    randGear({ min: 200, max: 200 }, { min: -0.3, max: -0.3 }),
-    randGear({ min: 30, max: 40 }, { min: 0.1, max: 0.5 })
-  ]);
-
-  const windGears2 = useRef(windGears.current.map((g) => ({ ...g })));
-
-  const moon = useMemo(() => ({ x: width * 0.5, y: height * 0.8, width: width * 0.1 }), [width]);
-
-  const butterflies = useMemo(() => {
-    const length = ~~(width / 100);
-    return Array.from({ length }).map((_, i) => {
-      const b = generateButterfly();
-      b.depth = i * 10 + rand(0, 5, true);
-      return b;
-    });
-  }, [width]);
-
-  const { isIntersecting, ref } = useIntersectionObserver({
-    threshold: 0,
-    freezeOnceVisible: false
-  });
-
-  useEffect(() => {
-    advanceGears(windGears2.current, 50);
-  }, []);
-  // mouse events
-  useEffect(() => {
-    if ($cvs.current) {
-      const onMove = (e: MouseEvent) => {
-        mouseX.current = e.offsetX;
-        mouseY.current = e.offsetY;
-      };
-      const onResize = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight * 0.9);
-      };
-      const onEnter = () => {
-        // setMouseEntered(true);
-        mouseEnteredRef.current = true;
-      };
-      const onLeave = () => {
-        // setMouseEntered(false);
-        mouseEnteredRef.current = false;
-      };
-      $cvs.current.addEventListener('pointermove', onMove);
-      $cvs.current.addEventListener('pointerenter', onEnter);
-      $cvs.current.addEventListener('pointerleave', onLeave);
-      window.addEventListener('resize', onResize);
-      onResize();
-      return () => {
-        if ($cvs.current) {
-          $cvs.current.removeEventListener('pointermove', onMove);
-        }
-      };
-    }
-  }, [$cvs]);
-
-  useEffect(() => {
-    if (isIntersecting) {
-      let raf = 0;
-      const ctx = $cvs.current.getContext('2d');
-      //   let windAngle = 0;
-
-      const clearCanvas = () => {
-        ctx.clearRect(0, 0, $cvs.current.width, $cvs.current.height);
-      };
-
-      const renderGrassBlade = (grassblade: GrassBlade, index: number = 0) => {
-        const thisWindGears = grassblade.windIndex == 0 ? windGears.current : windGears2.current;
-        const w = getGearPosition(thisWindGears, index);
-        simulate(grassblade.grass, grassblade.springs, 0.1, -15);
-        const d = grassblade.grass[0].x - mouseX.current;
-        let windX = 0;
-        const maxD = 200; //width * .2;
-        // const nor = normalizeVector(w);
-
-        if (mouseEnteredRef.current && mouseY.current > height * 0.5 && Math.abs(d) < maxD) {
-          // user interacting with grass
-          const dir = mouseX.current > grassblade.grass[0].x ? -1 : 1;
-          const power = Math.pow(Math.abs(d), 0.25) * 1;
-          windX = Math.abs(w.x) * 0.01 + power * dir;
-        } else {
-          // apply wind forces
-          windX = w.x * 0.01;
-        }
-
-        for (let i = 1; i < grassblade.grass.length; i++) {
-          grassblade.grass[i].x += windX / grassblade.grass[i].mass;
-        }
-
-        grassblade.ctx.clearRect(0, 0, grassblade.cvs.width, grassblade.cvs.height);
-        //
-        //
-        //
-        /*
-        grassblade.ctx.fillStyle = grassblade.color;
-        grassblade.ctx.beginPath();
-        const points = grassblade.grass;
-        const len = points.length;
-        let i = 1;
-        let point = points[0];
-
-        grassblade.ctx.moveTo(point.x - point.width * 0.5, point.y);
-
-        for (i = 1; i < len - 1; i++) {
-          point = points[i];
-          grassblade.ctx.lineTo(point.x - point.width * 0.5, point.y);
-        }
-        point = points[i];
-        grassblade.ctx.lineTo(point.x, point.y);
-
-        for (i = len - 1; i >= 0; i--) {
-          point = points[i];
-          grassblade.ctx.lineTo(point.x + point.width * 0.5, point.y);
-        }
-        grassblade.ctx.closePath();
-        grassblade.ctx.fill();
-
-        ctx.drawImage(grassblade.cvs, 0, 0);
-
-        for (let i = 0; i < grassblade.dupes.length; i++) {
-          ctx.drawImage(grassblade.cvs, grassblade.dupes[i].x, grassblade.dupes[i].y);
-        }
-        */
-
-        ctx.fillStyle = grassblade.color;
-        ctx.beginPath();
-        const points = grassblade.grass;
-        const len = points.length;
-        let i = 1;
-        let point = points[0];
-
-        ctx.moveTo(point.x - point.width * 0.5, point.y);
-
-        for (i = 1; i < len - 1; i++) {
-          point = points[i];
-          ctx.lineTo(point.x - point.width * 0.5, point.y);
-        }
-        point = points[i];
-        ctx.lineTo(point.x, point.y);
-
-        for (i = len - 1; i >= 0; i--) {
-          point = points[i];
-          ctx.lineTo(point.x + point.width * 0.5, point.y);
-        }
-        ctx.closePath();
-        ctx.fill();
-      };
-
-      const renderBranch = () => {
-        ctx.lineCap = 'round';
-
-        let i = field.length;
-        let butterflyIndex = butterflies.length - 1;
-
-        while (i--) {
-          renderGrassBlade(field[i], i);
-
-          if (butterflyIndex > -1 && i < butterflies[butterflyIndex].depth) {
-            renderButterfly(butterflies[butterflyIndex]);
-            butterflyIndex--;
-          }
-        }
-      };
-
-      const renderButterfly = (b: Butterfly) => {
-        if (Math.random() < 0.01) {
-          //   b.flutter[rand(0, b.flutter.length - 1, true)].s = rand(-3, 3);
-          const gearIndex = rand(0, b.flutter.length - 1, true);
-          const gear = b.flutter[gearIndex];
-          gear.s = rand(gear.args.speed.min, gear.args.speed.max);
-          //   b.flutter[gearIndex].s = rand(-3, 3);
-        }
-        if (b.shouldFollow) {
-          b.vector.x += (mouseX.current - b.position.x) * 0.02;
-          b.vector.y += (mouseY.current - b.position.y) * 0.01;
-        }
-        b.vector.x *= 0.3;
-        b.vector.y *= 0.3;
-        b.anchor.x += b.vector.x;
-        b.anchor.y += b.vector.y;
-
-        const glow = advanceGears(b.glow, 10);
-
-        const offset = { x: 0, y: 0 };
-
-        for (let i = 0; i < b.flutter.length; i++) {
-          const f = b.flutter[i];
-          f.a += f.s;
-          offset.x += Math.sin(f.a * RAD) * f.r;
-          offset.y += Math.cos(f.a * RAD) * f.r;
-        }
-        b.position.x = b.anchor.x + offset.x;
-        b.position.y = b.anchor.y + offset.y;
-
-        b.vector.y -= (b.position.y - height * 0.8) * 0.01;
-        b.vector.x -= (b.position.x - width * 0.8) * 0.01;
-
-        // ctx.fillStyle = `rgb(0,0,0)`;
-        // ctx.beginPath();
-        // ctx.arc(b.position.x + 0.1, b.position.y + 0.5, b.width, 0, 1.3 * Math.PI);
-        // ctx.closePath();
-        // ctx.fill();
-
-        const colorTerp = glow.x / b.glowRadius;
-        ctx.fillStyle = `rgb(${interpolate(b.color.r, b.glowColor.r, colorTerp)},${interpolate(b.color.g, b.glowColor.g, colorTerp)},${interpolate(b.color.b, b.glowColor.b, colorTerp)})`;
-        ctx.beginPath();
-        ctx.arc(b.position.x, b.position.y, b.width, 0, 1.3 * Math.PI);
-        ctx.closePath();
-        ctx.fill();
-      };
-
-      const renderMoon = () => {
-        if (moon.y > moon.width) {
-          moon.y -= 0.03;
-        }
-        ctx.save();
-        ctx.filter = 'blur(2px)';
-        ctx.fillStyle = '#f6f7ed';
-        ctx.beginPath();
-        ctx.arc(moon.x, moon.y, moon.width, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.restore();
-      };
-
-      const renderGround = () => {
-        const x = 0;
-        const y = height * 0.85;
-        const w = width;
-        const h = height * 0.15;
-        const grd = ctx.createLinearGradient(0, y, 0, y + h);
-        grd.addColorStop(0, '#093b0a00');
-        // grd.addColorStop(0.5, '#093b0aFF');
-        grd.addColorStop(1, 'rgb(9, 21, 59)');
-        ctx.fillStyle = grd;
-        ctx.fillRect(x, y, w, h);
-      };
-
-      const renderForeground = () => {
-        const x = 0;
-        const y = height * 0.9;
-        const w = width;
-        const h = height * 0.1;
-        const grd = ctx.createLinearGradient(0, y, 0, y + h);
-        grd.addColorStop(0, 'rgba(64, 85, 25,0)');
-        // grd.addColorStop(0.5, 'rgba(47, 124, 48, 0.5)');
-        grd.addColorStop(1, 'rgb(61, 108, 38)');
-        ctx.fillStyle = grd;
-        ctx.fillRect(x, y, w, h);
-      };
-
-      const renderWind = () => {
-        // if (Math.random() < 0.01) {
-        //   const index = rand(0, windGears.current.length - 1, true);
-        //   const gear = windGears.current[index];
-        //   gear.s = rand(gear.args.speed.min, gear.args.speed.max);
-
-        //   gear.s = rand(-3, 3);
-        //   for (let i = 0; i < b.flutter.length; i++) {
-        //     b.flutter[i].s = rand(-3, 3);
-        //   }
-        //   b.flutter = generateFlutter(5);
-        // }
-        advanceGears(windGears.current, 4);
-        advanceGears(windGears2.current, 4);
-      };
-
-      const animate = () => {
-        clearCanvas();
-        renderMoon();
-        renderGround();
-        renderWind();
-        renderBranch();
-        renderForeground();
-        raf = requestAnimationFrame(animate);
-      };
-
-      // pre-render to clean up initial state
-      for (let i = 0; i < 50; i++) {
-        let i = field.length;
-        while (i--) {
-          simulate(field[i].grass, field[i].springs, 0.5, -30);
-        }
-      }
-
-      animate();
-
-      return () => {
-        cancelAnimationFrame(raf);
-      };
-    }
-  }, [isIntersecting, width]);
-
-  return (
-    <div
-      id='flower'
-      ref={ref}
-      style={{
-        position: 'absolute',
-        bottom: -1,
-        left: 0,
-        maxWidth: '100%',
-        overflow: 'hidden'
-        // transform: 'translateX(-50%)'
-      }}
-    >
-      {/* {butterflies.current.map((b, i) => (
-        <div key={`bf${i}`} className='butterfly' style={{ position: 'absolute', left: b.position.x, bottom: b.position.y, width: b.width, height: b.width }} />
-      ))} */}
-      <canvas ref={$cvs} width={width} height={height} />
-      {/* <div id="log" className='p-2' style={{position:'fixed', top:'50%', left:0, background:'black'}}>Hi</div> */}
-    </div>
-  );
-};
-
-type RGB = { r: number; b: number; g: number };
-
-function hexToRgb(hex: string) {
-  const normalized = hex.replace('#', '');
-
-  const full =
-    normalized.length === 3
-      ? normalized
-          .split('')
-          .map((c) => c + c)
-          .join('')
-      : normalized;
-
-  const num = parseInt(full, 16);
-
-  return {
-    r: (num >> 16) & 255,
-    g: (num >> 8) & 255,
-    b: num & 255
-  };
-}

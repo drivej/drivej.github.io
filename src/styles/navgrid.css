@@ -10,6 +10,7 @@
 body {
   letter-spacing: 2;
   background-color: #000;
+  overflow-x: hidden;
 }
 hr {
   border: none;
@@ -410,7 +411,7 @@ h4 {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1b3687+1,7db9e8+69,d6d1d4+90,fcfacf+100 */
   /* background: linear-gradient(to bottom,  #1b3687 1%,#61a0d3 69%,#bfb1b8 88%,#eae8c2 100%); */
 
-  background-color: rgba(4, 5, 31,0);
+  background-color: rgba(4, 5, 31, 0);
   background-image: linear-gradient(to bottom, #1b3687 1%, #61a0d3 69%, #bfb1b8 88%, #eae8c2 100%);
   background-blend-mode: darken;
 }
