@@ -671,7 +671,7 @@ type Particle = {
 };
 
 type Spring = { a: number; b: number; restLength: number };
-type GrassBlade = { grass: Particle[]; springs: Spring[]; color: string; ignoreMouse: boolean; cvs: OffscreenCanvas; ctx: OffscreenCanvasRenderingContext2D; dupes: Point[] };
+type GrassBlade = { windIndex: number; grass: Particle[]; springs: Spring[]; color: string; ignoreMouse: boolean; cvs: OffscreenCanvas; ctx: OffscreenCanvasRenderingContext2D; dupes: Point[] };
 type Butterfly = { shouldFollow: boolean; anchor: any; position: any; vector: any; flutter: Gear[]; width: any; color: RGB; glowColor: RGB; depth?: number; glow: Gear[]; glowRadius: number };
 
 const Star = () => {
@@ -780,7 +780,8 @@ function generateGrassBlade(width = 500, height = 100): GrassBlade {
     ignoreMouse: Math.random() < 0.1,
     cvs,
     ctx, //
-    dupes: Array.from({ length: rand(10, 20, true) }).map(() => ({ x: x + rand(-100, 100), y: rand(0, 100) }))
+    dupes: Array.from({ length: rand(10, 20, true) }).map(() => ({ x: x + rand(-100, 100), y: rand(0, 100) })),
+    windIndex: rand(0, 1, true)
   };
 }
 
@@ -833,6 +834,9 @@ const NightSwamp = () => {
     randGear({ min: 200, max: 200 }, { min: -0.3, max: -0.3 }),
     randGear({ min: 30, max: 40 }, { min: 0.1, max: 0.5 })
   ]);
+
+  const windGears2 = useRef(windGears.current.map((g) => ({ ...g })));
+
   const moon = useMemo(() => ({ x: width * 0.5, y: height * 0.8, width: width * 0.1 }), [width]);
 
   const butterflies = useMemo(() => {
@@ -844,6 +848,15 @@ const NightSwamp = () => {
     });
   }, [width]);
 
+  const { isIntersecting, ref } = useIntersectionObserver({
+    threshold: 0,
+    freezeOnceVisible: false
+  });
+
+  useEffect(() => {
+    advanceGears(windGears2.current, 50);
+  }, []);
+  // mouse events
   useEffect(() => {
     if ($cvs.current) {
       const onMove = (e: MouseEvent) => {
@@ -875,11 +888,6 @@ const NightSwamp = () => {
     }
   }, [$cvs]);
 
-  const { isIntersecting, ref } = useIntersectionObserver({
-    threshold: 0,
-    freezeOnceVisible: false
-  });
-
   useEffect(() => {
     if (isIntersecting) {
       let raf = 0;
@@ -891,7 +899,8 @@ const NightSwamp = () => {
       };
 
       const renderGrassBlade = (grassblade: GrassBlade, index: number = 0) => {
-        const w = getGearPosition(windGears.current, index);
+        const thisWindGears = grassblade.windIndex == 0 ? windGears.current : windGears2.current;
+        const w = getGearPosition(thisWindGears, index);
         simulate(grassblade.grass, grassblade.springs, 0.1, -15);
         const d = grassblade.grass[0].x - mouseX.current;
         let windX = 0;
@@ -1086,6 +1095,7 @@ const NightSwamp = () => {
         //   b.flutter = generateFlutter(5);
         // }
         advanceGears(windGears.current, 4);
+        advanceGears(windGears2.current, 4);
       };
 
       const animate = () => {
