@@ -5,6 +5,7 @@ import { Icon } from '../components/Icon';
 import { Tags } from '../components/Tag';
 import '../styles/navgrid.css';
 
+const linkedInUrl = 'https://www.linkedin.com/in/jason-contento-9826597/';
 const gridSize = 20;
 const colors = {
   blue: '#46b8da',
@@ -159,6 +160,9 @@ export const HomePageV2Content = () => {
             <div className='flex-row flex-wrap gap-2'>
               <a className='btn primary' href='mailto:drivej@hotmail.com' style={{ paddingLeft: 30, paddingRight: 30 }}>
                 Hire Me
+              </a>
+              <a className='btn primary' href={linkedInUrl}>
+                LinkedIn
               </a>
               <a className='btn primary' href={cvPdf}>
                 <Icon name='download' />
@@ -318,7 +322,7 @@ export const HomePageV2Content = () => {
           </div>
         </section>
 
-        <div className='underline' style={{ position: 'relative', height: '200dvh' }}>
+        <div className='underline' style={{ position: 'relative', height: '150dvh' }}>
           <RandomBalls />
           <div className='underline flex-center' style={{ '--bg-color': '#781f65', height: '100dvh', position: 'sticky', top: 0, boxShadow: ' 0px 0px 40px rgba(0,0,0,0.9)', backgroundColor: 'rgba(0,0,0,0.2)', fontFamily: 'cursive' } as CSSProperties}>
             <div className='p-4 flex-center w-100'>
@@ -377,14 +381,19 @@ export const HomePageV2Content = () => {
 
         <div className='sky-gradient' style={{ position: 'relative' }}>
           <h2 id='thankyou' className='p-3' style={{ position: 'sticky', top: '20vh', right: 0, width: '100%', textAlign: 'center', fontFamily: 'courier', zIndex: 10 }}>
-            <a style={{ textDecoration: 'none', color: 'inherit', fontWeight: 200, textShadow: '0px 1px 3px rgba(0,0,0,0.4)' }} href='mailto:drivej@hotmail.com'>
-              st<span style={{ textDecoration: 'none', fontFamily: 'verdana', fontSize: '0.8em', color: '#e8ff82' }}>@</span>y connected
+            <a
+              className='stay-connected-btn'
+              // href='mailto:drivej@hotmail.com'
+              href={linkedInUrl}
+              target='linkedin'
+            >
+              st<span>@</span>y connected
               <br />
             </a>
           </h2>
           <HappySwamp />
         </div>
-        <div className='p-1' style={{ background: '#0f1a49', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
+        <div className='p-1' style={{ background: '#0f1a49', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontSize:9 }}>
           &copy; Jason Contento 2026
         </div>
 

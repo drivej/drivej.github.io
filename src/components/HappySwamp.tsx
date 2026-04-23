@@ -260,7 +260,7 @@ export const HappySwamp = () => {
     return Array.from({ length }).map((e, i) => {
       const blade = generateGrassBlade(width, height);
       blade.grass[0].x = -margin + i * gap;
-      blade.grass[0].y = height;
+      blade.grass[0].y = height - 1;
       return blade;
     });
   }, [width, height]);

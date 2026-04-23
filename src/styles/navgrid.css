@@ -420,3 +420,26 @@ h4 {
   border-radius: 20px;
   background-color: #fff;
 }
+/*
+
+stay connected
+
+*/
+.stay-connected-btn {
+  padding: 20px 40px;
+  transition: background-color 1s;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 200;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+}
+.stay-connected-btn:hover {
+  background-color: rgba(25, 176, 148, 0.5);
+}
+.stay-connected-btn span {
+  text-decoration: none;
+  font-family: 'verdana';
+  font-size: 0.8em;
+  color: #e8ff82;
+}
