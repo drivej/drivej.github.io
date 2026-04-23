@@ -174,7 +174,7 @@ h4 {
   flex: 1 1 auto;
   border-left: 20px solid var(--bg-color);
   padding-left: var(--gap-2);
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 .funky-scroll > section > div:nth-child(2) {
   flex: 1 1 auto;
@@ -405,7 +405,14 @@ h4 {
 .sky-gradient {
   /* background: radial-gradient(circle at 50% 860%,  #88af44 88.9%,#badbfc 89%,#badbfc 90%,#1e5799 99%);  */
   /* background: linear-gradient(#16467d 0%, rgb(143, 180, 218) 90%, #7facd9 93%, #093b0a 98%); */
-  background: linear-gradient(#16467d 0%, rgb(66, 114, 161) 70%, #5689b6 81%, #cf8bce 100%);
+  /* background: linear-gradient(#0a305c 0%, rgb(66, 114, 161) 70%, #5689b6 75%,#e8e8d3 80%, #cf8bce 100%); */
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e5799+0,7db9e8+61,d6d1d4+80,fcfacf+100 */
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1b3687+1,7db9e8+69,d6d1d4+90,fcfacf+100 */
+  /* background: linear-gradient(to bottom,  #1b3687 1%,#61a0d3 69%,#bfb1b8 88%,#eae8c2 100%); */
+
+  background-color: rgba(4, 5, 31,0);
+  background-image: linear-gradient(to bottom, #1b3687 1%, #61a0d3 69%, #bfb1b8 88%, #eae8c2 100%);
+  background-blend-mode: darken;
 }
 
 .butterfly {

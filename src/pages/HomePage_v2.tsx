@@ -158,6 +158,9 @@ export const HomePageV2Content = () => {
             </div>
             <hr />
             <div className='flex-row gap-2'>
+              <a className='btn primary' href='mailto:drivej@hotmail.com' style={{ paddingLeft: 30, paddingRight: 30 }}>
+                Hire Me
+              </a>
               <a className='btn primary' href={cvPdf}>
                 <Icon name='download' />
                 Download Resume
@@ -808,7 +811,7 @@ const NightSwamp = () => {
   const $cvs = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState(300);
   const [height, setHeight] = useState(300);
-//   const [mouseEntered, setMouseEntered] = useState(false);
+  //   const [mouseEntered, setMouseEntered] = useState(false);
   const mouseEnteredRef = useRef(false);
   const mouseX = useRef(0);
   const mouseY = useRef(0);
@@ -1046,26 +1049,26 @@ const NightSwamp = () => {
 
       const renderGround = () => {
         const x = 0;
-        const y = height * 0.8;
+        const y = height * 0.85;
         const w = width;
-        const h = height * 0.2;
+        const h = height * 0.15;
         const grd = ctx.createLinearGradient(0, y, 0, y + h);
         grd.addColorStop(0, '#093b0a00');
-        grd.addColorStop(0.5, '#093b0aFF');
-        grd.addColorStop(1, '#093b0aFF');
+        // grd.addColorStop(0.5, '#093b0aFF');
+        grd.addColorStop(1, 'rgb(9, 21, 59)');
         ctx.fillStyle = grd;
         ctx.fillRect(x, y, w, h);
       };
 
       const renderForeground = () => {
         const x = 0;
-        const y = height * 0.8;
+        const y = height * 0.9;
         const w = width;
-        const h = height * 0.2;
+        const h = height * 0.1;
         const grd = ctx.createLinearGradient(0, y, 0, y + h);
-        grd.addColorStop(0, '#dbdbdb00');
-        grd.addColorStop(0.5, 'rgba(47, 124, 48, 0.5)');
-        grd.addColorStop(1, 'rgb(64, 85, 25)');
+        grd.addColorStop(0, 'rgba(64, 85, 25,0)');
+        // grd.addColorStop(0.5, 'rgba(47, 124, 48, 0.5)');
+        grd.addColorStop(1, 'rgb(61, 108, 38)');
         ctx.fillStyle = grd;
         ctx.fillRect(x, y, w, h);
       };
