@@ -55,6 +55,7 @@ type Butterfly = {
   depth?: number;
   glow: Gear[];
   glowRadius: number;
+  targetX: number;
 };
 
 type RGB = {
@@ -63,16 +64,20 @@ type RGB = {
   g: number;
 };
 
+function randomSign() {
+  return Math.random() < 0.5 ? -1 : 1;
+}
+
 export function randGear(radius: { min: number; max: number } = { min: 3, max: 8 }, speed: { min: number; max: number } = { min: 1, max: 10 }, angle: { min: number; max: number } = { min: 0, max: 360 }): Gear {
   return {
     a: rand(angle.min, angle.max) * RAD,
     r: rand(radius.min, radius.max),
-    s: rand(speed.min, speed.max) * RAD, //0.3 + Math.random() * 30 * RAD
+    s: rand(speed.min, speed.max) * RAD * randomSign(), //0.3 + Math.random() * 30 * RAD
     args: { radius, speed }
   };
 }
 
-function getGearPosition(gears: Gear[], offset: number, normalize = false) {
+function getGearPosition(gears: Gear[], offset: number = 0, normalize = false) {
   let x = 0;
   let y = 0;
   let a = 0;
@@ -201,25 +206,22 @@ function generateGrassBlade(width = 500, height = 100): GrassBlade {
   };
 }
 
-function generateFlutter(length = 5): Gear[] {
-  //   return Array.from({ length }).map(() => ({ a: rand(0, 360), s: rand(-3, 3), r: rand(20, 100) }));
-  return Array.from({ length }).map(() => randGear({ min: 20, max: 100 }, { min: -3, max: 3 }));
-}
-
-function generateButterfly(): Butterfly {
+function generateButterfly(width: number): Butterfly {
   const glow = Array.from({ length: rand(2, 3, true) }).map(() => randGear({ min: 200, max: 400 }, { min: -0.5, max: 0.5 }));
   return {
-    anchor: { x: rand(0, 2000), y: rand(100, 300) }, //
-    position: { x: rand(0, 2000), y: rand(100, 300) },
+    anchor: { x: rand(0, 2000), y: rand(1000, 1000) }, //
+    position: { x: rand(0, 2000), y: rand(1000, 1000) },
     vector: { x: 0, y: 0 },
-    flutter: generateFlutter(5),
-    width: rand(1, 2.5),
-    color: hexToRgb('#837f6e'),
+    flutter: Array.from({ length: 4 }).map(() => randGear({ min: -100, max: 100 }, { min: 1, max: 2 })),
+    width: rand(2, 4),
+    // color: hexToRgb('#837f6e'),
+    color: hexToRgb('#6b6759'),
     glowColor: hexToRgb('#c8fe5b'),
     depth: 0,
     glow,
     glowRadius: getGearsRadius(glow),
-    shouldFollow: rand(0, 1) < 0.2
+    shouldFollow: Math.random() < 0.2,
+    targetX: rand(0, width)
   };
 }
 
@@ -292,7 +294,7 @@ export const HappySwamp = () => {
   const butterflies = useMemo(() => {
     const length = ~~(width / 100);
     return Array.from({ length }).map((_, i) => {
-      const b = generateButterfly();
+      const b = generateButterfly(width);
       b.depth = i * 10 + rand(0, 5, true);
       return b;
     });
@@ -444,26 +446,56 @@ export const HappySwamp = () => {
 
         let i = field.length;
         let butterflyIndex = butterflies.length - 1;
+        const windVector = getGearPosition(windGears.current);
 
         while (i--) {
           renderGrassBlade(field[i], i);
 
+          // inject butterflies between branches - not the best but it works for now
           if (butterflyIndex > -1 && i < butterflies[butterflyIndex].depth) {
-            renderButterfly(butterflies[butterflyIndex]);
+            renderButterfly(butterflies[butterflyIndex], windVector);
             butterflyIndex--;
           }
         }
       };
 
-      const renderButterfly = (b: Butterfly) => {
+      const renderButterfly = (b: Butterfly, windVector: Point) => {
+        // use vector to draw bugs close to the ground
+        const targetY = height * 0.8;
+        const vy = (targetY - b.anchor.y) / 200;
+
+        const targetX = b.shouldFollow ? mouseX.current : b.targetX;
+        const vx = (targetX - b.anchor.x) / 200;
+
+        // b.vector.x += vx;
+        // b.vector.y += vy;
+
+        const offset = advanceGears(b.flutter);
+        b.anchor.x += vx + windVector.x * 0.01;
+        b.anchor.y += vy;
+        b.position.x = b.anchor.x + offset.x;
+        b.position.y = b.anchor.y + offset.y;
+
+        const glow = advanceGears(b.glow, 10);
+        const colorTerp = glow.x / b.glowRadius;
+        const color = colorTerp > 0.5 ? b.glowColor : b.color;
+
+        ctx.fillStyle = `rgb(${color.r},${color.g},${b.color.b})`;
+        ctx.beginPath();
+        ctx.ellipse(b.position.x, b.position.y, b.width, b.width * 0.5, 0, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fill();
+        return;
+
+        /*
         if (Math.random() < 0.01) {
           const gearIndex = rand(0, b.flutter.length - 1, true);
           const gear = b.flutter[gearIndex];
-          gear.s = rand(gear.args.speed.min, gear.args.speed.max);
+        //   gear.s = rand(gear.args.speed.min, gear.args.speed.max);
         }
         if (b.shouldFollow) {
-          b.vector.x += (mouseX.current - b.position.x) * 0.02;
-          b.vector.y += (mouseY.current - b.position.y) * 0.01;
+        //   b.vector.x += (mouseX.current - b.position.x) * 0.02;
+        //   b.vector.y += (mouseY.current - b.position.y) * 0.01;
         }
         b.vector.x *= 0.3;
         b.vector.y *= 0.3;
@@ -471,6 +503,13 @@ export const HappySwamp = () => {
         b.anchor.y += b.vector.y;
 
         const glow = advanceGears(b.glow, 10);
+        const flutter = advanceGears(b.flutter);
+
+        b.vector.x += flutter.x;
+        b.vector.y += flutter.y;
+
+        b.position.x += b.vector.x;
+        b.position.y += b.vector.y;
 
         const offset = { x: 0, y: 0 };
 
@@ -483,18 +522,21 @@ export const HappySwamp = () => {
         b.position.x = b.anchor.x + offset.x;
         b.position.y = b.anchor.y + offset.y;
 
-        b.vector.y -= (b.position.y - height * 0.8) * 0.01;
-        b.vector.x -= (b.position.x - width * 0.8) * 0.01;
+        // b.vector.y -= (b.position.y - height * 0.8) * 0.01;
+        // b.vector.x -= (b.position.x - width * 0.8) * 0.01;
 
         const colorTerp = glow.x / b.glowRadius;
         // ctx.fillStyle = `rgb(${interpolate(b.color.r, b.glowColor.r, colorTerp)},${interpolate(b.color.g, b.glowColor.g, colorTerp)},${interpolate(b.color.b, b.glowColor.b, colorTerp)})`;
         const color = colorTerp > 0.5 ? b.glowColor : b.color;
         ctx.fillStyle = `rgb(${color.r},${color.g},${b.color.b})`;
+        ctx.fillStyle = '#000';
 
         ctx.beginPath();
-        ctx.arc(b.position.x, b.position.y, b.width, 0, 1.3 * Math.PI);
+        // ctx.arc(b.position.x, b.position.y, b.width, 0, 2 * Math.PI);
+        ctx.ellipse(b.position.x, b.position.y, b.width, b.width * 0.5, 0, 0, 2 * Math.PI);
         ctx.closePath();
         ctx.fill();
+        */
       };
 
       const renderMoon = () => {
@@ -536,10 +578,10 @@ export const HappySwamp = () => {
       };
 
       // pre-render to clean up initial state
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 160; i++) {
         let i = field.length;
         while (i--) {
-          simulate(field[i].grass, field[i].springs, 0.5, -30);
+          renderGrassBlade(field[i], i);
         }
       }
 
