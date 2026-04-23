@@ -808,7 +808,7 @@ const NightSwamp = () => {
   const $cvs = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState(300);
   const [height, setHeight] = useState(300);
-  const [mouseEntered, setMouseEntered] = useState(false);
+//   const [mouseEntered, setMouseEntered] = useState(false);
   const mouseEnteredRef = useRef(false);
   const mouseX = useRef(0);
   const mouseY = useRef(0);
@@ -852,11 +852,11 @@ const NightSwamp = () => {
         setHeight(window.innerHeight * 0.9);
       };
       const onEnter = () => {
-        setMouseEntered(true);
+        // setMouseEntered(true);
         mouseEnteredRef.current = true;
       };
       const onLeave = () => {
-        setMouseEntered(false);
+        // setMouseEntered(false);
         mouseEnteredRef.current = false;
       };
       $cvs.current.addEventListener('pointermove', onMove);
