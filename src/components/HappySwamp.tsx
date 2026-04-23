@@ -292,7 +292,7 @@ export const HappySwamp = () => {
       p: 0,
       x: width * 0.5,
       y: { from: height + w * 0.3, to: w + 10 },
-      width: { from: w, to: w * 0.5 }
+      width: { from: w, to: w * 0.45 }
     };
   }, [width]);
 
