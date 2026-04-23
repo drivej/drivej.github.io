@@ -1,4 +1,4 @@
-import { rand } from '@drivej/xrworld';
+import { clamp, interpolate, rand } from '@drivej/xrworld';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useIntersectionObserver } from 'usehooks-ts';
 
@@ -254,7 +254,7 @@ export const HappySwamp = () => {
   const mouseY = useRef(0);
 
   const field = useMemo<GrassBlade[]>(() => {
-    const length = Math.min(~~(width / 3), 350);
+    const length = Math.min(~~(width / 2), 350);
     const margin = 50;
     const gap = (margin + width + margin) / length;
     return Array.from({ length }).map((e, i) => {
@@ -396,6 +396,9 @@ export const HappySwamp = () => {
       const renderGrassBlade = (grassblade: GrassBlade, index: number = 0) => {
         const thisWindGears = grassblade.windIndex == 0 ? windGears.current : windGears2.current;
         const windVector = getGearPosition(thisWindGears, index);
+
+        windVector.x = clamp(windVector.x, -180, 180);
+        // console.log(windVector.x)
         simulate(grassblade.grass, grassblade.springs, 0.1, -15);
         const d = grassblade.grass[0].x - mouseX.current;
         let windX = 0;
@@ -445,18 +448,23 @@ export const HappySwamp = () => {
         ctx.lineCap = 'round';
 
         let i = field.length;
-        let butterflyIndex = butterflies.length - 1;
+        // let butterflyIndex = butterflies.length - 1;
         const windVector = getGearPosition(windGears.current);
 
         while (i--) {
           renderGrassBlade(field[i], i);
 
           // inject butterflies between branches - not the best but it works for now
-          if (butterflyIndex > -1 && i < butterflies[butterflyIndex].depth) {
-            renderButterfly(butterflies[butterflyIndex], windVector);
-            butterflyIndex--;
-          }
+        //   if (butterflyIndex > -1 && i < butterflies[butterflyIndex].depth) {
+        //     // renderButterfly(butterflies[butterflyIndex], windVector);
+        //     butterflyIndex--;
+        //   }
         }
+
+         i = butterflies.length;
+         while(i--){
+            renderButterfly(butterflies[i], windVector);
+         }
       };
 
       const renderButterfly = (b: Butterfly, windVector: Point) => {
@@ -469,6 +477,7 @@ export const HappySwamp = () => {
 
         // b.vector.x += vx;
         // b.vector.y += vy;
+        const lastX = b.position.x;
 
         const offset = advanceGears(b.flutter);
         b.anchor.x += vx + windVector.x * 0.01;
@@ -479,10 +488,11 @@ export const HappySwamp = () => {
         const glow = advanceGears(b.glow, 10);
         const colorTerp = glow.x / b.glowRadius;
         const color = colorTerp > 0.5 ? b.glowColor : b.color;
+        const attackAngle = interpolate(35, -35, (vx + 1) / 2) * RAD;
 
         ctx.fillStyle = `rgb(${color.r},${color.g},${b.color.b})`;
         ctx.beginPath();
-        ctx.ellipse(b.position.x, b.position.y, b.width, b.width * 0.5, 0, 0, 2 * Math.PI);
+        ctx.ellipse(b.position.x, b.position.y, b.width, b.width * 0.5, attackAngle, 0, 2 * Math.PI);
         ctx.closePath();
         ctx.fill();
         return;
@@ -562,8 +572,8 @@ export const HappySwamp = () => {
       };
 
       const renderWind = () => {
-        advanceGears(windGears.current, 4);
-        advanceGears(windGears2.current, 4);
+        advanceGears(windGears.current, 2);
+        advanceGears(windGears2.current, 2);
       };
 
       const animate = () => {
