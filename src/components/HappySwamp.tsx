@@ -63,9 +63,9 @@ type RGB = {
   g: number;
 };
 
-export function randGear(radius: { min: number; max: number } = { min: 3, max: 8 }, speed: { min: number; max: number } = { min: 1, max: 10 }): Gear {
+export function randGear(radius: { min: number; max: number } = { min: 3, max: 8 }, speed: { min: number; max: number } = { min: 1, max: 10 }, angle: { min: number; max: number } = { min: 0, max: 360 }): Gear {
   return {
-    a: rand(0, 360) * RAD,
+    a: rand(angle.min, angle.max) * RAD,
     r: rand(radius.min, radius.max),
     s: rand(speed.min, speed.max) * RAD, //0.3 + Math.random() * 30 * RAD
     args: { radius, speed }
