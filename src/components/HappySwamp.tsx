@@ -288,7 +288,12 @@ export const HappySwamp = () => {
 
   const moon = useMemo(() => {
     const w = width * 0.15;
-    return { x: width * 0.5, y: height + w * 0.3, width: w };
+    return {
+      p: 0,
+      x: width * 0.5,
+      y: { from: height + w * 0.3, to: w + 10 },
+      width: { from: w, to: w * 0.5 }
+    };
   }, [width]);
 
   const butterflies = useMemo(() => {
@@ -455,16 +460,16 @@ export const HappySwamp = () => {
           renderGrassBlade(field[i], i);
 
           // inject butterflies between branches - not the best but it works for now
-        //   if (butterflyIndex > -1 && i < butterflies[butterflyIndex].depth) {
-        //     // renderButterfly(butterflies[butterflyIndex], windVector);
-        //     butterflyIndex--;
-        //   }
+          //   if (butterflyIndex > -1 && i < butterflies[butterflyIndex].depth) {
+          //     // renderButterfly(butterflies[butterflyIndex], windVector);
+          //     butterflyIndex--;
+          //   }
         }
 
-         i = butterflies.length;
-         while(i--){
-            renderButterfly(butterflies[i], windVector);
-         }
+        i = butterflies.length;
+        while (i--) {
+          renderButterfly(butterflies[i], windVector);
+        }
       };
 
       const renderButterfly = (b: Butterfly, windVector: Point) => {
@@ -550,15 +555,20 @@ export const HappySwamp = () => {
       };
 
       const renderMoon = () => {
-        if (moon.y > moon.width + 10) {
-          moon.y -= 0.03;
-          moon.width *= 0.9999;
+        let y = moon.y.to;
+        let w = moon.width.to;
+
+        if (moon.p < 1) {
+          moon.p += 0.0002;
+          y = interpolate(moon.y.from, moon.y.to, moon.p);
+          w = interpolate(moon.width.from, moon.width.to, moon.p);
         }
+
         ctx.save();
         ctx.filter = 'blur(2px)';
         ctx.fillStyle = '#f6f7ed';
         ctx.beginPath();
-        ctx.arc(moon.x, moon.y, moon.width, 0, 2 * Math.PI);
+        ctx.arc(moon.x, y, w, 0, 2 * Math.PI);
         ctx.fill();
         ctx.restore();
       };
