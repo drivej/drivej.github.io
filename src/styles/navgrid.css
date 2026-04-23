@@ -404,7 +404,8 @@ h4 {
 
 .sky-gradient {
   /* background: radial-gradient(circle at 50% 860%,  #88af44 88.9%,#badbfc 89%,#badbfc 90%,#1e5799 99%);  */
-  background: linear-gradient(#16467d 0%, rgb(143, 180, 218) 90%, #7facd9 93%, #093b0a 98%);
+  /* background: linear-gradient(#16467d 0%, rgb(143, 180, 218) 90%, #7facd9 93%, #093b0a 98%); */
+  background: linear-gradient(#16467d 0%, rgb(66, 114, 161) 70%, #5689b6 81%, #cf8bce 100%);
 }
 
 .butterfly {

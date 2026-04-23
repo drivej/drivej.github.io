@@ -379,7 +379,7 @@ export const HomePageV2Content = () => {
   );
 };
 
-import { rand } from '@drivej/xrworld';
+import { interpolate, rand } from '@drivej/xrworld';
 import { ParallaxProvider, useParallax } from 'react-scroll-parallax';
 import '../styles/hamburgers.css';
 
@@ -539,13 +539,15 @@ type Gear = {
   a: number;
   r: number;
   s: number;
+  args: { radius: { min: number; max: number }; speed: { min: number; max: number } };
 };
 
 function randGear(radius: { min: number; max: number } = { min: 3, max: 8 }, speed: { min: number; max: number } = { min: 1, max: 10 }): Gear {
   return {
     a: rand(0, 360) * RAD,
     r: rand(radius.min, radius.max),
-    s: rand(speed.min, speed.max) * RAD //0.3 + Math.random() * 30 * RAD
+    s: rand(speed.min, speed.max) * RAD, //0.3 + Math.random() * 30 * RAD
+    args: { radius, speed }
   };
 }
 
@@ -574,6 +576,14 @@ function advanceGears(gears: Gear[], steps = 1) {
     y += Math.cos(gear.a) * gear.r;
   }
   return { x, y };
+}
+
+function getGearsRadius(gears: Gear[]) {
+  let l = 0;
+  for (let i = 0; i < gears.length; i++) {
+    l += gears[i].r;
+  }
+  return l;
 }
 
 const NavGrid = () => {
@@ -659,6 +669,7 @@ type Particle = {
 
 type Spring = { a: number; b: number; restLength: number };
 type GrassBlade = { grass: Particle[]; springs: Spring[]; color: string; ignoreMouse: boolean; cvs: OffscreenCanvas; ctx: OffscreenCanvasRenderingContext2D; dupes: Point[] };
+type Butterfly = { shouldFollow: boolean; anchor: any; position: any; vector: any; flutter: Gear[]; width: any; color: RGB; glowColor: RGB; depth?: number; glow: Gear[]; glowRadius: number };
 
 const Star = () => {
   const offsetY = useRef(Math.random() * 5);
@@ -770,20 +781,26 @@ function generateGrassBlade(width = 500, height = 100): GrassBlade {
   };
 }
 
-const generateFlutter = (length = 5) => {
-  return Array.from({ length }).map(() => ({ a: rand(0, 360), s: rand(-3, 3), r: rand(20, 100) }));
+const generateFlutter = (length = 5): Gear[] => {
+  //   return Array.from({ length }).map(() => ({ a: rand(0, 360), s: rand(-3, 3), r: rand(20, 100) }));
+  return Array.from({ length }).map(() => randGear({ min: 20, max: 100 }, { min: -3, max: 3 }));
 };
 
-const generateButterfly = (length = 5) => {
+const generateButterfly = (): Butterfly => {
+  const glow = Array.from({ length: rand(2, 3, true) }).map(() => randGear({ min: 200, max: 400 }, { min: -0.5, max: 0.5 }));
   return {
     anchor: { x: rand(0, 2000), y: rand(100, 300) }, //
     position: { x: rand(0, 2000), y: rand(100, 300) },
     vector: { x: 0, y: 0 },
-    flutter: generateFlutter(length),
-    width: rand(1, 3),
+    flutter: generateFlutter(5),
+    width: rand(1, 2.5), //rand(2, 5),
     // color: '#6a6868',
-    color: '#e6ea87',
-    depth: 0
+    color: hexToRgb('#837f6e'), //'#e6ea87',
+    glowColor: hexToRgb('#cff87b'),
+    depth: 0,
+    glow,
+    glowRadius: getGearsRadius(glow),
+    shouldFollow: rand(0, 1) < 0.2
   };
 };
 
@@ -791,6 +808,8 @@ const NightSwamp = () => {
   const $cvs = useRef<HTMLCanvasElement>(null);
   const [width, setWidth] = useState(300);
   const [height, setHeight] = useState(300);
+  const [mouseEntered, setMouseEntered] = useState(false);
+  const mouseEnteredRef = useRef(false);
   const mouseX = useRef(0);
   const mouseY = useRef(0);
   const field = useMemo<GrassBlade[]>(() => {
@@ -814,8 +833,8 @@ const NightSwamp = () => {
   const moon = useMemo(() => ({ x: width * 0.5, y: height * 0.8, width: width * 0.1 }), [width]);
 
   const butterflies = useMemo(() => {
-    // const len = ~~(width / 2);
-    return Array.from({ length: ~~(width / 200) }).map((_, i) => {
+    const length = ~~(width / 100);
+    return Array.from({ length }).map((_, i) => {
       const b = generateButterfly();
       b.depth = i * 10 + rand(0, 5, true);
       return b;
@@ -832,7 +851,17 @@ const NightSwamp = () => {
         setWidth(window.innerWidth);
         setHeight(window.innerHeight * 0.9);
       };
+      const onEnter = () => {
+        setMouseEntered(true);
+        mouseEnteredRef.current = true;
+      };
+      const onLeave = () => {
+        setMouseEntered(false);
+        mouseEnteredRef.current = false;
+      };
       $cvs.current.addEventListener('pointermove', onMove);
+      $cvs.current.addEventListener('pointerenter', onEnter);
+      $cvs.current.addEventListener('pointerleave', onLeave);
       window.addEventListener('resize', onResize);
       onResize();
       return () => {
@@ -863,13 +892,13 @@ const NightSwamp = () => {
         simulate(grassblade.grass, grassblade.springs, 0.1, -15);
         const d = grassblade.grass[0].x - mouseX.current;
         let windX = 0;
-        const maxD = width;
+        const maxD = 200; //width * .2;
         // const nor = normalizeVector(w);
 
-        if (mouseY.current > height * 0.5 && Math.abs(d) < maxD) {
+        if (mouseEnteredRef.current && mouseY.current > height * 0.5 && Math.abs(d) < maxD) {
           // user interacting with grass
           const dir = mouseX.current > grassblade.grass[0].x ? -1 : 1;
-          const power = Math.pow(Math.abs(d), 0.1) * 1;
+          const power = Math.pow(Math.abs(d), 0.25) * 1;
           windX = Math.abs(w.x) * 0.01 + power * dir;
         } else {
           // apply wind forces
@@ -955,13 +984,24 @@ const NightSwamp = () => {
         }
       };
 
-      const renderButterfly = (b: { anchor: any; position: any; vector: any; flutter: any; width: any; color: any; depth?: number }) => {
-        b.vector.x += (mouseX.current - b.position.x) * 0.01;
-        b.vector.y += (mouseY.current - b.position.y) * 0.01;
+      const renderButterfly = (b: Butterfly) => {
+        if (Math.random() < 0.01) {
+          //   b.flutter[rand(0, b.flutter.length - 1, true)].s = rand(-3, 3);
+          const gearIndex = rand(0, b.flutter.length - 1, true);
+          const gear = b.flutter[gearIndex];
+          gear.s = rand(gear.args.speed.min, gear.args.speed.max);
+          //   b.flutter[gearIndex].s = rand(-3, 3);
+        }
+        if (b.shouldFollow) {
+          b.vector.x += (mouseX.current - b.position.x) * 0.02;
+          b.vector.y += (mouseY.current - b.position.y) * 0.01;
+        }
         b.vector.x *= 0.3;
         b.vector.y *= 0.3;
         b.anchor.x += b.vector.x;
         b.anchor.y += b.vector.y;
+
+        const glow = advanceGears(b.glow, 10);
 
         const offset = { x: 0, y: 0 };
 
@@ -974,9 +1014,20 @@ const NightSwamp = () => {
         b.position.x = b.anchor.x + offset.x;
         b.position.y = b.anchor.y + offset.y;
 
-        ctx.fillStyle = b.color;
+        b.vector.y -= (b.position.y - height * 0.8) * 0.01;
+        b.vector.x -= (b.position.x - width * 0.8) * 0.01;
+
+        // ctx.fillStyle = `rgb(0,0,0)`;
+        // ctx.beginPath();
+        // ctx.arc(b.position.x + 0.1, b.position.y + 0.5, b.width, 0, 1.3 * Math.PI);
+        // ctx.closePath();
+        // ctx.fill();
+
+        const colorTerp = glow.x / b.glowRadius;
+        ctx.fillStyle = `rgb(${interpolate(b.color.r, b.glowColor.r, colorTerp)},${interpolate(b.color.g, b.glowColor.g, colorTerp)},${interpolate(b.color.b, b.glowColor.b, colorTerp)})`;
         ctx.beginPath();
         ctx.arc(b.position.x, b.position.y, b.width, 0, 1.3 * Math.PI);
+        ctx.closePath();
         ctx.fill();
       };
 
@@ -1019,11 +1070,26 @@ const NightSwamp = () => {
         ctx.fillRect(x, y, w, h);
       };
 
+      const renderWind = () => {
+        // if (Math.random() < 0.01) {
+        //   const index = rand(0, windGears.current.length - 1, true);
+        //   const gear = windGears.current[index];
+        //   gear.s = rand(gear.args.speed.min, gear.args.speed.max);
+
+        //   gear.s = rand(-3, 3);
+        //   for (let i = 0; i < b.flutter.length; i++) {
+        //     b.flutter[i].s = rand(-3, 3);
+        //   }
+        //   b.flutter = generateFlutter(5);
+        // }
+        advanceGears(windGears.current, 4);
+      };
+
       const animate = () => {
         clearCanvas();
         renderMoon();
         renderGround();
-        advanceGears(windGears.current, 4);
+        renderWind();
         renderBranch();
         renderForeground();
         raf = requestAnimationFrame(animate);
@@ -1066,3 +1132,25 @@ const NightSwamp = () => {
     </div>
   );
 };
+
+type RGB = { r: number; b: number; g: number };
+
+function hexToRgb(hex: string) {
+  const normalized = hex.replace('#', '');
+
+  const full =
+    normalized.length === 3
+      ? normalized
+          .split('')
+          .map((c) => c + c)
+          .join('')
+      : normalized;
+
+  const num = parseInt(full, 16);
+
+  return {
+    r: (num >> 16) & 255,
+    g: (num >> 8) & 255,
+    b: num & 255
+  };
+}
