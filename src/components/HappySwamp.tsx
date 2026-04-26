@@ -493,7 +493,7 @@ export const HappySwamp = () => {
         const glow = advanceGears(b.glow, 10);
         const colorTerp = glow.x / b.glowRadius;
         const color = colorTerp > 0.5 ? b.glowColor : b.color;
-        const attackAngle = interpolate(35, -35, (vx + 1) / 2) * RAD;
+        const attackAngle = interpolate(25, -25, (vx + 1) / 2) * RAD;
 
         ctx.fillStyle = `rgb(${color.r},${color.g},${b.color.b})`;
         ctx.beginPath();
@@ -615,7 +615,7 @@ export const HappySwamp = () => {
 
   return (
     <div ref={ref}>
-      <div style={{ height: '40vh' }} />
+      {/* <div style={{ height: '40vh' }} /> */}
       <canvas ref={$cvs} width={width} height={height} style={{ verticalAlign: 'bottom' }} />
     </div>
   );

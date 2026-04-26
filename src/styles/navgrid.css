@@ -101,7 +101,7 @@ h4 {
 .ps-4 {
   --pad: var(--gap-4);
 }
-[class*='p-'] {
+.p-1, .p-2, .p-3, .p-4 {
   padding: var(--pad);
 }
 [class*='ps-'] {
@@ -181,6 +181,9 @@ h4 {
   flex: 1 1 auto;
   padding: var(--gap-3);
   backdrop-filter: blur(20px) brightness(0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media screen and (max-width: 600px) {
