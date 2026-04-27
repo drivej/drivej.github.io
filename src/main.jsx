@@ -13,7 +13,8 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HashRouter>
       <Routes>
-        <Route path='/' element={<App />} />
+        <Route path='/' element={<HomePageV2 />} />
+        <Route path='/hp0' element={<App />} />
         <Route path='/lab' element={<Lab />} />
         <Route path='/set-game' element={<SetGamePage />} />
         <Route path='/spiderverse' element={<SpiderVersePage />} />

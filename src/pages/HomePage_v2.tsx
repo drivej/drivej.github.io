@@ -28,7 +28,7 @@ export const HomePageV2 = () => {
       <Header />
       <Section id='tldr' title={'TL;DR'} color={colors.blue} content={<Introduction />} />
       <Section id='skills' title={'My Skills'} color={colors.green} content={<MyStats />} />
-      <Section id='case_study' title={'Case Study'} color={colors.purple} content={<CaseStudy />} />
+      <Section id='case_study' title={'Case Study'} color={colors.purple} content={<CaseStudies />} />
       <Section id='reviews' title={'Reviews'} color={colors.orange} content={<Reviews />} />
       <Swamp />
       <Footer />
@@ -71,10 +71,10 @@ const Header = () => {
   return (
     <div className='header-bar p-1 underline' style={{ position: 'sticky', top: 0, zIndex: 999, background: '#0f1a49', textAlign: 'center', color: 'rgba(255,255,255,0.8)' }}>
       <p className='flex-row gap-2 flex-center desktop-only'>
-        <span>Jason Contento</span>|<span>Frontend Dev</span>|<span>NY Metro Area</span>
+        <span>Jason Contento</span>|<span>Frontend Dev</span>|<span>NY Metro</span>
       </p>
       <p className='flex-row gap-1 flex-end mobile-only'>
-        <span>Jason Contento</span>|<span>Frontend Dev</span>|<span>NY</span>
+        <span>Jason Contento</span>|<span>Frontend Dev</span>|<span>NYC</span>
       </p>
     </div>
   );
@@ -144,24 +144,24 @@ const SidebarMenu = () => {
           <a href='#reviews' onClick={onClickNavItem}>
             <h2 style={{ color: colors.orange }}>Reviews</h2>
           </a>
-          {/* <a href='#tough_crowd' onClick={onClickNavItem}>
-              <h2 style={{ color: colors.yellow }}>Tough Crowd</h2>
-            </a> */}
         </div>
         <hr />
         <div className='flex-col gap-3'>
           <p>
             Jason Contento
             <br />
-            New Jersey, USA
+            NY Metro
           </p>
-          <a href={cvPdf} className='hover-underline text-light'>
-            Download Resume
-          </a>
-          <a href='mailto:drivej@hotmail.com' className='hover-underline text-light'>
-            drivej@hotmail.com
-          </a>
         </div>
+      </div>
+      <div className='flex-row gap-1'>
+        <a className='resume-link' href={cvPdf} target='_blank' title='resume'>
+          <Icon name='download' />
+          Resume
+        </a>
+        <SocialIcon url={'mailto:drivej@hotmail.com'} borderRadius='6px' title='email' />
+        <SocialIcon url={linkedInUrl} borderRadius='6px' title='linkedIn' />
+        <SocialIcon url={'https://github.com/drivej'} title='github' borderRadius='6px' />
       </div>
     </Sidenav>
   );
@@ -376,7 +376,33 @@ const MyStats = () => {
   );
 };
 
-const CaseStudy = () => {
+const CaseStudies = () => {
+  const [showIndex, setShowIndex] = useState(0);
+
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <div className='flex-row gap-2'>
+        <button className='case-study-btn btn' data-selected={showIndex == 0 ? '1' : '0'} onClick={() => setShowIndex(0)}>
+          Digital Marketing Agency
+        </button>
+        <button className='case-study-btn btn' data-selected={showIndex == 1 ? '1' : '0'} onClick={() => setShowIndex(1)}>
+          Social Media Startup
+        </button>
+      </div>
+      <div className='p-3' />
+      <div style={{ display: showIndex == 0 ? '' : 'none' }}>
+        <CaseStudy1 />
+      </div>
+      <div style={{ display: showIndex == 1 ? '' : 'none' }}>
+        <CaseStudy2 />
+      </div>
+
+      <div style={{ flex: '1 1 auto' }} />
+    </div>
+  );
+};
+
+const CaseStudy1 = () => {
   return (
     <div className='flex-col gap-3' style={{ maxWidth: 800 }}>
       <div className='flex-col gap-1'>
@@ -388,7 +414,7 @@ const CaseStudy = () => {
         <div className='flex-col gap-1'>
           {/* <h3>Problem</h3> */}
           <p className='Xps-1'>
-            Perry Marketing provides excellent online marketing services. They go to bat for their clients, delivering far beyond what many larger agencies would offer. However, their reporting process required manual aggregation of data from multiple sources. They were also expanding from a few dozen clients to a few
+            The client provides excellent online marketing services. They go to bat for their clients, delivering far beyond what many larger agencies would offer. However, their reporting process required manual aggregation of data from multiple sources. They were also expanding from a few dozen clients to a few
             hundred. This was unsustainable.
           </p>
         </div>
@@ -442,6 +468,38 @@ const CaseStudy = () => {
   );
 };
 
+const CaseStudy2 = () => {
+  return (
+    <div className='flex-col gap-3' style={{ maxWidth: 800 }}>
+      <div className='flex-col gap-1'>
+        <h2>Web Version of Mobile App</h2>
+        <p>Social Media Startup</p>
+      </div>
+      <hr />
+      <div className='flex-col gap-2 Xp-1'>
+        <div className='flex-col gap-1'>
+          <p className='Xps-1'>The client built an amazing socila media app using audio as the primary post method. This was a fantasic app and an excellent opportunity to work with the latest web audio tech.</p>
+        </div>
+
+        <div className='flex-col gap-1 ps-1'>
+          <li>
+            <p>Aligned with app dev team to achieve as much parity with the app as possible</p>
+          </li>
+          <li>
+            <p>Evolved with the Web Audio API that has patchy support across browsers</p>
+          </li>
+          <li>
+            <p>Developed and maintained full stack with AWS Lambda/Node for 3 web properties</p>
+          </li>
+          <li>
+            <p>Built a react-query based backbone for the GQL API integration</p>
+          </li>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Review = ({ author, border, children }: { author: React.ReactNode; border: string; children: React.ReactNode }) => {
   return (
     <div className='quote p-2' style={{ border: `2px solid ${border}` }}>
@@ -463,9 +521,9 @@ const Reviews = () => {
         <br />
         Also, stays calm while others toil.
       </Review>
-      <Review author='Dept. VP' border={colors.blue}>
+      {/* <Review author='Dept. VP' border={colors.blue}>
         Get back to work!
-      </Review>
+      </Review> */}
       <Review author='HR' border={colors.purple}>
         We can only confirm the he worked here.
         {/* <br /> */}

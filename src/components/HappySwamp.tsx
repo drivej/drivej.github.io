@@ -1,6 +1,6 @@
 import { clamp, interpolate, rand } from '@drivej/xrworld';
 import { useEffect, useMemo, useRef } from 'react';
-import { useIntersectionObserver, useWindowSize } from 'usehooks-ts';
+import { useIntersectionObserver, useResizeObserver } from 'usehooks-ts';
 
 const RAD = Math.PI / 180;
 
@@ -246,15 +246,27 @@ function hexToRgb(hex: string) {
 }
 
 export const HappySwamp = () => {
-  const { width = 0, height = 0 } = useWindowSize();
+  const ref = useRef<HTMLDivElement | null>(null);
   const $cvs = useRef<HTMLCanvasElement>(null);
-  // const [width, setWidth] = useState(300);
-  // const [height, setHeight] = useState(300);
   const mouseEnteredRef = useRef(false);
   const mouseX = useRef(0);
   const mouseY = useRef(0);
 
+  // Observe the canvas container entering/leaving the viewport.
+  // useIntersectionObserver provides its own callback ref; we combine it
+  // with our local ref so we can also use useResizeObserver on the same node.
+  const { ref: intersectionRef, isIntersecting } = useIntersectionObserver({
+    threshold: 0,
+    freezeOnceVisible: false
+  });
+
+  const { width = 0, height = 0 } = useResizeObserver({
+    ref,
+    box: 'border-box'
+  });
+
   const field = useMemo<GrassBlade[]>(() => {
+    console.log('generate grass', height);
     const length = Math.min(~~(width / 2), 350);
     const margin = 50;
     const gap = (margin + width + margin) / length;
@@ -283,7 +295,7 @@ export const HappySwamp = () => {
       size: rand(0.5, 2),
       brightness: rand(0.1, 1)
     }));
-  }, [width]);
+  }, [width, height]);
 
   const windGears2 = useRef(windGears.current.map((g) => ({ ...g })));
 
@@ -296,7 +308,7 @@ export const HappySwamp = () => {
       y: { from: height + w * 0.3, to: w - height },
       width: { from: w, to: w * 0.45 }
     };
-  }, [width]);
+  }, [width, height]);
 
   const butterflies = useMemo(() => {
     const length = ~~(width / 100);
@@ -306,11 +318,6 @@ export const HappySwamp = () => {
       return b;
     });
   }, [width]);
-
-  const { isIntersecting, ref } = useIntersectionObserver({
-    threshold: 0,
-    freezeOnceVisible: false
-  });
 
   useEffect(() => {
     advanceGears(windGears2.current, 50);
@@ -608,11 +615,16 @@ export const HappySwamp = () => {
         cancelAnimationFrame(raf);
       };
     }
-  }, [isIntersecting, width]);
+  }, [isIntersecting, width, height]);
 
   return (
-    <div ref={ref}>
-      {/* <div style={{ height: '40vh' }} /> */}
+    <div
+      ref={(node) => {
+        ref.current = node;
+        intersectionRef(node ?? undefined);
+      }}
+      style={{ width: '100vw', height: '100vh' }}
+    >
       <canvas ref={$cvs} width={width} height={height} style={{ verticalAlign: 'bottom' }} />
     </div>
   );
