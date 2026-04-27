@@ -1,6 +1,6 @@
 import { clamp, interpolate, rand } from '@drivej/xrworld';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useIntersectionObserver } from 'usehooks-ts';
+import { useEffect, useMemo, useRef } from 'react';
+import { useIntersectionObserver, useWindowSize } from 'usehooks-ts';
 
 const RAD = Math.PI / 180;
 
@@ -246,9 +246,10 @@ function hexToRgb(hex: string) {
 }
 
 export const HappySwamp = () => {
+  const { width = 0, height = 0 } = useWindowSize();
   const $cvs = useRef<HTMLCanvasElement>(null);
-  const [width, setWidth] = useState(300);
-  const [height, setHeight] = useState(300);
+  // const [width, setWidth] = useState(300);
+  // const [height, setHeight] = useState(300);
   const mouseEnteredRef = useRef(false);
   const mouseX = useRef(0);
   const mouseY = useRef(0);
@@ -290,8 +291,9 @@ export const HappySwamp = () => {
     const w = width * 0.15;
     return {
       p: 0,
+      speed: 0.00015,
       x: width * 0.5,
-      y: { from: height + w * 0.3, to: w + 10 },
+      y: { from: height + w * 0.3, to: w - height },
       width: { from: w, to: w * 0.45 }
     };
   }, [width]);
@@ -321,10 +323,6 @@ export const HappySwamp = () => {
         mouseX.current = e.offsetX;
         mouseY.current = e.offsetY;
       };
-      const onResize = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-      };
       const onEnter = () => {
         mouseEnteredRef.current = true;
       };
@@ -334,8 +332,7 @@ export const HappySwamp = () => {
       $cvs.current.addEventListener('pointermove', onMove);
       $cvs.current.addEventListener('pointerenter', onEnter);
       $cvs.current.addEventListener('pointerleave', onLeave);
-      window.addEventListener('resize', onResize);
-      onResize();
+
       return () => {
         if ($cvs.current) {
           $cvs.current.removeEventListener('pointermove', onMove);
@@ -559,7 +556,7 @@ export const HappySwamp = () => {
         let w = moon.width.to;
 
         if (moon.p < 1) {
-          moon.p += 0.0002;
+          moon.p += moon.speed;
           y = interpolate(moon.y.from, moon.y.to, moon.p);
           w = interpolate(moon.width.from, moon.width.to, moon.p);
         }
