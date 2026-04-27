@@ -265,7 +265,7 @@ const Introduction = () => {
         <div className='flex-col gap-1'>
           <h1>Jason Contento</h1>
           <p className='flex-row gap-1'>
-            <span>&nbsp;Frontend Dev</span>|<span>NY Metro</span>
+            <span>&nbsp;Design Engineer</span>|<span>NY Metro</span>
           </p>
           <div className='flex-row gap-1 flex-wrap'>
             <Tag>AI Coding</Tag>
