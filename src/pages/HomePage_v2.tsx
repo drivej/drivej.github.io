@@ -525,7 +525,7 @@ const Reviews = () => {
         Get back to work!
       </Review> */}
       <Review author='HR' border={colors.purple}>
-        We can only confirm the he worked here.
+        We can only confirm that he worked here.
         {/* <br /> */}
         {/* so close to the ground... */}
         <br />
