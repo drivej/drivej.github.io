@@ -266,8 +266,8 @@ export const HappySwamp = () => {
   });
 
   const field = useMemo<GrassBlade[]>(() => {
-    console.log('generate grass', height);
-    const length = Math.min(~~(width / 2), 350);
+    // console.log('generate grass', height);
+    const length = Math.min(~~(width / 4), 1850);
     const margin = 50;
     const gap = (margin + width + margin) / length;
     return Array.from({ length }).map((e, i) => {
