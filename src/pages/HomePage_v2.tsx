@@ -341,7 +341,7 @@ const MyStats = () => {
         <h2 className='Xunderline gap-2'>Experience</h2>
         {/* <hr /> */}
         <div className='progress-bars-container'>
-          <ProgressInfo title='Team Lead' description='&gt;20 years' progress={75} />
+          <ProgressInfo title='Team Lead' description='&gt;10 years' progress={75} />
           <ProgressInfo title='Education' description='Masters Work' progress={70} />
           <ProgressInfo title='Book Smarts' description='Fake it' progress={42} />
           <ProgressInfo title='Street Smarts' description='Make it' progress={85} />
