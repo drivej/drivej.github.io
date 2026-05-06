@@ -53,7 +53,7 @@ const LabBlock = ({ children, id }: { children: React.ReactNode; id?: string }) 
   );
 };
 
-const ProjectAutumnBlock = () => {
+export const ProjectAutumnBlock = () => {
   const container = useRef(null);
   const { width, height } = useContainerSize(container);
 
@@ -63,7 +63,7 @@ const ProjectAutumnBlock = () => {
         <LeavesAndSnowReact width={width} height={height} style={{ margin: '0 auto', display: 'block' }} />
       </div>
 
-      <div className='lab-bottom' style={{ flexGrow: 0, flexShrink: 1, padding: 20 }}>
+      <div className='lab-bottom'>
         <h1>Late Autumn</h1>
         <div className='tagrow'>
           <Tags.PixiJS />
@@ -80,7 +80,7 @@ const ProjectAutumnBlock = () => {
   );
 };
 
-const ProjectCandleBlock = () => {
+export const ProjectCandleBlock = () => {
   // const { width, height } = useWindowSize();
   const container = useRef(null);
   const aspectRatio = 3 / 2;
@@ -162,7 +162,7 @@ const ProjectSetBlock = () => {
   );
 };
 
-const ProjectAudioBlock = () => {
+export const ProjectAudioBlock = () => {
   const container = useRef(null);
   const waveRef = useRef(null);
   const waveControls = useWaveControls(waveRef);
@@ -206,7 +206,7 @@ const ProjectAudioBlock = () => {
             </>
           )}
         </div>
-        <div>
+
           <h1>Audio Visualizer</h1>
           <div className='tagrow'>
             <Tags.WebAudio />
@@ -214,13 +214,13 @@ const ProjectAudioBlock = () => {
             <Tags.Canvas />
           </div>
           <p>Web Audio became a big part of my toolbox when I started working at Swell. One of the most gratifying exercises was creating the loudness meters and wave visualizations to go along with UGC audio. We ultimately landed on a more design focused execution, but the foundation of the work starts here.</p>
-        </div>
+     
       </div>
     </LabBlock>
   );
 };
 
-const ProjectSpaceBallsBlock = () => {
+export const ProjectSpaceBallsBlock = () => {
   const container = useRef<HTMLDivElement>(null);
   const { width, height } = useResizeObserver({ ref: container, box: 'border-box' });
 
@@ -244,7 +244,7 @@ const ProjectSpaceBallsBlock = () => {
   );
 };
 
-const ProjectLanterns = () => {
+export const ProjectLanterns = () => {
   const container = useRef<HTMLDivElement>(null);
   const { width, height } = useResizeObserver({ ref: container, box: 'border-box' });
 
@@ -255,33 +255,31 @@ const ProjectLanterns = () => {
       </div>
 
       <div className='lab-bottom'>
-        <div>
-          <h1>Chinese Lanterns</h1>
-          <div className='tagrow'>
-            <Tags.Canvas />
-            <Tags.WebAudio />
-            <Tags.React />
-          </div>
-          <p>
-            Drag around, mouse-wheel in and out, click a lantern to bring it front and center. I have been building 3D Parallax engines since the Flash days. This was a prototype for delivering Swell micro-podcasting content. The idea was for users to record their New Year's resoltuions and wishes on swell, then this
-            would be an interactive display of everyone's entries. Some things just never make it past the back burner.
-          </p>
+        <h1>Chinese Lanterns</h1>
+        <div className='tagrow'>
+          <Tags.Canvas />
+          <Tags.WebAudio />
+          <Tags.React />
         </div>
+        <p>
+          Drag around, mouse-wheel in and out, click a lantern to bring it front and center. I have been building 3D Parallax engines since the Flash days. This was a prototype for delivering Swell micro-podcasting content. The idea was for users to record their New Year's resoltuions and wishes on swell, then this
+          would be an interactive display of everyone's entries. Some things just never make it past the back burner.
+        </p>
       </div>
     </LabBlock>
   );
 };
 
-const ProjectSpidey = () => {
+export const ProjectSpidey = () => {
   const $video = useRef<HTMLVideoElement>(null);
-  const [buttonStyle, setButtonStyle] = useState<CSSProperties>({visibility:'visible'});
+  const [buttonStyle, setButtonStyle] = useState<CSSProperties>({ visibility: 'visible' });
 
   function playVideo() {
     if ($video.current) {
       $video.current.src = spideyVideo;
       // $video.current.style.display = 'block';
       $video.current.style.opacity = '1';
-      setButtonStyle({visibility:'hidden'});
+      setButtonStyle({ visibility: 'hidden' });
     }
   }
 
@@ -290,7 +288,7 @@ const ProjectSpidey = () => {
       // $video.current.style.display = 'none';
       $video.current.style.opacity = '0';
       if (document.fullscreenElement) document.exitFullscreen();
-      setButtonStyle({visibility:'visible'});
+      setButtonStyle({ visibility: 'visible' });
     }
   }
 
@@ -317,7 +315,7 @@ const ProjectSpidey = () => {
           onClick={() => playVideo()}
           style={{
             position: 'absolute', //
-            display:'flex',
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: '50%',
@@ -333,12 +331,12 @@ const ProjectSpidey = () => {
             ...buttonStyle
           }}
         >
-          <div style={{transform: 'translate(5%,0)'}}>&#9658;</div>
+          <div style={{ transform: 'translate(5%,0)' }}>&#9658;</div>
         </div>
       </div>
 
       <div className='lab-bottom'>
-        <div>
+  
           <h1>Spider-verse VR</h1>
           <div className='tagrow'>
             <Tags.Canvas />
@@ -353,12 +351,12 @@ const ProjectSpidey = () => {
             </a>{' '}
             and apply it.
           </p>
-        </div>
-        <p>
-          <Link className='btn primary' to='/spiderverse'>
-            Play in VR!
+
+
+          <Link className='btn primary' to='/spiderverse' style={{textAlign:'center'}}>
+            <h3 style={{width:'100%'}}>Play in VR!</h3>
           </Link>
-        </p>
+
       </div>
     </LabBlock>
   );

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
-import Lab from './pages/Lab.tsx';
+import Lab, { ProjectAudioBlock, ProjectAutumnBlock, ProjectCandleBlock, ProjectLanterns, ProjectSpidey } from './pages/Lab.tsx';
 import SetGamePage from './pages/SetGamePage.js';
 import { SpiderVerse } from '@drivej/spiderverse';
 import { SpiderVersePage } from './pages/SpiderVersePage';
@@ -19,6 +19,12 @@ createRoot(document.getElementById('root')).render(
         <Route path='/set-game' element={<SetGamePage />} />
         <Route path='/spiderverse' element={<SpiderVersePage />} />
         <Route path='/hp2' element={<HomePageV2 />} />
+        <Route path='/lab/lanterns' element={<ProjectLanterns />} />
+        <Route path='/lab/autumn' element={<ProjectAutumnBlock />} />
+        <Route path='/lab/candles' element={<ProjectCandleBlock />} />
+        <Route path='/lab/spiderverse' element={<ProjectSpidey />} />
+        <Route path='/lab/setgame' element={<SetGamePage />} />
+        <Route path='/lab/audio' element={<ProjectAudioBlock />} />
       </Routes>
     </HashRouter>
   </StrictMode>

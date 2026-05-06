@@ -30,6 +30,7 @@ export const HomePageV2 = () => {
       <Section id='skills' title={'My Skills'} color={colors.green} content={<MyStats />} />
       <Section id='case_study' title={'Case Study'} color={colors.purple} content={<CaseStudies />} />
       <Section id='reviews' title={'Reviews'} color={colors.orange} content={<Reviews />} />
+      <Section id='lab' title={'The Lab'} color={colors.yellow} content={<TheLab />} />
       <Swamp />
       <Footer />
     </NavProvider>
@@ -143,6 +144,9 @@ const SidebarMenu = () => {
           </a>
           <a href='#reviews' onClick={onClickNavItem}>
             <h2 style={{ color: colors.orange }}>Reviews</h2>
+          </a>
+          <a href='#lab' onClick={onClickNavItem}>
+            <h2 style={{ color: colors.yellow }}>The Lab</h2>
           </a>
         </div>
         <hr />
@@ -546,5 +550,36 @@ const Reviews = () => {
         Who?
       </Review>
     </div>
+  );
+};
+
+import thumbnail_audiowave from '../assets/thumbnail_audiowave.png';
+import thumbnail_autumn from '../assets/thumbnail_autumn.png';
+import thumbnail_candles from '../assets/thumbnail_candles.png';
+import thumbnail_lanterns from '../assets/thumbnail_lanterns.png';
+import thumbnail_setgame from '../assets/thumbnail_setgame.png';
+import thumbnail_spiderverse from '../assets/thumbnail_spiderverse.png';
+
+const TheLab = () => {
+  return (
+    <div>
+      <div className='flex-row gap-2 flex-wrap'>
+        <LabTile href='#/lab/spiderverse' src={thumbnail_spiderverse} label='WebVR Experience' />
+        <LabTile href='#/lab/setgame' src={thumbnail_setgame} label='JS/CSS Game' />
+        <LabTile href='#/lab/audio' src={thumbnail_audiowave} label='Audio Visualization' />
+        <LabTile href='#/lab/autumn' src={thumbnail_autumn} label='Canvas Animation' />
+        <LabTile href='#/lab/candles' src={thumbnail_candles} label='Canvas Animation' />
+        <LabTile href='#/lab/lanterns' src={thumbnail_lanterns} label='3D Parallax' />
+      </div>
+    </div>
+  );
+};
+
+const LabTile = ({ href, src, label }: { href: string; src: string; label: string }) => {
+  return (
+    <a href={href} target='_blank' className='flex-col gap-1'>
+      <img src={src} style={{ maxWidth: '35vw' }} />
+      <p>{label}</p>
+    </a>
   );
 };

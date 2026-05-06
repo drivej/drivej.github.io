@@ -37,6 +37,10 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
 .aurora {
   position: fixed;
   inset: -30vh -30vw;
@@ -406,7 +410,7 @@ section {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin: 10px 0 0;
+  /* margin: 10px 0 0; */
 }
 .tag {
   font-size: 12px;
@@ -663,16 +667,21 @@ p a {
   min-height: 780px;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  gap: 20px;
+  padding: 20px;
 }
 .lab-block .lab-top {
   position: relative;
   flex: 1;
   overflow: auto;
+  /* padding: 10px; */
 }
 .lab-block .lab-bottom {
+  display: flex;
+  flex-direction: column;
+  gap:12px;
   flex-shrink: 0;
-  padding: 20px;
+  /* padding: 20px; */
 }
 ul {
   line-height: 1.6;
