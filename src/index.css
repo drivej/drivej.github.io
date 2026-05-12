@@ -679,10 +679,20 @@ p a {
 .lab-block .lab-bottom {
   display: flex;
   flex-direction: column;
-  gap:12px;
+  gap: 12px;
   flex-shrink: 0;
   /* padding: 20px; */
 }
 ul {
   line-height: 1.6;
+}
+
+@media screen and (max-width: 600px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+#project-lanterns canvas {
+  touch-action: none;
 }

@@ -559,13 +559,15 @@ import thumbnail_candles from '../assets/thumbnail_candles.png';
 import thumbnail_lanterns from '../assets/thumbnail_lanterns.png';
 import thumbnail_setgame from '../assets/thumbnail_setgame.png';
 import thumbnail_spiderverse from '../assets/thumbnail_spiderverse.png';
+import { useIsMobile } from '../components/utils';
 
 const TheLab = () => {
+  const isMobile = useIsMobile();
   return (
     <div>
       <div className='flex-row gap-2 flex-wrap'>
         <LabTile href='#/lab/spiderverse' src={thumbnail_spiderverse} label='WebVR Experience' />
-        <LabTile href='#/lab/setgame' src={thumbnail_setgame} label='JS/CSS Game' />
+        {isMobile ? null : <LabTile href='#/lab/setgame' src={thumbnail_setgame} label='JS/CSS Game' target='_blank'/>}
         <LabTile href='#/lab/audio' src={thumbnail_audiowave} label='Audio Visualization' />
         <LabTile href='#/lab/autumn' src={thumbnail_autumn} label='Canvas Animation' />
         <LabTile href='#/lab/candles' src={thumbnail_candles} label='Canvas Animation' />
@@ -575,9 +577,12 @@ const TheLab = () => {
   );
 };
 
-const LabTile = ({ href, src, label }: { href: string; src: string; label: string }) => {
+const LabTile = ({ href, src, label, target = '_self' }: { href: string; src: string; label: string; target?: string }) => {
   return (
-    <a href={href} target='_blank' className='flex-col gap-1'>
+    <a href={href} 
+    // onClick={() => window.scrollTo({top:0, behavior:'instant'})}
+    // target='_blank' 
+    className='flex-col gap-1'>
       <img src={src} style={{ maxWidth: '35vw' }} />
       <p>{label}</p>
     </a>

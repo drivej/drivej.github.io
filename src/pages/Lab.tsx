@@ -5,7 +5,7 @@ import '@drivej/set-game/styles.css';
 import { SpaceBallsComponent } from '@drivej/space-balls';
 import { useWaveControls, WaveAnimReact } from '@drivej/wave-anim';
 import { LeavesAndSnowReact } from 'leaves-and-snow';
-import { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useResizeObserver } from 'usehooks-ts';
 import audioSrc from '../assets/48K_1713045663.m4a';
@@ -81,31 +81,13 @@ export const ProjectAutumnBlock = () => {
 };
 
 export const ProjectCandleBlock = () => {
-  // const { width, height } = useWindowSize();
   const container = useRef(null);
-  const aspectRatio = 3 / 2;
   const { width, height } = useContainerSize(container);
-  // calculate size that fits in the container and maintains aspect ratio
-  const w = useMemo(() => {
-    const height = 600;
-    const w = height * aspectRatio;
-    if (w > width) {
-      return width;
-    }
-    return w;
-  }, [width, height]);
-
-  const h = useMemo(() => w / aspectRatio, [w]);
-  //const w = useMemo(() => height * aspectRatio, [width, height]);
-  //const h = useMemo(() => height, [width, height]);
-
-  // width={windowHeight * 1.5}
-  // height={windowHeight * 0.8}
 
   return (
     <LabBlock id='project-candle'>
       <div ref={container} className='lab-top' style={{ backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <CandleAnimation numCandles={7} width={800} height={500} />
+        <CandleAnimation numCandles={7} width={width} height={height} key={`${width}-${height}`} />
       </div>
 
       <div className='lab-bottom'>
@@ -207,14 +189,13 @@ export const ProjectAudioBlock = () => {
           )}
         </div>
 
-          <h1>Audio Visualizer</h1>
-          <div className='tagrow'>
-            <Tags.WebAudio />
-            <Tags.TypeScript />
-            <Tags.Canvas />
-          </div>
-          <p>Web Audio became a big part of my toolbox when I started working at Swell. One of the most gratifying exercises was creating the loudness meters and wave visualizations to go along with UGC audio. We ultimately landed on a more design focused execution, but the foundation of the work starts here.</p>
-     
+        <h1>Audio Visualizer</h1>
+        <div className='tagrow'>
+          <Tags.WebAudio />
+          <Tags.TypeScript />
+          <Tags.Canvas />
+        </div>
+        <p>Web Audio became a big part of my toolbox when I started working at Swell. One of the most gratifying exercises was creating the loudness meters and wave visualizations to go along with UGC audio. We ultimately landed on a more design focused execution, but the foundation of the work starts here.</p>
       </div>
     </LabBlock>
   );
@@ -250,7 +231,11 @@ export const ProjectLanterns = () => {
 
   return (
     <LabBlock id='project-lanterns'>
-      <div ref={container} className='lab-top' style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#030303' }}>
+      <div
+        ref={container}
+        className='lab-top'
+        style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#030303' }}
+      >
         <LanternsReact style={{ width, height }} />
       </div>
 
@@ -301,7 +286,7 @@ export const ProjectSpidey = () => {
             position: 'absolute',
             inset: 0,
             backgroundImage: `url(${spiderverseBg})`,
-            backgroundSize: '100%',
+            backgroundSize: 'cover',
             backgroundPosition: 'center',
             width: '100%',
             display: 'flex',
@@ -336,27 +321,24 @@ export const ProjectSpidey = () => {
       </div>
 
       <div className='lab-bottom'>
-  
-          <h1>Spider-verse VR</h1>
-          <div className='tagrow'>
-            <Tags.Canvas />
-            <Tags.React />
-            <Tags.WebXR />
-            <Tags.ThreeJS />
-          </div>
-          <p>
-            I mean... if we're gonna VR, we might as well be a super hero, right? Visit this link in your VR browser and swing through the city like your friendly neighborhood Spider Man. Plus, we can learn about{' '}
-            <a href='https://en.wikipedia.org/wiki/Hooke%27s_law' target='_blank'>
-              Hooke's Law
-            </a>{' '}
-            and apply it.
-          </p>
+        <h1>Spider-verse VR</h1>
+        <div className='tagrow'>
+          <Tags.Canvas />
+          <Tags.React />
+          <Tags.WebXR />
+          <Tags.ThreeJS />
+        </div>
+        <p>
+          I mean... if we're gonna VR, we might as well be a super hero, right? Visit this link in your VR browser and swing through the city like your friendly neighborhood Spider Man. Plus, we can learn about{' '}
+          <a href='https://en.wikipedia.org/wiki/Hooke%27s_law' target='_blank'>
+            Hooke's Law
+          </a>{' '}
+          and apply it.
+        </p>
 
-
-          <Link className='btn primary' to='/spiderverse' style={{textAlign:'center'}}>
-            <h3 style={{width:'100%'}}>Play in VR!</h3>
-          </Link>
-
+        <Link className='btn primary' to='/spiderverse' style={{ textAlign: 'center' }}>
+          <h3 style={{ width: '100%' }}>Play in VR!</h3>
+        </Link>
       </div>
     </LabBlock>
   );
