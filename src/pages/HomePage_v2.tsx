@@ -482,7 +482,7 @@ const CaseStudy2 = () => {
       <hr />
       <div className='flex-col gap-2 Xp-1'>
         <div className='flex-col gap-1'>
-          <p className='Xps-1'>The client built an amazing socila media app using audio as the primary post method. This was a fantasic app and an excellent opportunity to work with the latest web audio tech.</p>
+          <p className='Xps-1'>The client built an amazing social media app using audio as the primary post method. This was a fantastic app and an excellent opportunity to work with the latest web audio tech.</p>
         </div>
 
         <div className='flex-col gap-1 ps-1'>
