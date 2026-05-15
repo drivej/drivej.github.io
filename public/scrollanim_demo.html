@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Northline Group Wireframe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Bebas+Neue&family=Cormorant:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --orange: #E8620A;
+        --gold: #C9A55A;
+        --navy: #1B2B4B;
+        --black: #06080B;
+        --ink: #0f1520;
+        --white: #ffffff;
+        --muted: rgba(255, 255, 255, 0.68);
+        --line: rgba(255, 255, 255, 0.16);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: auto; }
+
+      body {
+        margin: 0;
+        color: var(--white);
+        background: var(--black);
+        font-family: "Outfit", Arial, sans-serif;
+        cursor: none;
+      }
+
+      a, button { color: inherit; font: inherit; }
+
+      .cursor-dot,
+      .cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        pointer-events: none;
+        border-radius: 999px;
+        mix-blend-mode: difference;
+      }
+
+      .cursor-dot {
+        width: 7px;
+        height: 7px;
+        background: var(--white);
+      }
+
+      .cursor-ring {
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--white);
+        transition: width 180ms ease, height 180ms ease, border-width 180ms ease;
+      }
+
+      .cursor-ring.is-hovering {
+        width: 58px;
+        height: 58px;
+        border-width: 2px;
+      }
+
+      .site-header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px clamp(18px, 4vw, 64px);
+        background: transparent;
+        border-bottom: 1px solid transparent;
+        transition: background 240ms ease, border-color 240ms ease, padding 240ms ease;
+      }
+
+      .site-header.scrolled {
+        padding-block: 14px;
+        background: rgba(27, 43, 75, 0.96);
+        border-bottom-color: var(--gold);
+        backdrop-filter: blur(18px);
+      }
+
+      .brand,
+      .site-nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand {
+        gap: 12px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 30px;
+        height: 30px;
+        border: 2px solid var(--gold);
+        background: linear-gradient(135deg, transparent 0 44%, var(--orange) 44% 56%, transparent 56%);
+      }
+
+      .site-nav {
+        gap: clamp(12px, 2vw, 28px);
+      }
+
+      .nav-link {
+        position: relative;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .nav-link::after {
+        position: absolute;
+        right: 0;
+        bottom: -8px;
+        left: 0;
+        height: 2px;
+        content: "";
+        background: var(--orange);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 180ms ease;
+      }
+
+      .nav-link.active::after,
+      .nav-link:hover::after { transform: scaleX(1); }
+
+      main { overflow: clip; }
+
+      section {
+        position: relative;
+        padding: clamp(84px, 12vw, 164px) clamp(18px, 5vw, 84px);
+        background: var(--black);
+      }
+
+      .hero {
+        display: grid;
+        min-height: 112vh;
+        padding-top: 150px;
+        overflow: hidden;
+        background: var(--black);
+      }
+
+      .hero-photo {
+        position: absolute;
+        inset: -12vh 0;
+        z-index: 0;
+        background:
+          linear-gradient(90deg, rgba(6, 8, 11, 0.96), rgba(6, 8, 11, 0.3), rgba(6, 8, 11, 0.86)),
+          radial-gradient(circle at 76% 24%, rgba(232, 98, 10, 0.42), transparent 27%),
+          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 88px),
+          repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 58px),
+          linear-gradient(135deg, #101723, var(--navy) 46%, #7c7f80);
+        will-change: transform;
+      }
+
+      .photo-grid {
+        position: absolute;
+        inset: 18% 8% 10% 48%;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.13) 1px, transparent 1px);
+        background-size: 44px 44px;
+      }
+
+      .photo-label {
+        position: absolute;
+        right: 9%;
+        bottom: 14%;
+        z-index: 1;
+        padding: 10px 13px;
+        color: var(--black);
+        background: var(--gold);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1120px;
+        align-self: end;
+      }
+
+      .eyebrow,
+      .section-kicker {
+        margin: 0 0 20px;
+        color: var(--gold);
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .hero-title {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1050px;
+        gap: 0 0.18em;
+        margin: 0;
+        font-family: "Bebas Neue", Impact, sans-serif;
+        font-size: clamp(5.4rem, 13vw, 13.8rem);
+        line-height: 0.78;
+        letter-spacing: 0;
+      }
+
+      .hero-title span {
+        display: inline-block;
+        will-change: transform, opacity;
+      }
+
+      .hero-actions,
+      .stats-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 50px;
+        padding: 0 24px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .button:hover { transform: translateY(-3px); }
+      .button.primary { color: var(--black); background: var(--orange); border-color: var(--orange); }
+      .button.ghost { background: rgba(255, 255, 255, 0.05); }
+
+      .stats-grid {
+        gap: 0;
+        max-width: 810px;
+        border: 1px solid var(--line);
+        opacity: 0;
+        transform: translateY(48px);
+      }
+
+      .stats-grid article {
+        position: relative;
+        overflow: hidden;
+        width: 33.333%;
+        min-width: 190px;
+        min-height: 174px;
+        padding: 26px 24px;
+        background: rgba(27, 43, 75, 0.42);
+        border-right: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+      }
+
+      .stats-grid article:last-child { border-right: 0; }
+
+      .stats-grid strong {
+        position: relative;
+        z-index: 1;
+        display: block;
+        font-family: "Bebas Neue", Impact, sans-serif;
+        font-size: 4.7rem;
+        line-height: 0.9;
+        letter-spacing: 0;
+      }
+
+      .stats-grid strong > span {
+        display: inline;
+        color: inherit;
+        font: inherit;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
+      .stats-grid article > span:last-child {
+        position: relative;
+        z-index: 1;
+        display: block;
+        color: rgba(255, 255, 255, 0.72);
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .stat-sparkline {
+        position: absolute;
+        inset: auto 7px 4px 18px;
+        z-index: 0;
+        width: calc(100% - 24px);
+        height: 74%;
+        opacity: 0.78;
+        pointer-events: none;
+      }
+
+      .sparkline-line {
+        fill: none;
+        stroke: var(--gold);
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 13px rgba(201, 165, 90, 0.48));
+      }
+
+      .sparkline-fill {
+        fill: rgba(232, 98, 10, 0.18);
+        opacity: 0;
+      }
+
+      .intro-section,
+      .services {
+        background: #090d13;
+      }
+
+      .divisions,
+      .comparison {
+        background: linear-gradient(135deg, var(--navy), #111a2c);
+      }
+
+      .contact-section {
+        color: var(--ink);
+        background: #f7f1e6;
+      }
+
+      .two-col,
+      .section-heading,
+      .contact-section {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.8fr);
+        gap: clamp(24px, 6vw, 80px);
+        align-items: end;
+      }
+
+      .two-col h2,
+      .section-heading h2,
+      .contact-section h2 {
+        max-width: 840px;
+        margin: 0;
+        font-family: "Cormorant", Georgia, serif;
+        font-size: clamp(3rem, 6.4vw, 6.6rem);
+        font-weight: 700;
+        line-height: 0.88;
+      }
+
+      .two-col p,
+      .section-heading p {
+        max-width: 590px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.06rem;
+        line-height: 1.8;
+      }
+
+      .slam-section {
+        display: grid;
+        min-height: 84vh;
+        overflow: hidden;
+        place-items: center start;
+        background: var(--orange);
+      }
+
+      .slam-section.alt {
+        background: var(--black);
+      }
+
+      .slam-headline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 0.14em;
+        margin: 0;
+        color: var(--black);
+        font-family: "Bebas Neue", Impact, sans-serif;
+        font-size: clamp(8rem, 27vw, 28rem);
+        line-height: 0.74;
+        letter-spacing: 0;
+      }
+
+      .slam-section.alt .slam-headline { color: var(--white); }
+
+      .slam-headline span {
+        display: inline-block;
+        will-change: transform, opacity;
+      }
+
+      .division-grid,
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 54px;
+      }
+
+      .division-card,
+      .service-card {
+        min-height: 300px;
+        padding: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(6, 8, 11, 0.44);
+        box-shadow: 0 0 0 rgba(232, 98, 10, 0);
+        transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        will-change: transform, opacity;
+      }
+
+      .division-card:hover,
+      .service-card:hover {
+        border-color: rgba(232, 98, 10, 0.72);
+        box-shadow: 0 0 34px rgba(232, 98, 10, 0.18);
+        transform: translateY(-8px);
+      }
+
+      .division-number,
+      .service-card span {
+        color: var(--gold);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .division-card h3,
+      .service-card h3 {
+        margin: 80px 0 16px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 2.4rem;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .division-card p,
+      .service-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .compare-table {
+        margin-top: 54px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(6, 8, 11, 0.34);
+      }
+
+      .compare-head,
+      .compare-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .compare-head h3 {
+        margin: 0;
+        padding: 28px;
+        background: rgba(6, 8, 11, 0.74);
+        border-right: 1px solid rgba(255, 255, 255, 0.16);
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 2rem;
+        text-transform: uppercase;
+      }
+
+      .compare-row { will-change: transform, opacity; }
+
+      .compare-row p {
+        margin: 0;
+        padding: 26px 28px;
+        border-top: 1px solid rgba(255, 255, 255, 0.13);
+        border-right: 1px solid rgba(255, 255, 255, 0.13);
+        line-height: 1.6;
+      }
+
+      .filter-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 42px;
+      }
+
+      .filter-tabs button {
+        min-width: 94px;
+        min-height: 42px;
+        padding: 0 18px;
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .filter-tabs button.active,
+      .filter-tabs button:hover {
+        color: var(--black);
+        background: var(--orange);
+        border-color: var(--orange);
+      }
+
+      .contact-section .section-kicker { color: var(--orange); }
+
+      .contact-panel {
+        display: grid;
+        gap: 12px;
+        padding: 28px;
+        background: var(--white);
+        border: 1px solid rgba(6, 8, 11, 0.12);
+      }
+
+      .contact-panel input,
+      .contact-panel textarea {
+        width: 100%;
+        min-height: 46px;
+        padding: 12px 14px;
+        border: 1px solid rgba(6, 8, 11, 0.16);
+        color: var(--black);
+        background: #fbf8f1;
+        font-family: "Outfit", Arial, sans-serif;
+      }
+
+      .contact-panel textarea { min-height: 104px; resize: vertical; }
+
+      .reveal-section,
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(48px);
+        will-change: transform, opacity;
+      }
+
+      @media (max-width: 900px) {
+        body { cursor: auto; }
+        .cursor-dot, .cursor-ring { display: none; }
+
+        .site-header {
+          align-items: flex-start;
+          gap: 16px;
+          flex-direction: column;
+        }
+
+        .site-nav {
+          width: 100%;
+          gap: 18px;
+          overflow-x: auto;
+          padding-bottom: 6px;
+        }
+
+        .hero {
+          min-height: 104vh;
+          padding-top: 172px;
+        }
+
+        .photo-grid { inset: 42% 8% 10%; }
+        .photo-label { right: 8%; bottom: 12%; }
+
+        .hero-title { font-size: clamp(5rem, 23vw, 8.5rem); }
+
+        .stats-grid article,
+        .division-grid,
+        .service-grid,
+        .two-col,
+        .section-heading,
+        .contact-section,
+        .compare-head,
+        .compare-row {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-grid article {
+          width: 100%;
+          min-height: 154px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .division-grid,
+        .service-grid { grid-template-columns: 1fr; }
+
+        .slam-section { min-height: 60vh; }
+        .slam-headline { font-size: clamp(7rem, 34vw, 13rem); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 1ms !important;
+          transition-duration: 1ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <header class="site-header" data-header>
+      <a class="brand interactive" href="#hero" aria-label="Go to top">
+        <span class="brand-mark"></span>
+        <span>Northline Group</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a class="interactive nav-link active" href="#hero">Home</a>
+        <a class="interactive nav-link" href="#divisions">Divisions</a>
+        <a class="interactive nav-link" href="#comparison">FM</a>
+        <a class="interactive nav-link" href="#services">Services</a>
+        <a class="interactive nav-link" href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="hero section-watch">
+        <div class="hero-photo" data-parallax aria-hidden="true">
+          <div class="photo-grid"></div>
+          <span class="photo-label">Hero Photo Placeholder</span>
+        </div>
+        <div class="hero-content">
+          <p class="eyebrow reveal-up">Integrated facilities, construction, and mechanical services</p>
+          <h1 class="hero-title" aria-label="Built for sites that cannot slow down">
+            <span data-hero-word>Built</span>
+            <span data-hero-word>for</span>
+            <span data-hero-word>sites</span>
+            <span data-hero-word>that</span>
+            <span data-hero-word>cannot</span>
+            <span data-hero-word>slow</span>
+            <span data-hero-word>down</span>
+          </h1>
+          <div class="hero-actions reveal-up">
+            <a class="button primary interactive" href="#services">View Services</a>
+            <a class="button ghost interactive" href="#comparison">Compare FM Models</a>
+          </div>
+          <div class="stats-grid" data-counter-group>
+            <article>
+              <svg class="stat-sparkline" viewBox="0 0 220 120" aria-hidden="true">
+                <path class="sparkline-fill" d="M6 100 C34 86 48 92 72 70 S118 58 140 38 S184 28 214 12 L214 120 L6 120 Z"></path>
+                <path class="sparkline-line" data-sparkline d="M6 100 C34 86 48 92 72 70 S118 58 140 38 S184 28 214 12"></path>
+              </svg>
+              <strong><span data-count-to="200">0</span>+</strong>
+              <span>Projects Delivered</span>
+            </article>
+            <article>
+              <svg class="stat-sparkline" viewBox="0 0 220 120" aria-hidden="true">
+                <path class="sparkline-fill" d="M6 104 C34 96 54 82 82 82 S122 58 148 48 S184 24 214 20 L214 120 L6 120 Z"></path>
+                <path class="sparkline-line" data-sparkline d="M6 104 C34 96 54 82 82 82 S122 58 148 48 S184 24 214 20"></path>
+              </svg>
+              <strong><span data-count-to="10">0</span>+</strong>
+              <span>Years Operating</span>
+            </article>
+            <article>
+              <svg class="stat-sparkline" viewBox="0 0 220 120" aria-hidden="true">
+                <path class="sparkline-fill" d="M6 106 C36 94 46 72 72 74 S118 66 140 44 S180 40 214 16 L214 120 L6 120 Z"></path>
+                <path class="sparkline-line" data-sparkline d="M6 106 C36 94 46 72 72 74 S118 66 140 44 S180 40 214 16"></path>
+              </svg>
+              <strong><span data-count-to="24">0</span>/7</strong>
+              <span>Response Coverage</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="intro-section section-watch reveal-section">
+        <p class="section-kicker">Wireframe Overview</p>
+        <div class="two-col">
+          <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lectus vitae arcu viverra tincidunt. Integer cursus turpis vel sem dignissim, et dignissim eros mattis. Donec vitae mauris sed justo porta efficitur.</p>
+        </div>
+      </section>
+
+      <section class="slam-section section-watch">
+        <h2 class="slam-headline" data-slam>
+          <span>Operate</span>
+          <span>Harder.</span>
+        </h2>
+      </section>
+
+      <section id="divisions" class="divisions section-watch reveal-section">
+        <p class="section-kicker">Core Divisions</p>
+        <div class="section-heading">
+          <h2>Three divisions, one accountable partner.</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae lacus nec arcu posuere gravida.</p>
+        </div>
+        <div class="division-grid">
+          <article class="division-card interactive">
+            <span class="division-number">01</span>
+            <h3>Facilities Management</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id sem id nunc luctus facilisis.</p>
+          </article>
+          <article class="division-card interactive">
+            <span class="division-number">02</span>
+            <h3>Construction</h3>
+            <p>Morbi fringilla, lacus ac vulputate dictum, sapien tortor ullamcorper erat, non feugiat neque lorem.</p>
+          </article>
+          <article class="division-card interactive">
+            <span class="division-number">03</span>
+            <h3>HVAC</h3>
+            <p>Curabitur at sem sed odio luctus dignissim. Duis eget nibh nec neque feugiat interdum.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="comparison" class="comparison section-watch reveal-section">
+        <p class="section-kicker">Facilities Management</p>
+        <div class="section-heading">
+          <h2>Reactive maintenance versus proactive performance.</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Etiam rutrum nibh vel neque consequat.</p>
+        </div>
+        <div class="compare-table" data-table-reveal>
+          <div class="compare-head">
+            <h3>Reactive</h3>
+            <h3>Proactive</h3>
+          </div>
+          <div class="compare-row"><p>Issues discovered after disruption.</p><p>Issues forecast before disruption.</p></div>
+          <div class="compare-row"><p>Work orders spike unpredictably.</p><p>Workloads are planned and sequenced.</p></div>
+          <div class="compare-row"><p>Budgets move with emergencies.</p><p>Budgets follow asset lifecycle plans.</p></div>
+          <div class="compare-row"><p>Reporting arrives after the fact.</p><p>Dashboards surface current risk.</p></div>
+        </div>
+      </section>
+
+      <section class="slam-section alt section-watch">
+        <h2 class="slam-headline" data-slam>
+          <span>Move</span>
+          <span>Before</span>
+          <span>Failure.</span>
+        </h2>
+      </section>
+
+      <section id="services" class="services section-watch reveal-section">
+        <p class="section-kicker">Service Cards</p>
+        <div class="section-heading">
+          <h2>Filter by division without leaving the page.</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rhoncus risus at mauris laoreet cursus.</p>
+        </div>
+        <div class="filter-tabs" role="tablist" aria-label="Filter services">
+          <button class="interactive active" type="button" data-filter="all">All</button>
+          <button class="interactive" type="button" data-filter="fm">FM</button>
+          <button class="interactive" type="button" data-filter="construction">Construction</button>
+          <button class="interactive" type="button" data-filter="hvac">HVAC</button>
+        </div>
+        <div class="service-grid" aria-live="polite">
+          <article class="service-card interactive" data-category="fm"><span>FM</span><h3>Asset Audits</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis sem sed magna.</p></article>
+          <article class="service-card interactive" data-category="construction"><span>Construction</span><h3>Site Works</h3><p>Nam ultricies lectus sed nunc dapibus, sed luctus massa volutpat. Aliquam erat volutpat.</p></article>
+          <article class="service-card interactive" data-category="hvac"><span>HVAC</span><h3>Mechanical Upgrades</h3><p>Vivamus viverra massa vel nibh euismod, sed bibendum ipsum convallis.</p></article>
+          <article class="service-card interactive" data-category="fm"><span>FM</span><h3>Preventive Planning</h3><p>Sed facilisis nibh at blandit dignissim. Cras feugiat tortor eu risus tincidunt.</p></article>
+          <article class="service-card interactive" data-category="construction"><span>Construction</span><h3>Interior Fit-Out</h3><p>Praesent mattis sem vitae ligula faucibus, id pretium sapien molestie.</p></article>
+          <article class="service-card interactive" data-category="hvac"><span>HVAC</span><h3>Emergency Response</h3><p>Phasellus vulputate sapien nec augue blandit, vel volutpat lectus ultricies.</p></article>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section section-watch reveal-section">
+        <div>
+          <p class="section-kicker">Contact Form</p>
+          <h2>Lorem ipsum dolor sit amet, consectetur.</h2>
+        </div>
+        <form class="contact-panel">
+          <input type="text" placeholder="Name" aria-label="Name">
+          <input type="email" placeholder="Email" aria-label="Email">
+          <textarea placeholder="Project details" aria-label="Project details"></textarea>
+          <button class="button primary interactive" type="button">Submit Inquiry</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+    <script>
+      (() => {
+        const header = document.querySelector("[data-header]");
+        const navLinks = [...document.querySelectorAll(".nav-link")];
+        const sections = [...document.querySelectorAll(".section-watch")];
+        const cursorDot = document.querySelector(".cursor-dot");
+        const cursorRing = document.querySelector(".cursor-ring");
+        const interactive = [...document.querySelectorAll(".interactive, button, a")];
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const mobile = window.matchMedia("(max-width: 900px)").matches;
+        const hasGsap = Boolean(window.gsap && window.ScrollTrigger);
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX = mouseX;
+        let ringY = mouseY;
+
+        function initLenis() {
+          if (reduceMotion || !window.Lenis) {
+            document.documentElement.style.scrollBehavior = reduceMotion ? "auto" : "smooth";
+            return;
+          }
+
+          const lenis = new window.Lenis({
+            duration: mobile ? 0.72 : 1.16,
+            smoothWheel: !mobile,
+            wheelMultiplier: 0.86,
+            touchMultiplier: 1.2,
+          });
+
+          if (hasGsap) {
+            lenis.on("scroll", window.ScrollTrigger.update);
+            window.gsap.ticker.add((time) => lenis.raf(time * 1000));
+            window.gsap.ticker.lagSmoothing(0);
+            return;
+          }
+
+          function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+          }
+          requestAnimationFrame(raf);
+        }
+
+        function initCursor() {
+          if (!cursorDot || !cursorRing || mobile) return;
+
+          window.addEventListener("mousemove", (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+          });
+
+          interactive.forEach((item) => {
+            item.addEventListener("mouseenter", () => cursorRing.classList.add("is-hovering"));
+            item.addEventListener("mouseleave", () => cursorRing.classList.remove("is-hovering"));
+          });
+
+          function animateCursor() {
+            ringX += (mouseX - ringX) * 0.16;
+            ringY += (mouseY - ringY) * 0.16;
+            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+            cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+          }
+          animateCursor();
+        }
+
+        function updateHeader() {
+          header.classList.toggle("scrolled", window.scrollY > 24);
+        }
+
+        function prepSparkline(path) {
+          const length = path.getTotalLength();
+          path.dataset.lineLength = length;
+          path.style.strokeDasharray = length;
+          path.style.strokeDashoffset = length;
+        }
+
+        function animateStatCard(card, delay = 0) {
+          if (card.dataset.statAnimated === "true") return;
+          card.dataset.statAnimated = "true";
+
+          const paths = [...card.querySelectorAll("[data-sparkline]")];
+          const fills = [...card.querySelectorAll(".sparkline-fill")];
+          const counters = [...card.querySelectorAll("[data-count-to]")];
+
+          if (!hasGsap || reduceMotion) {
+            paths.forEach((path) => { path.style.strokeDashoffset = "0"; });
+            fills.forEach((fill) => { fill.style.opacity = "1"; });
+            counters.forEach((counter) => { counter.textContent = counter.dataset.countTo; });
+            return;
+          }
+
+          counters.forEach((counter) => { counter.textContent = "0"; });
+          const progress = { value: 0 };
+
+          window.gsap.timeline({ delay })
+            .to(progress, {
+              value: 1,
+              duration: mobile ? 0.82 : 1.45,
+              ease: "power3.out",
+              onUpdate: () => {
+                counters.forEach((counter) => {
+                  counter.textContent = Math.round(Number(counter.dataset.countTo) * progress.value).toString();
+                });
+                paths.forEach((path) => {
+                  path.style.strokeDashoffset = String(Number(path.dataset.lineLength) * (1 - progress.value));
+                });
+              },
+            })
+            .to(fills, { autoAlpha: 1, duration: mobile ? 0.3 : 0.58, ease: "power2.out" }, mobile ? 0.38 : 0.58);
+        }
+
+        function fallbackState() {
+          document.querySelectorAll(".reveal-section, .reveal-up").forEach((item) => {
+            item.style.opacity = "1";
+            item.style.transform = "none";
+          });
+          document.querySelectorAll("[data-counter-group]").forEach((item) => {
+            item.style.opacity = "1";
+            item.style.transform = "none";
+          });
+          document.querySelectorAll("[data-sparkline]").forEach((path) => { path.style.strokeDashoffset = "0"; });
+          document.querySelectorAll(".sparkline-fill").forEach((fill) => { fill.style.opacity = "1"; });
+          document.querySelectorAll("[data-count-to]").forEach((item) => { item.textContent = item.dataset.countTo; });
+        }
+
+        function initGsapAnimations() {
+          if (!hasGsap || reduceMotion) {
+            fallbackState();
+            return;
+          }
+
+          const { gsap, ScrollTrigger, Flip } = window;
+          gsap.registerPlugin(...[ScrollTrigger, Flip].filter(Boolean));
+
+          gsap.set("[data-hero-word]", { autoAlpha: 0, y: mobile ? 34 : 76, rotation: mobile ? 0 : 2 });
+          gsap.set(".reveal-up, .reveal-section", { autoAlpha: 0, y: mobile ? 28 : 48 });
+          gsap.set("[data-slam] span", { autoAlpha: 0, y: mobile ? 70 : 170, scale: mobile ? 0.95 : 0.86 });
+          gsap.set(".division-card", { autoAlpha: 0, y: mobile ? 38 : 82 });
+          gsap.set(".compare-row", { autoAlpha: 0, y: 24 });
+          gsap.set(".sparkline-fill", { autoAlpha: 0 });
+          gsap.set("[data-count-to]", { textContent: 0 });
+          document.querySelectorAll("[data-sparkline]").forEach(prepSparkline);
+
+          gsap.timeline({ defaults: { ease: "power3.out" } })
+            .to("[data-hero-word]", {
+              autoAlpha: 1,
+              y: 0,
+              rotation: 0,
+              duration: mobile ? 0.46 : 0.72,
+              stagger: mobile ? 0.045 : 0.095,
+              ease: mobile ? "power3.out" : "back.out(1.55)",
+            })
+            .to(".hero .eyebrow, .hero .hero-actions", {
+              autoAlpha: 1,
+              y: 0,
+              duration: mobile ? 0.45 : 0.72,
+              stagger: 0.1,
+            }, "-=0.28");
+
+          if (!mobile) {
+            gsap.to("[data-parallax]", {
+              yPercent: 13,
+              ease: "none",
+              scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true },
+            });
+          }
+
+          gsap.utils.toArray(".reveal-section").forEach((section) => {
+            gsap.to(section, {
+              autoAlpha: 1,
+              y: 0,
+              duration: mobile ? 0.48 : 0.76,
+              ease: "power3.out",
+              scrollTrigger: { trigger: section, start: "top 78%", once: true },
+            });
+          });
+
+          gsap.utils.toArray("[data-slam]").forEach((headline) => {
+            gsap.to(headline.querySelectorAll("span"), {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              duration: mobile ? 0.52 : 0.86,
+              stagger: mobile ? 0.06 : 0.11,
+              ease: mobile ? "back.out(1.4)" : "elastic.out(0.78, 0.48)",
+              scrollTrigger: { trigger: headline, start: "top 72%", once: true },
+            });
+          });
+
+          gsap.to(".division-card", {
+            autoAlpha: 1,
+            y: 0,
+            duration: mobile ? 0.5 : 0.72,
+            stagger: mobile ? 0.08 : 0.14,
+            ease: "power3.out",
+            scrollTrigger: { trigger: ".division-grid", start: "top 74%", once: true },
+            onComplete: () => gsap.set(".division-card", { clearProps: "transform" }),
+          });
+
+          gsap.to(".compare-row", {
+            autoAlpha: 1,
+            y: 0,
+            duration: mobile ? 0.34 : 0.5,
+            stagger: mobile ? 0.07 : 0.13,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "[data-table-reveal]", start: "top 70%", once: true },
+          });
+
+          document.querySelectorAll("[data-counter-group]").forEach((group) => {
+            ScrollTrigger.create({
+              trigger: group,
+              start: mobile ? "top 84%" : "top 72%",
+              once: true,
+              onEnter: () => {
+                gsap.to(group, { autoAlpha: 1, y: 0, duration: mobile ? 0.38 : 0.56, ease: "power3.out" });
+                group.querySelectorAll("article").forEach((card, index) => {
+                  animateStatCard(card, (mobile ? 0.05 : 0.18) + index * (mobile ? 0.08 : 0.16));
+                });
+              },
+            });
+          });
+
+          sections.forEach((section) => {
+            if (!section.id) return;
+            ScrollTrigger.create({
+              trigger: section,
+              start: "top center",
+              end: "bottom center",
+              onToggle: (self) => {
+                if (!self.isActive) return;
+                navLinks.forEach((link) => {
+                  link.classList.toggle("active", link.getAttribute("href") === `#${section.id}`);
+                });
+              },
+            });
+          });
+        }
+
+        function initFilters() {
+          const buttons = [...document.querySelectorAll("[data-filter]")];
+          const cards = [...document.querySelectorAll("[data-category]")];
+
+          buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              const filter = button.dataset.filter;
+              const state = window.Flip ? window.Flip.getState(cards) : null;
+
+              buttons.forEach((item) => item.classList.toggle("active", item === button));
+              cards.forEach((card) => {
+                const visible = filter === "all" || card.dataset.category === filter;
+                card.style.display = visible ? "" : "none";
+              });
+
+              if (window.Flip && hasGsap && !reduceMotion) {
+                window.Flip.from(state, {
+                  duration: mobile ? 0.3 : 0.48,
+                  ease: "power2.out",
+                  absolute: true,
+                  onEnter: (elements) => window.gsap.fromTo(elements, { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 1, scale: 1, duration: 0.32 }),
+                  onLeave: (elements) => window.gsap.to(elements, { autoAlpha: 0, scale: 0.88, duration: 0.22 }),
+                });
+              }
+            });
+          });
+        }
+
+        window.addEventListener("scroll", updateHeader, { passive: true });
+        window.addEventListener("resize", updateHeader);
+
+        initLenis();
+        initCursor();
+        initGsapAnimations();
+        initFilters();
+        updateHeader();
+      })();
+    </script>
+  </body>
+</html>
