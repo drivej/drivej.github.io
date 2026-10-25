@@ -8,14 +8,17 @@ import SetGamePage from './pages/SetGamePage.js';
 import { SpiderVerse } from '@drivej/spiderverse';
 import { SpiderVersePage } from './pages/SpiderVersePage';
 import { HomePageV2 } from './pages/HomePage_v2';
+import HomePage_v3 from './pages/HomePage_v3';
+import LabIndex from './pages/LabIndex';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HashRouter>
       <Routes>
-        <Route path='/' element={<HomePageV2 />} />
+        <Route path='/' element={<HomePage_v3 />} />
+        <Route path='/hp2' element={<HomePageV2 />} />
         <Route path='/hp0' element={<App />} />
-        <Route path='/lab' element={<Lab />} />
+        <Route path='/lab' element={<LabIndex />} />
         <Route path='/set-game' element={<SetGamePage />} />
         <Route path='/spiderverse' element={<SpiderVersePage />} />
         <Route path='/hp2' element={<HomePageV2 />} />

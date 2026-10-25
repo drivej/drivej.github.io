@@ -1,0 +1,33 @@
+.glass-border {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--glass-radius, 999px);
+  background: transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition: border-color 180ms ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+    pointer-events: none;
+    transition: background 180ms ease;
+  }
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+
+    &::before { background: rgba(255, 255, 255, 0.24); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-border,
+  .glass-border::before { transition: none; }
+}

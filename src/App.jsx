@@ -38,7 +38,8 @@ export default function App() {
       <Aurora />
       <GlobalHeader />
       {/* <HomePageV2 /> */}
-      <HomePage />
+      {/* <HomePage_v3 /> */}
+      {/* <HomePage /> */}
     </>
   );
 }

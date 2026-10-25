@@ -1,5 +1,5 @@
 import { clamp, interpolate, rand } from '@drivej/xrworld';
-import { useEffect, useMemo, useRef } from 'react';
+import { type CSSProperties, useEffect, useMemo, useRef } from 'react';
 import { useIntersectionObserver, useResizeObserver } from 'usehooks-ts';
 
 const RAD = Math.PI / 180;
@@ -164,7 +164,7 @@ function simulate(particles: Particle[], springs: Spring[], dt: number, gravityY
   }
 }
 
-function generateGrassBlade(width = 500, height = 100): GrassBlade {
+function generateGrassBlade(width = 500, height = 100, grassHeightScale = 1): GrassBlade {
   const widthOffset = rand(0.5, 1);
   const massOffset = rand(0.7, 3); // rand(0, 40);
   const restLengthOffset = rand(0.6, 1); //rand(0, 20);
@@ -175,7 +175,7 @@ function generateGrassBlade(width = 500, height = 100): GrassBlade {
   const r2 = 1;
   const c = Math.random() < 0.2 ? color2 : color1;
   const color = `rgb(${rand(c[0] * r1, c[0] * r2)}, ${rand(c[1] * r1, c[1] * r2)}, ${rand(c[2] * r1, c[2] * r2)})`;
-  const bladeHeight = height * rand(0.4, 0.6);
+  const bladeHeight = height * rand(0.4, 0.6) * grassHeightScale;
   const y = bladeHeight;
 
   const grass: Particle[] = [
@@ -245,7 +245,7 @@ function hexToRgb(hex: string) {
   };
 }
 
-export const HappySwamp = () => {
+export const HappySwamp = ({ style, windSpeed = 1, grassHeightScale = 1, fireflySpeed = 1 }: { style?: CSSProperties; windSpeed?: number; grassHeightScale?: number; fireflySpeed?: number } = {}) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const $cvs = useRef<HTMLCanvasElement>(null);
   const mouseEnteredRef = useRef(false);
@@ -271,12 +271,12 @@ export const HappySwamp = () => {
     const margin = 50;
     const gap = (margin + width + margin) / length;
     return Array.from({ length }).map((e, i) => {
-      const blade = generateGrassBlade(width, height);
+      const blade = generateGrassBlade(width, height, grassHeightScale);
       blade.grass[0].x = -margin + i * gap;
       blade.grass[0].y = height - 1;
       return blade;
     });
-  }, [width, height]);
+  }, [width, height, grassHeightScale]);
 
   const windGears = useRef([
     randGear({ min: 200, max: 200 }, { min: -0.5, max: -0.5 }), //
@@ -352,6 +352,10 @@ export const HappySwamp = () => {
   useEffect(() => {
     if (isIntersecting) {
       let raf = 0;
+      const fireflyStepMs = 1000 / 60;
+      let previousTime: number | undefined;
+      let fireflyAccumulator = 0;
+      let fireflySteps = 0;
       const ctx = $cvs.current.getContext('2d');
 
       // prerender background
@@ -479,22 +483,21 @@ export const HappySwamp = () => {
       const renderButterfly = (b: Butterfly, windVector: Point) => {
         // use vector to draw bugs close to the ground
         const targetY = height * 0.8;
-        const vy = (targetY - b.anchor.y) / 200;
-
         const targetX = b.shouldFollow ? mouseX.current : b.targetX;
+
+        // Advance at a fixed cadence, independently of canvas render frequency.
+        for (let step = 0; step < fireflySteps; step++) {
+          b.anchor.x += (targetX - b.anchor.x) / 200 + windVector.x * 0.01;
+          b.anchor.y += (targetY - b.anchor.y) / 200;
+          advanceGears(b.flutter);
+          advanceGears(b.glow, 10);
+        }
         const vx = (targetX - b.anchor.x) / 200;
-
-        // b.vector.x += vx;
-        // b.vector.y += vy;
-        const lastX = b.position.x;
-
-        const offset = advanceGears(b.flutter);
-        b.anchor.x += vx + windVector.x * 0.01;
-        b.anchor.y += vy;
+        const offset = getGearPosition(b.flutter);
         b.position.x = b.anchor.x + offset.x;
         b.position.y = b.anchor.y + offset.y;
 
-        const glow = advanceGears(b.glow, 10);
+        const glow = getGearPosition(b.glow);
         const colorTerp = glow.x / b.glowRadius;
         const color = colorTerp > 0.5 ? b.glowColor : b.color;
         const attackAngle = interpolate(25, -25, (vx + 1) / 2) * RAD;
@@ -586,11 +589,17 @@ export const HappySwamp = () => {
       };
 
       const renderWind = () => {
-        advanceGears(windGears.current, 2);
-        advanceGears(windGears2.current, 2);
+        advanceGears(windGears.current, 2 * windSpeed);
+        advanceGears(windGears2.current, 2 * windSpeed);
       };
 
-      const animate = () => {
+      const animate = (timestamp: number) => {
+        const elapsed = previousTime === undefined ? 0 : timestamp - previousTime;
+        previousTime = timestamp;
+        // Discard long pauses rather than rushing through missed animation.
+        fireflyAccumulator += (elapsed <= 100 ? elapsed : 0) * Math.max(0, fireflySpeed);
+        fireflySteps = Math.floor(fireflyAccumulator / fireflyStepMs);
+        fireflyAccumulator -= fireflySteps * fireflyStepMs;
         clearCanvas();
         renderStars();
         renderMoon();
@@ -609,13 +618,13 @@ export const HappySwamp = () => {
         }
       }
 
-      animate();
+      raf = requestAnimationFrame(animate);
 
       return () => {
         cancelAnimationFrame(raf);
       };
     }
-  }, [isIntersecting, width, height]);
+  }, [isIntersecting, width, height, windSpeed, grassHeightScale, fireflySpeed]);
 
   return (
     <div
@@ -623,7 +632,7 @@ export const HappySwamp = () => {
         ref.current = node;
         intersectionRef(node ?? undefined);
       }}
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ width: '100vw', height: '100vh', ...style }}
     >
       <canvas ref={$cvs} width={width} height={height} style={{ verticalAlign: 'bottom' }} />
     </div>

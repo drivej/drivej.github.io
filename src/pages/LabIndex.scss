@@ -1,0 +1,28 @@
+.lab-index {
+  min-height: 100vh;
+  padding: 48px 24px 96px;
+  background: linear-gradient(to top, #eeeeec, #fff) fixed;
+  color: #363833;
+  font: 17px/1.6 system-ui, sans-serif;
+
+  .lab-index-wrap { max-width: 1080px; margin: auto; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid #61748c; outline-offset: 6px; }
+  .lab-back { font-size: 14px; }
+  .lab-back:hover { text-decoration: underline; }
+  header { margin: 64px 0 40px; }
+  .lab-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  h1 { font-size: clamp(48px, 7vw, 76px); font-weight: 600; letter-spacing: -0.02em; margin: 12px 0 20px; }
+  p { margin: 0; font-weight: 400; }
+  .lab-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; }
+  .lab-tile {
+    display: block;
+    img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+    > div { padding: 16px 2px 0; }
+    h2 { display: flex; justify-content: space-between; font-size: 19px; font-weight: 600; margin: 0 0 4px; }
+    p { font-size: 14px; color: #5c605a; }
+    &:hover h2 { text-decoration: underline; text-underline-offset: 4px; }
+  }
+  @media (max-width: 800px) { .lab-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .lab-tiles { grid-template-columns: 1fr; } header { margin-top: 48px; } }
+}
