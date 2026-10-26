@@ -145,7 +145,7 @@ export default function HomePage_v3() {
                     <h3>
                       <i>Tell me a little about your self.</i>
                     </h3>{' '}
-                    <p>Thank you for meeting with me. My name is Jason Contento. I am a frontend developer focusing on React. I approach projects through a UX lens. I earned a Fine Arts degree, so visual consistency and design language are important to me. </p>
+                    <p>Thank you for meeting with me. My name is Jason Contento. I am a frontend manager/developer focusing on React. I approach projects through a UX lens. I earned a Fine Arts degree, so visual consistency and design language are important to me. </p>
                     <h3>
                       <i>Talk about your previous work experience.</i>
                     </h3>
