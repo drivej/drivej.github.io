@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
-import cvPdf from '../assets/Jason_Contento_CV.pdf';
+import cvPdf from '../assets/Jason_Contento_CV_UX_Engineering.pdf';
 import { HappySwamp } from '../components/HappySwamp';
 import { Icon } from '../components/Icon';
 import './HomePage_v3.scss';
