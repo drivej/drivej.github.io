@@ -9,6 +9,7 @@ import { SpiderVerse } from '@drivej/spiderverse';
 import { SpiderVersePage } from './pages/SpiderVersePage';
 import { HomePageV2 } from './pages/HomePage_v2';
 import HomePage_v3 from './pages/HomePage_v3';
+import HomePageStateStreet from './pages/HomePageStateStreet';
 import LabIndex from './pages/LabIndex';
 
 createRoot(document.getElementById('root')).render(
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')).render(
     <HashRouter>
       <Routes>
         <Route path='/' element={<HomePage_v3 />} />
+        <Route path='/state-street' element={<HomePageStateStreet />} />
         <Route path='/hp2' element={<HomePageV2 />} />
         <Route path='/hp0' element={<App />} />
         <Route path='/lab' element={<LabIndex />} />

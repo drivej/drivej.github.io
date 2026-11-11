@@ -1,0 +1,49 @@
+Product Designer, Contract, Hybrid
+• FTC, 6/Month, renewable
+• Hybrid, 3 days in office (Clifton)
+• H1B Visa sponsorship not available
+• Fulfillment through contract vendor Populous Group
+
+Who we are looking for
+State Street is looking for a highly motivated, visually biased, versatile Contract Product Designer to support our Global Experience Design (GXD) team. State Street Product Design Contractors have a tremendous responsibility in defining the product and experience strategy, understanding, and communicating user needs, and working with teams across multiple areas to prototype and build new digital experiences. We are looking for an experience designer who loves to transform large-scale, complex problems into intuitive, simple, and impactful products. We know that the success of our business depends on our ability to deliver exceptional customer experiences, collaborate with engineers, product owners, and others across the company to bring them to life. 
+
+This role is performed in a hybrid model, where you can balance working from home and the local State Street office in Clifton, NJ - 3 days per week to meet your needs and role requirements. 
+
+What you will be responsible for
+As Product Designer, you will
+• Support end-to-end design for State Street’s Corporate functions & financial products, ensuring cohesive UX/UI
+• Help conduct user/product research, translate insights, and create user-centric solutions tailored to financial professionals
+• Deliver high-fidelity designs, prototypes, and wireframes for complex financial interfaces
+• Partner with product managers, engineers, and financial experts at State Street, defining requirements
+• Contribute to State Street's design system, ensuring consistency within financial platforms
+• Analyze data and iterate on designs for improvement, with a focus on accuracy and security
+• Foster design excellence within the context of financial design
+• Research technology and industry trends that can enhance State Street's product offerings, including exploring how the benefits of AI can be integrated into finance solutions
+• Present design concepts to stakeholders that advocate for effective user solutions
+• Manage design projects to successful completion within State Street's regulatory environment
+
+What we value
+These skills will help you succeed in this role
+• Utilize Figma for UI design/prototyping/ideation
+• Use AI-Driven prototyping to rapidly build, test, and iterate on software features using generative AI coding assistants like Copilot
+• Perform user research: interviews, surveys, usability testing, and data analysis as needed
+• Structure and organize content, especially for complex financial data systems
+• Apply typography, color theory, layout, and visual hierarchy, with an understanding of data visualization
+• Help build and extend component libraries with our State Streets Design Systems team
+• Design for ADA/WCAG compliance following guidelines and industry best practices
+• Familiar working in Agile/Scrum project framework
+• Demonstrate strong presentation and articulation of design decisions
+• Solve problems through critical thinking and creative solutions
+• Incorporate analytics and user feedback into design decisions
+• Possess basic HTML/CSS knowledge
+Exhibit basic understanding of financial products and services.
+
+Education & Preferred Qualifications
+• 3+ years Designer experience, with hands on product design skills 
+• Degree in Design (Interaction, Graphic, Product), HCI, or related field a plus
+• Experience working within a large, regulated enterprise
+• Front-end development experience a plus
+• Experience designing complex financial or data applications a big plus.
+
+Additional optional requirements
+• Basic understanding of emerging Agentic/GenAI skills and practices with an eye towards how they can accelerate and elevate design practices
