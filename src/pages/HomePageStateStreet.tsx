@@ -54,7 +54,9 @@ export default function HomePageStateStreet() {
           )}
           <div className='v3-wrap'>
             <h1>Jason Contento</h1>
-            <p className='v3-role'><span title="Experience Design">XD</span> | Prototyping | UX Engineering</p>
+            <p className='v3-role'>
+              <span title='Experience Design'>XD</span> | Prototyping | UX Engineering
+            </p>
             <nav className='v3-contact-links' aria-label='Contact and résumé'>
               {[
                 { label: 'Email', url: 'mailto:drivej@hotmail.com' },
@@ -82,22 +84,25 @@ export default function HomePageStateStreet() {
             <div className='section-inner'>
               <h2>Experience design for complex products</h2>
               <p>I bring 15+ years of experience building web products, a Fine Arts background, and a UX engineering perspective. I connect visual design with working software, helping clients and engineering teams turn complex requirements into clear, usable experiences.</p>
-              <p>My experience includes substantial business analysis: understanding specific business use cases, clarifying requirements with stakeholders, and building prototypes to work through how the software should behave. I turn those findings into working software in collaboration with clients and engineering teams. I am based in the greater NYC area and comfortable collaborating onsite or remotely.</p>
-            </div>
-          </section>
-
-          <section aria-labelledby='case-studies-title'>
-            <div className='section-inner'>
-              <h2 id='case-studies-title'>Case Studies</h2>
+              <p>
+                My experience includes substantial business analysis: understanding specific business use cases, clarifying requirements with stakeholders, and building prototypes to work through how the software should behave. I turn those findings into working software in collaboration with clients and engineering
+                teams. I am based in the greater NYC area and comfortable collaborating onsite or remotely.
+              </p>
+<br />
+              <h2 id='case-studies-title'>Case Study</h2>
               <Link className='v3-case-study-card' to='/case-studies/job-showcase'>
                 <img src={jobShowcaseCover} alt='' width={1176} height={904} loading='lazy' />
                 <div>
-                  <h3>Job Showcase for ServiceTitan <span aria-hidden='true'>↗</span></h3>
+                  <h3>
+                    Job Showcase for ServiceTitan <span aria-hidden='true'>↗</span>
+                  </h3>
                   <p>How a WordPress plugin and SaaS workflow turn completed field-service jobs into local project stories.</p>
                 </div>
               </Link>
             </div>
           </section>
+
+          <section aria-labelledby='case-studies-title'></section>
 
           <section ref={experienceRef} className='experience' aria-labelledby='selected-experience-title'>
             <div className='section-inner v3-wrap'>
@@ -130,7 +135,9 @@ export default function HomePageStateStreet() {
           <section aria-labelledby='projects-title'>
             <div className='section-inner'>
               <h2 id='projects-title'>Understanding business workflows</h2>
-              <p>My work starts with understanding the business use case: what people need to accomplish, how information moves, and which decisions the software needs to support. Business analysis and prototyping help me turn those details into an experience that clients and engineering teams can evaluate together.</p>
+              <p>
+                My work starts with understanding the business use case: what people need to accomplish, how information moves, and which decisions the software needs to support. Business analysis and prototyping help me turn those details into an experience that clients and engineering teams can evaluate together.
+              </p>
               <h3>Requirements &amp; user journeys</h3>
               <p>I work with stakeholders to clarify goals, map the steps in a task, and understand the rules and dependencies behind it. This creates a shared basis for design and development.</p>
               <h3>Prototypes that clarify behavior</h3>
@@ -185,8 +192,6 @@ export default function HomePageStateStreet() {
               <p>Motorcycles, Woodworking, Painting, Guitar, Travel</p>
             </div>
           </section>
-
-
         </article>
         {/* <div className='v3-section-divider' aria-hidden='true' /> */}
         <section className='v3-final-thoughts' aria-labelledby='final-thoughts-title'>
