@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Navigate, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import Lab, { ProjectAudioBlock, ProjectAutumnBlock, ProjectCandleBlock, ProjectLanterns, ProjectSpidey } from './pages/Lab.tsx';
@@ -17,9 +17,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HashRouter>
       <Routes>
-        <Route path='/' element={<HomePage_v3 />} />
+        <Route path='/' element={<HomePageStateStreet />} />
+        <Route path='/hp3' element={<HomePage_v3 />} />
         <Route path='/case-studies/job-showcase' element={<JobShowcase />} />
-        <Route path='/state-street' element={<HomePageStateStreet />} />
+        {/* <Route path='/state-street' element={<HomePageStateStreet />} /> */}
         <Route path='/hp2' element={<HomePageV2 />} />
         <Route path='/hp0' element={<App />} />
         <Route path='/lab' element={<LabIndex />} />
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/lab/spiderverse' element={<ProjectSpidey />} />
         <Route path='/lab/setgame' element={<SetGamePage />} />
         <Route path='/lab/audio' element={<ProjectAudioBlock />} />
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </HashRouter>
   </StrictMode>

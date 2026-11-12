@@ -112,13 +112,15 @@
   align-items: center;
   gap: .35rem;
   min-height: 36px;
+  padding-inline: 12px;
+  border-radius: 4px;
   color: #fff;
   font-size: .9rem;
   font-weight: 650;
   text-decoration: none;
 }
 .job-showcase .hero-back a:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, .12);
 }
 .job-showcase .hero-back span {
   font-size: 1.35em;

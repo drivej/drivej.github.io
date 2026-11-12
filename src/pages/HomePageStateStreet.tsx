@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
 import cvPdf from '../assets/Jason_Contento_CV_UX_Engineering.pdf';
+import jobShowcaseCover from '../case_studies/st-jobs-images/landing.png';
 import { HappySwamp } from '../components/HappySwamp';
 import { Icon } from '../components/Icon';
 import './HomePage_v3.scss';
@@ -82,6 +83,19 @@ export default function HomePageStateStreet() {
               <h2>Experience design for complex products</h2>
               <p>I bring 15+ years of experience building web products, a Fine Arts background, and a UX engineering perspective. I connect visual design with working software, helping clients and engineering teams turn complex requirements into clear, usable experiences.</p>
               <p>My experience includes substantial business analysis: understanding specific business use cases, clarifying requirements with stakeholders, and building prototypes to work through how the software should behave. I turn those findings into working software in collaboration with clients and engineering teams. I am based in the greater NYC area and comfortable collaborating onsite or remotely.</p>
+            </div>
+          </section>
+
+          <section aria-labelledby='case-studies-title'>
+            <div className='section-inner'>
+              <h2 id='case-studies-title'>Case Studies</h2>
+              <Link className='v3-case-study-card' to='/case-studies/job-showcase'>
+                <img src={jobShowcaseCover} alt='' width={1176} height={904} loading='lazy' />
+                <div>
+                  <h3>Job Showcase for ServiceTitan <span aria-hidden='true'>↗</span></h3>
+                  <p>How a WordPress plugin and SaaS workflow turn completed field-service jobs into local project stories.</p>
+                </div>
+              </Link>
             </div>
           </section>
 

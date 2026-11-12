@@ -205,6 +205,34 @@
   ul { list-style: none; margin: 0; padding: 0; line-height: inherit; }
   li + li { margin-top: 8px; }
 
+  .v3-case-study-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    align-items: center;
+    gap: 24px;
+    padding: 16px;
+    border: 1px solid #d3d7d0;
+    border-radius: 12px;
+    background: #fff;
+    text-decoration: none;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    h3 { margin: 0 0 8px; }
+    p { color: #53574f; }
+    &:hover h3 { text-decoration: underline; }
+
+    @media (max-width: 540px) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
   .v3-details > .section-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;

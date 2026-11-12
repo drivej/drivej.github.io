@@ -178,7 +178,7 @@ export default function JobShowcase() {
         </div> */}
         <div className="process-layout">
           <nav className="process-rail" aria-label="Product design process">
-            <h2>Design process</h2>
+            <h2>The Process</h2>
             <div className="process-phases">
               {designPhases.map(({ label, stages }) => (
                 <div className="process-phase" key={label}>
