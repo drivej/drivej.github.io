@@ -11,12 +11,14 @@ import { HomePageV2 } from './pages/HomePage_v2';
 import HomePage_v3 from './pages/HomePage_v3';
 import HomePageStateStreet from './pages/HomePageStateStreet';
 import LabIndex from './pages/LabIndex';
+import JobShowcase from './case_studies/JobShowcase.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HashRouter>
       <Routes>
         <Route path='/' element={<HomePage_v3 />} />
+        <Route path='/case-studies/job-showcase' element={<JobShowcase />} />
         <Route path='/state-street' element={<HomePageStateStreet />} />
         <Route path='/hp2' element={<HomePageV2 />} />
         <Route path='/hp0' element={<App />} />

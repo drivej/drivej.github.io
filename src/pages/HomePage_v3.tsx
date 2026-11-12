@@ -87,6 +87,14 @@ export default function HomePage_v3() {
             </div>
           </section>
 
+          <section aria-labelledby='case-studies-title'>
+            <div className='section-inner'>
+              <h2 id='case-studies-title'>Case Studies</h2>
+              <h3><Link to='/case-studies/job-showcase'>Job Showcase for ServiceTitan ↗</Link></h3>
+              <p>How a WordPress plugin and SaaS workflow turn completed field-service jobs into local project stories.</p>
+            </div>
+          </section>
+
           <section ref={experienceRef} className='experience' aria-labelledby='selected-experience-title'>
             <div className='section-inner v3-wrap'>
               <h2 id='selected-experience-title'>Selected Experience</h2>
