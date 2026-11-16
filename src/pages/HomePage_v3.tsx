@@ -90,6 +90,8 @@ export default function HomePage_v3() {
           <section aria-labelledby='case-studies-title'>
             <div className='section-inner'>
               <h2 id='case-studies-title'>Case Studies</h2>
+              <h3><Link to='/case-studies/macys-time-logging'>Macy’s Time Logging ↗</Link></h3>
+              <p>An internal time logging tool that supported a legacy print process and opened the door to employee reporting.</p>
               <h3><Link to='/case-studies/job-showcase'>Job Showcase for ServiceTitan ↗</Link></h3>
               <p>How a WordPress plugin and SaaS workflow turn completed field-service jobs into local project stories.</p>
             </div>

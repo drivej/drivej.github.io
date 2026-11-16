@@ -1,0 +1,22 @@
+.macys-case-study { --accent: #9c2036; --light-accent: #ffd9dc; }
+.macys-case-study .showcase-hero { background: linear-gradient(135deg, #28151e, #73243b 65%, #a33b4c); }
+.macys-case-study .macys-workflow-art { padding: 24px; background: #fff; border-radius: 16px; box-shadow: 0 24px 60px #180a1833; color: #363833; }
+.macys-case-study .macys-brand { display: block; font-size: 32px; letter-spacing: -.04em; margin-bottom: 18px; }
+.macys-case-study .macys-brand > span { color: #c3263b; }
+.macys-case-study .macys-workflow-art > div { display: grid; padding: 18px 0; border-top: 1px solid #e1d8db; }
+.macys-case-study .macys-workflow-art small { color: #9c2036; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; margin-bottom: 8px; }
+.macys-case-study .macys-workflow-art strong { font-size: 20px; line-height: 1.4; }
+.macys-case-study .macys-workflow-art div > span { color: #62605f; font-size: 13px; }
+.macys-case-study .macys-next { border-bottom: 2px solid #c3263b; }
+.macys-case-study .first-post-flow { margin-top: 32px; }
+.macys-case-study .first-post-flow ol { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.macys-case-study .macys-outcome-note { margin-top: 28px; font-size: .85rem; color: var(--muted); }
+@media (max-width: 760px) { .macys-case-study .first-post-flow ol { grid-template-columns: 1fr; } }
+
+.macys-case-study #design > .intro {
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+.macys-case-study #design > .two {
+  margin-bottom: clamp(28px, 3.5vw, 40px);
+  row-gap: 28px;
+}

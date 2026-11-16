@@ -12,6 +12,7 @@ import HomePage_v3 from './pages/HomePage_v3';
 import HomePageStateStreet from './pages/HomePageStateStreet';
 import LabIndex from './pages/LabIndex';
 import JobShowcase from './case_studies/JobShowcase.jsx';
+import MacysTimeLogging from './case_studies/MacysTimeLogging.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/' element={<HomePageStateStreet />} />
         <Route path='/hp3' element={<HomePage_v3 />} />
         <Route path='/case-studies/job-showcase' element={<JobShowcase />} />
+        <Route path='/case-studies/macys-time-logging' element={<MacysTimeLogging />} />
         {/* <Route path='/state-street' element={<HomePageStateStreet />} /> */}
         <Route path='/hp2' element={<HomePageV2 />} />
         <Route path='/hp0' element={<App />} />

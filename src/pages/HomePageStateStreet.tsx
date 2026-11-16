@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
 import cvPdf from '../assets/Jason_Contento_CV_UX_Engineering.pdf';
+import macysCover from '../assets/macys.png';
 import jobShowcaseCover from '../case_studies/st-jobs-images/landing.png';
 import { HappySwamp } from '../components/HappySwamp';
 import { Icon } from '../components/Icon';
@@ -55,7 +56,7 @@ export default function HomePageStateStreet() {
           <div className='v3-wrap'>
             <h1>Jason Contento</h1>
             <p className='v3-role'>
-              <span title='Experience Design'>XD</span> | Prototyping | UX Engineering
+              <span title='Experience Design'>Product Designer</span> | UXD Engineer
             </p>
             <nav className='v3-contact-links' aria-label='Contact and résumé'>
               {[
@@ -89,7 +90,7 @@ export default function HomePageStateStreet() {
                 teams. I am based in the greater NYC area and comfortable collaborating onsite or remotely.
               </p>
 <br />
-              <h2 id='case-studies-title'>Case Study</h2>
+              <h2 id='case-studies-title'>Case Studies</h2>
               <Link className='v3-case-study-card' to='/case-studies/job-showcase'>
                 <img src={jobShowcaseCover} alt='' width={1176} height={904} loading='lazy' />
                 <div>
@@ -98,6 +99,10 @@ export default function HomePageStateStreet() {
                   </h3>
                   <p>How a WordPress plugin and SaaS workflow turn completed field-service jobs into local project stories.</p>
                 </div>
+              </Link><br />
+              <Link className='v3-case-study-card' to='/case-studies/macys-time-logging'>
+                <img src={macysCover} alt='' loading='lazy' />
+                <div><h3>Macy’s Time Logging <span aria-hidden='true'>↗</span></h3><p>How an internal time logging tool simplified a print workflow and led to a request for employee reporting.</p></div>
               </Link>
             </div>
           </section>

@@ -147,7 +147,7 @@ export default function JobShowcase() {
           </div>
           <div className="wrap hero-grid">
             <div>
-              <p className="case-study-label">Product design &amp; development case study</p>
+              <p className="case-study-label">Product design case study</p>
               <h1>From field work<br />to <em>local&nbsp;proof.</em>
               </h1>
               <p className="lede">Content creators manually turn job records into project stories for local search visibility. Each story takes time to piece together. Can we leverage content creators expertise, business needs, and AI to optimize this production flow to create a marketable tool?</p>
